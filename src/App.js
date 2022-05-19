@@ -2,7 +2,7 @@
 import './App.css';
 import { useState, useEffect } from 'react';
 
-const url = process.env.NODE_END=== 'production'
+const url = process.env.NODE_ENV === 'production'
     ? "https://cloud.iexapis.com/stable/stock/AAPL/quote?token=pk_348076a4671a4d4499147986cc6a52ef"
     : "http://localhost:4000/"
 
