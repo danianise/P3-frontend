@@ -5,11 +5,19 @@ import Header from './components/Header';
 import Stock from './components/Stock';
 import Portfolio from './components/Portfolio';
 import Watchlist from './components/Watchlist'
+import UserInfo from './components/UserInfo';
 const key = process.env.STOCK_API_KEY
 const url = `https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&symbol=IBM&apikey=${key}`
-const dbURL = 'https://fathomless-taiga-48002.herokuapp.com/'
+const dbURL = 'https://fathomless-taiga-48002.herokuapp.com/portfolios'
 
 function App() {
+  // const dbURL = 'https://fathomless-taiga-48002.herokuapp.com/portfolios'
+  //   const [dbData, setdbData] = useState(null)
+  //   useEffect(() => {
+  //       fetch(dbURL)
+  //           .then(res => res.json())
+  //           .then(data => setdbData(data))
+  //   }, [])
 
   const [stockData, setstockData] = useState(null)
   const [dbData, setdbData] = useState(null)
@@ -54,6 +62,7 @@ function App() {
   return (
     <>
     <Header />
+    <UserInfo data={dbData}/>
       {stockData ? console.log(stockData) : ""}
       {dbData ? console.log(dbData) : ""}
     <Routes>
