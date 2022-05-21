@@ -30,7 +30,7 @@ function App() {
   }
 
   const updateDbData = async (data, id) => {
-    await fetch(URL + id, {
+    await fetch(dbURL + id, {
         method: 'put',
         headers: {
             'Content-Type': 'application/json',
@@ -41,7 +41,7 @@ function App() {
   }
   
   const deleteDbData = async id => {
-    await fetch(URL + id, {
+    await fetch(dbURL + id, {
         method: 'delete',
     })
     // Update the list
