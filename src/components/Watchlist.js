@@ -1,5 +1,5 @@
 import React from 'react'
-import { useParams } from 'react-router-dom'
+import { useParams, Link } from 'react-router-dom'
 import { useEffect, useState } from 'react'
 import axios from 'axios'
 
@@ -27,7 +27,9 @@ function Watchlist() {
                                 portfolio.Watch.map(stock => {
                                     return (
                                         <div>
-                                            <h3>You are watching: {stock.Symbol}</h3>
+                                            <Link to={`/stock/${stock.Symbol}`}>
+                                            <h3>You are watching:{stock.Symbol}</h3>
+                                            </Link>
                                         </div>
                                     )
                                 }))

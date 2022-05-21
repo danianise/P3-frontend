@@ -3,9 +3,12 @@ import { useParams } from 'react-router-dom'
 import { useEffect, useState } from 'react'
 import axios from 'axios'
 
-function Stock(stockdata) {
+function Stock() {
     const [stockAPI, setstockAPI] = useState(null)
-    const url = "https://cloud.iexapis.com/stable/stock/AAPL/quote?token=pk_348076a4671a4d4499147986cc6a52ef"
+    const {symbol} = useParams()
+    console.log(symbol)
+    const url = `https://cloud.iexapis.com/stable/stock/${symbol}/quote?token=pk_348076a4671a4d4499147986cc6a52ef`
+    console.log(url)
     function componentDidMount() {
         axios.get(url)
             .then(res => {
