@@ -4,7 +4,8 @@ import {Routes, Route} from 'react-router-dom'
 import Header from './components/Header';
 import Stock from './components/Stock';
 
-const url = "https://cloud.iexapis.com/stable/stock/AAPL/quote?token=pk_348076a4671a4d4499147986cc6a52ef"
+const key = process.env.STOCK_API_KEY
+const url = `https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&symbol=IBM&apikey=${key}`
 
 function App() {
 
