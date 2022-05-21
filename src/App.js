@@ -1,26 +1,28 @@
-
 import './App.css';
 import { useState, useEffect } from 'react';
+import {Routes, Route} from 'react-router-dom'
+import Header from './components/Header';
+import Stock from './components/Stock';
 
-const url = process.env.NODE_ENV === 'production'
-    ? "https://cloud.iexapis.com/stable/stock/AAPL/quote?token=pk_348076a4671a4d4499147986cc6a52ef"
-    : "http://localhost:4000/"
-
+const url = "https://cloud.iexapis.com/stable/stock/AAPL/quote?token=pk_348076a4671a4d4499147986cc6a52ef"
 
 function App() {
 
-  const [data, setData] = useState(null)
+  const [stockData, setstockData] = useState(null)
 
   useEffect( ()=> {
     fetch(url)
       .then(res => res.json())
-      .then(data => setData(data))
+      .then(data => setstockData(data))
   }, [])
 
   return (
-    <div className="App">
-        {data ? <div>{data.symbol}</div> : "" }
-    </div>
+    <>
+    <Header />
+    <Routes>
+        <Route path='/' element={<Stock stock={stockData}/> } />
+    </Routes>
+    </>
   );
 }
 
