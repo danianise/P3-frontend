@@ -5,7 +5,7 @@ import axios from 'axios'
 
 
 
-function Portfolio() {
+function Watchlist() {
     const dbURL = 'https://fathomless-taiga-48002.herokuapp.com/portfolios/watchlist'
     const [dbData, setdbData] = useState(null)
     useEffect(() => {
@@ -16,15 +16,21 @@ function Portfolio() {
 
     return (
         <>
+            {console.log(dbData)}
+            <h1>Watchlist</h1>
             {
                 !dbData
                     ? <h1>Loading</h1>
                     : <div>
-                        {dbData.StockHoldings.map(stock => {
-                            <>
-                                <h3>Stock: {stock.Symbol}</h3>
-                                <h3>Your Holdings: {stock.Holding}</h3>
-                            </>
+                        {dbData.map(portfolio => {
+                            return (
+                                portfolio.Watch.map(stock => {
+                                    return (
+                                        <div>
+                                            <h3>You are watching: {stock.Symbol}</h3>
+                                        </div>
+                                    )
+                                }))
                         })}
                     </div>
             }
@@ -33,4 +39,4 @@ function Portfolio() {
 }
 
 
-export default Portfolio
+export default Watchlist

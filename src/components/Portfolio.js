@@ -16,16 +16,23 @@ function Portfolio() {
 
     return (
         <>
+        <h1>working</h1>
         {
             !dbData
             ? <h1>Loading</h1>
             : <div>
-                {dbData.StockHoldings.map(stock => {
-                    <>
-                    <h3>Stock: {stock.Symbol}</h3>
-                    <h3>Your Holdings: {stock.Holding}</h3>
-                    </>
-                })}
+                        {dbData.map(portfolio => {
+                            return (
+                            portfolio.StockHoldings.map(stock => {
+                                return(
+                                    <div>
+
+                                        <h3>{stock.Symbol}</h3>
+                                        <h3>Your Holdings: {stock.Holding}</h3>
+                                    </div>
+                                )
+                        }))
+                        })}
             </div>
         }
         </>
