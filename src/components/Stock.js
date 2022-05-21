@@ -6,6 +6,8 @@ import axios from 'axios'
 function Stock() {
     const [stockAPI, setstockAPI] = useState(null)
     const {symbol} = useParams()
+    const [num, setNum] = useState(0)
+
     console.log(symbol)
     const url = `https://cloud.iexapis.com/stable/stock/${symbol}/quote?token=pk_348076a4671a4d4499147986cc6a52ef`
     console.log(url)
@@ -15,6 +17,16 @@ function Stock() {
                 const data = res.data;
                 setstockAPI(data);
             })
+    }
+
+
+    const handleChangeNum = event => {
+        console.log(event.target.value)
+        setNum(event.target.value)
+    }
+
+    const handleSubmit = event => {
+        event.preventDefault()
     }
 
     useEffect(() =>
@@ -41,6 +53,16 @@ function Stock() {
                         <p>Market Close: {stockAPI.close}</p>
                         <p>Daily Change: {stockAPI.change}</p>
                         <p>Daily Change: {stockAPI.change}</p>
+                        <form onSubmit={handleSubmit}>
+                            <input
+                                type="text"
+                                value={num}
+                                name="name"
+                                placeholder="Amount"
+                                onChange={handleChangeNum}
+                            />
+                            <input type="submit" value={`Buy ${num} of ${stockAPI.symbol} for ${stockAPI.low * num}`} />
+                        </form>
                     </div>
             }
         </>
