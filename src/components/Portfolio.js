@@ -26,7 +26,7 @@ function Portfolio() {
                             portfolio.StockHoldings.map(stock => {
                                 return(
                                     <div>
-                                        <Link to={`/stock/${stock.Symbol}`}>
+                                        <Link to={`/portfolio/${stock.Symbol}`}>
                                             <h3>{stock.Symbol}</h3>
                                             </Link>
                                         <h3>Your Holdings: {stock.Holding}</h3>
