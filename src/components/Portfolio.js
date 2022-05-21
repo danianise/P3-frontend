@@ -1,5 +1,5 @@
 import React from 'react'
-import { useParams } from 'react-router-dom'
+import { useParams, Link } from 'react-router-dom'
 import { useEffect, useState } from 'react'
 import axios from 'axios'
 
@@ -26,8 +26,9 @@ function Portfolio() {
                             portfolio.StockHoldings.map(stock => {
                                 return(
                                     <div>
-
-                                        <h3>{stock.Symbol}</h3>
+                                        <Link to={`/stock/${stock.Symbol}`}>
+                                            <h3>{stock.Symbol}</h3>
+                                            </Link>
                                         <h3>Your Holdings: {stock.Holding}</h3>
                                     </div>
                                 )
