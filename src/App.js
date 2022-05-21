@@ -35,7 +35,7 @@ function App() {
       {stockData ? console.log(stockData) : ""}
       {dbData ? console.log(dbData) : ""}
     <Routes>
-        <Route path='/stock/:symbol' element={<Stock /> } />
+        <Route path='/portfolio/:symbol' element={<Stock /> } />
         <Route path='/portfolio' element={<Portfolio/>} />
         <Route path='/portfolio/watchlist' element={<Watchlist />} />
     </Routes>
