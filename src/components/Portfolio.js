@@ -6,7 +6,7 @@ import axios from 'axios'
 
 
 function Portfolio() {
-    const dbURL = 'https://fathomless-taiga-48002.herokuapp.com/'
+    const dbURL = 'https://fathomless-taiga-48002.herokuapp.com/portfolios'
     const [dbData, setdbData] = useState(null)
     useEffect(() => {
         fetch(dbURL)
