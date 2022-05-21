@@ -36,3 +36,27 @@
     transform: rotate(360deg);
   }
 }
+
+.main{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.main h1{
+  color: blue;
+}
+
+.userName{
+  color: purple;
+}
+
+.myHoldings{
+  border: 1px solid black;
+  padding-left: 10px;
+}
+
+.holding {
+  float: right;
+}

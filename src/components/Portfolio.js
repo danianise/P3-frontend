@@ -5,25 +5,23 @@ import axios from 'axios'
 
 
 
-function Portfolio() {
-    const dbURL = 'https://fathomless-taiga-48002.herokuapp.com/portfolios'
-    const [dbData, setdbData] = useState(null)
-    useEffect(() => {
-        fetch(dbURL)
-            .then(res => res.json())
-            .then(data => setdbData(data))
-    }, [])
+function Portfolio({dbData, stockData}) {
+    
 
     return (
-        <>
-        <h1>working</h1>
+        <div className="main">
+        <h1>My Holdings</h1>
         {
             !dbData
             ? <h1>Loading</h1>
             : <div>
-                        {dbData.map(portfolio => {
-                            return (
-                            portfolio.StockHoldings.map(stock => {
+                    {/* {data.map(portfolio => {
+                        return (
+                            <div className="eachPortfolio">
+                            <h2 className="userName">{portfolio.Username}</h2>
+                            {console.log(portfolio)}
+                            <h2 className="portfolioBalance">Portfolio Balance: ${portfolio.PortfolioBalance}</h2>
+                            {portfolio.StockHoldings.map(stock => {
                                 return(
                                     <div>
                                         <Link to={`/portfolio/${stock.Symbol}`}>
@@ -32,11 +30,27 @@ function Portfolio() {
                                         <h3>Your Holdings: {stock.Holding}</h3>
                                     </div>
                                 )
-                        }))
+                            })}
+                            </div>
+                        )
+                    })} */}
+                    <h2>Portfolio Balance: ${dbData[0].PortfolioBalance}</h2>                    
+                    {dbData[0].StockHoldings.map((each) => {
+                            return(
+                            <div className="myHoldings">
+                                <Link to={`/portfolio/${each.Symbol}`}>
+                                <h3 className="symbol">
+                                    {each.Symbol}
+                                </h3>
+                                </Link>
+                                <div className="holding">${each.Holding} </div>
+                                <div className="dailyInfo">+0.16</div>
+                            </div>
+                            )
                         })}
-            </div>
+                    </div>
         }
-        </>
+        </div>
     )
 }
 
