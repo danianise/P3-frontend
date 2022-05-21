@@ -38,11 +38,13 @@ function Portfolio({dbData, stockData}) {
                     {dbData[0].StockHoldings.map((each) => {
                             return(
                             <div className="myHoldings">
+                                <Link to={`/portfolio/${each.Symbol}`}>
                                 <h3 className="symbol">
                                     {each.Symbol}
-                                    <div className="holding">${each.Holding} </div>
-                                    <div className="dailyInfo">+0.16</div>
                                 </h3>
+                                </Link>
+                                <div className="holding">${each.Holding} </div>
+                                <div className="dailyInfo">+0.16</div>
                             </div>
                             )
                         })}
