@@ -3,7 +3,8 @@ import { useParams } from 'react-router-dom'
 import { useEffect, useState } from 'react'
 import axios from 'axios'
 
-function Stock() {
+function Stock(props) {
+    const portfolio = props.dbData
     const [stockAPI, setstockAPI] = useState(null)
     const {symbol} = useParams()
     const [num, setNum] = useState(0)
