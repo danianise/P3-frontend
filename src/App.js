@@ -4,7 +4,7 @@ import {Routes, Route} from 'react-router-dom'
 import Header from './components/Header';
 import Stock from './components/Stock';
 import Portfolio from './components/Portfolio';
-
+import Watchlist from './components/Watchlist'
 const key = process.env.STOCK_API_KEY
 const url = `https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&symbol=IBM&apikey=${key}`
 const dbURL = 'https://fathomless-taiga-48002.herokuapp.com/'
@@ -37,6 +37,7 @@ function App() {
     <Routes>
         <Route path='/' element={<Stock stock={stockData}/> } />
         <Route path='/portfolio' element={<Portfolio/>} />
+        <Route path='/portfolio/watchlist' element={<Watchlist />} />
     </Routes>
     </>
   );
