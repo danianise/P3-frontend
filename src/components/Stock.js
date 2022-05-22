@@ -4,7 +4,10 @@ import { useEffect, useState } from 'react'
 import axios from 'axios'
 
 function Stock(props) {
-    const portfolio = props.dbData
+    const dbInfo = props.dbData
+    const userInfo = dbInfo[0]//now using the first user info - need to change into findby username in the future
+    console.log(userInfo)
+    const [editForm, setEditForm] = useState(userInfo)
     const [stockAPI, setstockAPI] = useState(null)
     const {symbol} = useParams()
     const [num, setNum] = useState(0)
@@ -26,8 +29,16 @@ function Stock(props) {
         setNum(event.target.value)
     }
 
+
     const handleSubmit = event => {
         event.preventDefault()
+        let copyForm = editForm;
+        copyForm.CashBalance -= num * stockAPI.low
+        copyForm.PortfolioBalance += num * stockAPI.low
+        //need to update StockHoldings here
+        setEditForm(copyForm)
+        console.log(editForm)
+        props.updateDbData(editForm,userInfo._id)
     }
 
     useEffect(() =>
