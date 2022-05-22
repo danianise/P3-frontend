@@ -8,7 +8,7 @@ import Watchlist from './components/Watchlist'
 import UserInfo from './components/UserInfo';
 const key = process.env.STOCK_API_KEY
 const url = `https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&symbol=IBM&apikey=${key}`
-const dbURL = 'https://fathomless-taiga-48002.herokuapp.com/portfolios'
+const dbURL = 'https://fathomless-taiga-48002.herokuapp.com/portfolios/'
 
 function App() {
   // const dbURL = 'https://fathomless-taiga-48002.herokuapp.com/portfolios'
