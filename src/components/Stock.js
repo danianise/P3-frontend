@@ -41,7 +41,8 @@ function Stock(props) {
     const addToWatchList = event => {
         event.preventDefault()
         let copyForm = editForm;
-        copyForm.Watch.push(stockAPI.symbol)
+        let temp = { symbol: stockAPI.symbol}
+        copyForm.Watch.push(temp)
         setEditForm(copyForm)
         props.updateDbData(editForm, userInfo._id)
 
@@ -55,6 +56,7 @@ function Stock(props) {
         copyForm.PortfolioBalance += num * stockAPI.iexRealtimePrice
         copyForm.StockHoldings.filter(x=>x.Symbol===symbol)[0].Holding += num * stockAPI.iexRealtimePrice
         setEditForm(copyForm)
+        console.log(userInfo._id)
         props.updateDbData(editForm, userInfo._id)
         setNum(0) } else {console.log("not enough cash")}
     }
