@@ -10,7 +10,9 @@ function Stock(props) {
     const [editForm, setEditForm] = useState(userInfo)
     const [stockAPI, setstockAPI] = useState(null)
     const {symbol} = useParams()
+    const userStockInfo = userInfo.StockHoldings.filter(stock => stock.Symbol === symbol)
     const [num, setNum] = useState(0)
+    const [numSell, setNumSell] = useState(0)
 
     console.log(symbol)
     const url = `https://cloud.iexapis.com/stable/stock/${symbol}/quote?token=pk_348076a4671a4d4499147986cc6a52ef`
@@ -29,16 +31,34 @@ function Stock(props) {
         setNum(event.target.value)
     }
 
+    const handleChangeNumSell = event => {
+        console.log(event.target.value)
+        setNumSell(event.target.value)
+    }
 
-    const handleSubmit = event => {
+//Need to add limit here
+    const handleSubmitBuy = event => {
         event.preventDefault()
         let copyForm = editForm;
         copyForm.CashBalance -= num * stockAPI.low
         copyForm.PortfolioBalance += num * stockAPI.low
-        //need to update StockHoldings here
+        copyForm.StockHoldings.filter(x=>x.Symbol===symbol)[0].Holding += num * stockAPI.low
         setEditForm(copyForm)
         console.log(editForm)
-        props.updateDbData(editForm,userInfo._id)
+        props.updateDbData(editForm, userInfo._id)
+        setNum(0)
+    }
+
+    const handleSubmitSell = event => {
+        event.preventDefault()
+        let copyForm = editForm;
+        copyForm.CashBalance += numSell * stockAPI.low
+        copyForm.PortfolioBalance -= numSell * stockAPI.low
+        copyForm.StockHoldings.filter(x=>x.Symbol===symbol)[0].Holding -= numSell * stockAPI.low
+        setEditForm(copyForm)
+        console.log(editForm)
+        props.updateDbData(editForm, userInfo._id)
+        setNumSell(0)
     }
 
     useEffect(() =>
@@ -65,7 +85,23 @@ function Stock(props) {
                         <p>Market Close: {stockAPI.close}</p>
                         <p>Daily Change: {stockAPI.change}</p>
                         <p>Daily Change: {stockAPI.change}</p>
-                        <form onSubmit={handleSubmit}>
+                        {userStockInfo.length === 0
+                            ? null
+                            : <div>
+                                <p> Your Portfolio Holdings: {userStockInfo[0].Holding}</p>
+                            <form onSubmit={handleSubmitSell}>
+                            <input
+                                type="text"
+                                value={numSell}
+                                name="sell"
+                                placeholder="Amount"
+                                onChange={handleChangeNumSell}
+                            />
+                            <input type="submit" value={`Sell ${numSell} of ${stockAPI.symbol} for ${stockAPI.low * numSell}`} />
+                                </form>
+                                </div>}
+                        
+                        <form onSubmit={handleSubmitBuy}>
                             <input
                                 type="text"
                                 value={num}
