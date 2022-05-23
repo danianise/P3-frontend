@@ -40,25 +40,27 @@ function Stock(props) {
     const handleSubmitBuy = event => {
         event.preventDefault()
         let copyForm = editForm;
+        if (copyForm.CashBalance >= (num * stockAPI.low)) {
         copyForm.CashBalance -= num * stockAPI.low
         copyForm.PortfolioBalance += num * stockAPI.low
         copyForm.StockHoldings.filter(x=>x.Symbol===symbol)[0].Holding += num * stockAPI.low
         setEditForm(copyForm)
         console.log(editForm)
         props.updateDbData(editForm, userInfo._id)
-        setNum(0)
+        setNum(0) } else {console.log("not enough cash")}
     }
 
     const handleSubmitSell = event => {
         event.preventDefault()
         let copyForm = editForm;
+        if (copyForm.PortfolioBalance >= (num)) {
         copyForm.CashBalance += numSell * stockAPI.low
         copyForm.PortfolioBalance -= numSell * stockAPI.low
         copyForm.StockHoldings.filter(x=>x.Symbol===symbol)[0].Holding -= numSell * stockAPI.low
         setEditForm(copyForm)
         console.log(editForm)
         props.updateDbData(editForm, userInfo._id)
-        setNumSell(0)
+        setNumSell(0)} else {console.log("not enough stock")}
     }
 
     useEffect(() =>
@@ -80,8 +82,8 @@ function Stock(props) {
                         <h1>{stockAPI.companyName} ({stockAPI.symbol})</h1>
                         <h3>Data updated {stockAPI.latestTime} from {stockAPI.primaryExchange}</h3>
                         <p>Market Open: {stockAPI.open}</p>
-                        <p>Daily Low: {stockAPI.low}</p>
-                        <p>Daily High: {stockAPI.high}</p>
+                        <p>Daily Low: {stockAPI.iexBidPrice}</p>
+                        <p>Daily High: {stockAPI.iexAskPrice}</p>
                         <p>Market Close: {stockAPI.close}</p>
                         <p>Daily Change: {stockAPI.change}</p>
                         <p>Daily Change: {stockAPI.change}</p>
@@ -97,7 +99,7 @@ function Stock(props) {
                                 placeholder="Amount"
                                 onChange={handleChangeNumSell}
                             />
-                            <input type="submit" value={`Sell ${numSell} of ${stockAPI.symbol} for ${stockAPI.low * numSell}`} />
+                                    <input type="submit" value={`Sell ${numSell} of ${stockAPI.symbol} for ${stockAPI.iexBidPrice * numSell}`} />
                                 </form>
                                 </div>}
                         
@@ -109,7 +111,7 @@ function Stock(props) {
                                 placeholder="Amount"
                                 onChange={handleChangeNum}
                             />
-                            <input type="submit" value={`Buy ${num} of ${stockAPI.symbol} for ${stockAPI.low * num}`} />
+                            <input type="submit" value={`Buy ${num} of ${stockAPI.symbol} for ${stockAPI.iexBidPrice * num}`} />
                         </form>
                     </div>
             }
