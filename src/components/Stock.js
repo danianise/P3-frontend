@@ -6,7 +6,6 @@ import axios from 'axios'
 function Stock(props) {
     const dbInfo = props.dbData
     const userInfo = dbInfo[0]//now using the first user info - need to change into findby username in the future
-    console.log(userInfo)
     const [editForm, setEditForm] = useState(userInfo)
     const [stockAPI, setstockAPI] = useState(null)
     const {symbol} = useParams()
@@ -14,9 +13,8 @@ function Stock(props) {
     const [num, setNum] = useState(0)
     const [numSell, setNumSell] = useState(0)
 
-    console.log(symbol)
     const url = `https://cloud.iexapis.com/stable/stock/${symbol}/quote?token=pk_348076a4671a4d4499147986cc6a52ef`
-    console.log(url)
+   
     function componentDidMount() {
         axios.get(url)
             .then(res => {
@@ -28,15 +26,27 @@ function Stock(props) {
 
     const handleChangeNum = event => {
         console.log(event.target.value)
-        setNum(event.target.value)
+        let max = editForm.CashBalance / stockAPI.iexRealtimePrice
+        setNum(Math.min(event.target.value, max))
     }
 
     const handleChangeNumSell = event => {
         console.log(event.target.value)
-        setNumSell(event.target.value)
+        let max = editForm.StockHoldings.filter(x => x.Symbol === symbol)[0].Holding / stockAPI.iexRealtimePrice
+        setNumSell(Math.min(event.target.value, max))
     }
 
 //Need to add limit here
+
+    const addToWatchList = event => {
+        event.preventDefault()
+        let copyForm = editForm;
+        copyForm.Watch.push(stockAPI.symbol)
+        setEditForm(copyForm)
+        props.updateDbData(editForm, userInfo._id)
+
+    }
+
     const handleSubmitBuy = event => {
         event.preventDefault()
         let copyForm = editForm;
@@ -45,7 +55,6 @@ function Stock(props) {
         copyForm.PortfolioBalance += num * stockAPI.iexRealtimePrice
         copyForm.StockHoldings.filter(x=>x.Symbol===symbol)[0].Holding += num * stockAPI.iexRealtimePrice
         setEditForm(copyForm)
-        console.log(editForm)
         props.updateDbData(editForm, userInfo._id)
         setNum(0) } else {console.log("not enough cash")}
     }
@@ -94,7 +103,7 @@ function Stock(props) {
                             <form onSubmit={handleSubmitSell}>
                             <input
                                 type="text"
-                                value={numSell}
+                                        value={numSell}
                                 name="sell"
                                 placeholder="Amount"
                                 onChange={handleChangeNumSell}
@@ -112,6 +121,9 @@ function Stock(props) {
                                 onChange={handleChangeNum}
                             />
                             <input type="submit" value={`Buy ${num} of ${stockAPI.symbol} for ${stockAPI.iexRealtimePrice * num}`} />
+                        </form>
+                        <form onSubmit={addToWatchList}>
+                            <input type="submit" value={`Add ${stockAPI.symbol} to WatchList`} />
                         </form>
                     </div>
             }
