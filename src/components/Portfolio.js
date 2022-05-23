@@ -45,11 +45,16 @@ function Portfolio({dbData, stockData}) {
                                 </Link>
                                 <div className="holding">${each.Holding} </div>
                                 <div className="dailyInfo">+0.16</div>
+                    
                             </div>
+                            
                             )
                         })}
                     </div>
         }
+        <Link to={'./watchlist'}>
+            <h1>watchlist</h1>
+        </Link>
         </div>
     )
 }
