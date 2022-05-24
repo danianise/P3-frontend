@@ -6,6 +6,7 @@ import Stock from './components/Stock';
 import Portfolio from './components/Portfolio';
 import Watchlist from './components/Watchlist'
 import UserInfo from './components/UserInfo';
+import SearchStock from './components/Search';
 const key = process.env.STOCK_API_KEY
 const url = `https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&symbol=IBM&apikey=${key}`
 const dbURL = 'https://fathomless-taiga-48002.herokuapp.com/portfolios/'
@@ -78,6 +79,10 @@ function App() {
         dbData = {dbData}
         updateDbData={updateDbData}
         deleteDbData = {deleteDbData}/>} />
+        <Route path='/portfolio/search/:symbol' element={<SearchStock
+        dbData={dbData}
+        updateDbData={updateDbData}
+        deleteDbData={deleteDbData} />} />
     </Routes>
     </>
   );
