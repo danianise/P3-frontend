@@ -8,6 +8,7 @@ import axios from 'axios'
 function Portfolio({dbData, stockData}) { 
     // let changePercent = ""
     
+    let portfolioBalance = 0
     return (
         <div className="main">
         <h1>My Holdings</h1>
@@ -36,6 +37,8 @@ function Portfolio({dbData, stockData}) {
                         )
                     })} */}
                     <h2>Portfolio Balance: $</h2>                    
+                    {dbData[0].StockHoldings.forEach(stock => portfolioBalance+=stock.Cost)}
+                    <h2>Portfolio Balance: ${portfolioBalance}</h2>                    
                     {dbData[0].StockHoldings.map((each) => {
                             return(
                             <div className="myHoldings">
@@ -52,6 +55,8 @@ function Portfolio({dbData, stockData}) {
                                 : <div className="percentChangeNeg">{stockData.changePercent}%</div>
                                 }
                                 {/* <div className="dailyInfo">{stockData.changePercent}%</div> */}
+                                <div className="holding">${each.Shares} </div>
+                                <div className="dailyInfo">+0.16</div>
                     
                             </div>
                             
