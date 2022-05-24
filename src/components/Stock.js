@@ -81,6 +81,7 @@ function Stock(props) {
 
     return (
         <>
+            
             <p>
                 {stockAPI ? JSON.stringify(stockAPI) : ""}
 
