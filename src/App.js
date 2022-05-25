@@ -7,6 +7,7 @@ import Portfolio from './components/Portfolio';
 import Watchlist from './components/Watchlist'
 import UserInfo from './components/UserInfo';
 import SearchStock from './components/Search';
+
 const key = process.env.STOCK_API_KEY
 const url = `https://cloud.iexapis.com/stable/stock/ibm/quote?token=pk_348076a4671a4d4499147986cc6a52ef`
 const dbURL = 'https://fathomless-taiga-48002.herokuapp.com/portfolios/'
@@ -74,7 +75,7 @@ function App() {
         updateDbData={updateDbData}
         deleteDbData = {deleteDbData}/>} />
         <Route path='/portfolio/search/:symbol' element={<SearchStock
-        dbData={dbData}
+        dbData = {dbData}
         updateDbData={updateDbData}
         deleteDbData={deleteDbData} />} />
     </Routes>

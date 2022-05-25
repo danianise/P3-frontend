@@ -4,12 +4,22 @@ import { useEffect, useState } from 'react'
 import axios from 'axios'
 
 function SearchStock(props) {
+
+    const [dbData, setdbData] = useState(null)
+    const dbURL = 'https://fathomless-taiga-48002.herokuapp.com/portfolios/'
+    const getDbData = () => {
+        fetch(dbURL)
+            .then(res => res.json())
+            .then(data => setdbData(data))
+
+    }
+    useEffect(() => getDbData(), [])
+    console.log(dbData)
     
-    const dbInfo = props.dbData
-    const userInfo = dbInfo[0]//now using the first user info - need to change into findby username in the future
+    const userInfo = dbData[0]//now using the first user info - need to change into findby username in the future
     const [editForm, setEditForm] = useState(userInfo)
     const [stockAPI, setstockAPI] = useState(null)
-    const { symbol } = useParams(symbol)
+    const { symbol } = useParams()
     const userStockInfo = userInfo.StockHoldings.filter(stock => stock.Symbol === symbol)
     const [num, setNum] = useState(0)
     const [numSell, setNumSell] = useState(0)
