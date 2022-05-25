@@ -5,10 +5,6 @@ import axios from 'axios'
 
 
 
-<<<<<<< HEAD
-function Portfolio({dbData, stockData}) { 
-    // let changePercent = ""
-=======
 function Portfolio({ dbData, stockData }) {
     // const [price, setPrice] = useState(0)
     // const getPrice = (symbol) => {
@@ -25,8 +21,12 @@ function Portfolio({ dbData, stockData }) {
     //             setPrice(data.iexRealtimePrice)
     //         })
     // }, [])
->>>>>>> 5c63b3d (updates)
     
+    dbData.StockHoldings.map(Stock => {
+        axios.get(`https://cloud.iexapis.com/stable/stock/${Stock.Symbol}/quote?token=pk_d9852d149e8045839e4b9a57c023b057`)
+            .then(res => res.json())
+            .then(data => data.latestPrice)
+    })
     let portfolioBalance = 0
     
     
@@ -57,15 +57,10 @@ function Portfolio({ dbData, stockData }) {
                             </div>
                         )
                     })} */}
-<<<<<<< HEAD
-                    <h2>Portfolio Balance: $</h2>                    
-                    {dbData[0].StockHoldings.forEach(stock => portfolioBalance+=stock.Cost)}
-=======
                     {dbData[0].StockHoldings.forEach(stock => {
                     portfolioBalance += stock.Shares * stock.Cost
                     })
                      }
->>>>>>> 5c63b3d (updates)
                     <h2>Portfolio Balance: ${portfolioBalance}</h2>                    
                     {dbData[0].StockHoldings.map((each) => {
                             return(
