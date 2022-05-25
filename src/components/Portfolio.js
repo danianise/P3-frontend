@@ -5,10 +5,31 @@ import axios from 'axios'
 
 
 
+<<<<<<< HEAD
 function Portfolio({dbData, stockData}) { 
     // let changePercent = ""
+=======
+function Portfolio({ dbData, stockData }) {
+    // const [price, setPrice] = useState(0)
+    // const getPrice = (symbol) => {
+    //     axios.get(`https://cloud.iexapis.com/stable/stock/${symbol}/quote?token=pk_348076a4671a4d4499147986cc6a52ef`)
+    //         .then(res => {
+    //             const data = res.data
+    //             setPrice(data.iexRealtimePrice)
+    //         })
+    // }
+    // useEffect(getPrice = (symbol) => {
+    //     axios.get(`https://cloud.iexapis.com/stable/stock/${symbol}/quote?token=pk_348076a4671a4d4499147986cc6a52ef`)
+    //         .then(res => {
+    //             const data = res.data
+    //             setPrice(data.iexRealtimePrice)
+    //         })
+    // }, [])
+>>>>>>> 5c63b3d (updates)
     
     let portfolioBalance = 0
+    
+    
     return (
         <div className="main">
         <h1>My Holdings</h1>
@@ -36,8 +57,15 @@ function Portfolio({dbData, stockData}) {
                             </div>
                         )
                     })} */}
+<<<<<<< HEAD
                     <h2>Portfolio Balance: $</h2>                    
                     {dbData[0].StockHoldings.forEach(stock => portfolioBalance+=stock.Cost)}
+=======
+                    {dbData[0].StockHoldings.forEach(stock => {
+                    portfolioBalance += stock.Shares * stock.Cost
+                    })
+                     }
+>>>>>>> 5c63b3d (updates)
                     <h2>Portfolio Balance: ${portfolioBalance}</h2>                    
                     {dbData[0].StockHoldings.map((each) => {
                             return(
