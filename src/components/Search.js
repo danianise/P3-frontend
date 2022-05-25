@@ -24,7 +24,7 @@ function SearchStock(props) {
     const [num, setNum] = useState(0)
     const [numSell, setNumSell] = useState(0)
 
-    const url = `https://cloud.iexapis.com/stable/stock/${symbol}/quote?token=pk_348076a4671a4d4499147986cc6a52ef`
+    const url = `https://cloud.iexapis.com/stable/stock/${symbol}/quote?token=pk_d9852d149e8045839e4b9a57c023b057`
 
     function componentDidMount() {
         axios.get(url)
