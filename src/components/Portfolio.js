@@ -12,14 +12,14 @@ function Portfolio({dbData, stockData}) {
 function Portfolio({ dbData, stockData }) {
     // const [price, setPrice] = useState(0)
     // const getPrice = (symbol) => {
-    //     axios.get(`https://cloud.iexapis.com/stable/stock/${symbol}/quote?token=pk_348076a4671a4d4499147986cc6a52ef`)
+    //     axios.get(`https://cloud.iexapis.com/stable/stock/${symbol}/quote?token=pk_d9852d149e8045839e4b9a57c023b057`)
     //         .then(res => {
     //             const data = res.data
     //             setPrice(data.iexRealtimePrice)
     //         })
     // }
     // useEffect(getPrice = (symbol) => {
-    //     axios.get(`https://cloud.iexapis.com/stable/stock/${symbol}/quote?token=pk_348076a4671a4d4499147986cc6a52ef`)
+    //     axios.get(`https://cloud.iexapis.com/stable/stock/${symbol}/quote?token=pk_d9852d149e8045839e4b9a57c023b057`)
     //         .then(res => {
     //             const data = res.data
     //             setPrice(data.iexRealtimePrice)
