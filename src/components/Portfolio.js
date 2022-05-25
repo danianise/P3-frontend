@@ -5,16 +5,17 @@ import axios from 'axios'
 
 
 
-function Portfolio({dbData, stockData}) {
+function Portfolio({dbData, stockData}) { 
+    // let changePercent = ""
     
-
     return (
         <div className="main">
         <h1>My Holdings</h1>
         {
-            !dbData
+            !dbData || !stockData
             ? <h1>Loading</h1>
             : <div>
+            
                     {/* {data.map(portfolio => {
                         return (
                             <div className="eachPortfolio">
@@ -34,7 +35,7 @@ function Portfolio({dbData, stockData}) {
                             </div>
                         )
                     })} */}
-                    <h2>Portfolio Balance: ${dbData[0].PortfolioBalance}</h2>                    
+                    <h2>Portfolio Balance: $</h2>                    
                     {dbData[0].StockHoldings.map((each) => {
                             return(
                             <div className="myHoldings">
@@ -44,7 +45,13 @@ function Portfolio({dbData, stockData}) {
                                 </h3>
                                 </Link>
                                 <div className="holding">${each.Holding} </div>
-                                <div className="dailyInfo">+0.16</div>
+
+                                {console.log(stockData.changePercent.toString())}
+                                {stockData.changePercent.toString().charAt(0) !== "-" 
+                                ? <div className="percentChangePos">+{stockData.changePercent}%</div> 
+                                : <div className="percentChangeNeg">{stockData.changePercent}%</div>
+                                }
+                                {/* <div className="dailyInfo">{stockData.changePercent}%</div> */}
                     
                             </div>
                             
