@@ -60,3 +60,11 @@
 .holding {
   float: right;
 }
+
+.percentChangePos {
+  color: green;
+}
+
+.percentChangeNeg {
+  color: red;
+}
