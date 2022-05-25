@@ -32,7 +32,7 @@ function Stock(props) {
 
     const handleChangeNumSell = event => {
         console.log(event.target.value)
-        let max = editForm.StockHoldings.filter(x => x.Symbol === symbol)[0].Holding / stockAPI.iexRealtimePrice
+        let max = editForm.StockHoldings.filter(x => x.Symbol === symbol)[0].Shares
         setNumSell(Math.min(event.target.value, max))
     }
 
@@ -66,7 +66,7 @@ function Stock(props) {
         let copyForm = editForm;
         if (copyForm.StockHoldings.filter(x=>x.Symbol===symbol)[0].Shares >= (num)) {
         copyForm.CashBalance += numSell * stockAPI.iexRealtimePrice
-        copyForm.StockHoldings.filter(x=>x.Symbol===symbol)[0].Shares += numSell
+        copyForm.StockHoldings.filter(x=>x.Symbol===symbol)[0].Shares -= numSell
         copyForm.StockHoldings.filter(x=>x.Symbol===symbol)[0].Cost -= numSell * stockAPI.iexRealtimePrice
         setEditForm(copyForm)
         console.log(editForm)
@@ -102,7 +102,8 @@ function Stock(props) {
                         {userStockInfo.length === 0
                             ? null
                             : <div>
-                                <p> Your Portfolio Holdings: {userStockInfo[0].Shares * stockAPI.iexRealtimePrice}</p>
+                                <p> Your Share: {userStockInfo[0].Shares}</p>
+                                <p> Your Portfolio Value: {userStockInfo[0].Shares * stockAPI.iexRealtimePrice}</p>
                             <form onSubmit={handleSubmitSell}>
                             <input
                                 type="text"
