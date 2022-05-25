@@ -5,17 +5,18 @@ import axios from 'axios'
 
 
 
-function Portfolio({ dbData, stockData }) {
+function Portfolio({dbData, stockData}) { 
+    // let changePercent = ""
     // const [price, setPrice] = useState(0)
     // const getPrice = (symbol) => {
-    //     axios.get(`https://cloud.iexapis.com/stable/stock/${symbol}/quote?token=pk_d9852d149e8045839e4b9a57c023b057`)
+    //     axios.get(`https://cloud.iexapis.com/stable/stock/${symbol}/quote?token=pk_696f559b3cb64b788e34f7848ef884cb`)
     //         .then(res => {
     //             const data = res.data
     //             setPrice(data.iexRealtimePrice)
     //         })
     // }
     // useEffect(getPrice = (symbol) => {
-    //     axios.get(`https://cloud.iexapis.com/stable/stock/${symbol}/quote?token=pk_d9852d149e8045839e4b9a57c023b057`)
+    //     axios.get(`https://cloud.iexapis.com/stable/stock/${symbol}/quote?token=pk_696f559b3cb64b788e34f7848ef884cb`)
     //         .then(res => {
     //             const data = res.data
     //             setPrice(data.iexRealtimePrice)
@@ -57,6 +58,8 @@ function Portfolio({ dbData, stockData }) {
                             </div>
                         )
                     })} */}
+                    <h2>Portfolio Balance: $</h2>                    
+                    {dbData[0].StockHoldings.forEach(stock => portfolioBalance+=stock.Cost)}
                     {dbData[0].StockHoldings.forEach(stock => {
                     portfolioBalance += stock.Shares * stock.Cost
                     })
@@ -78,7 +81,7 @@ function Portfolio({ dbData, stockData }) {
                                 : <div className="percentChangeNeg">{stockData.changePercent}%</div>
                                 }
                                 {/* <div className="dailyInfo">{stockData.changePercent}%</div> */}
-                                <div className="holding">${each.Shares} </div>
+                                <div className="holding">${each.Cost} </div>
                                 <div className="dailyInfo">+0.16</div>
                     
                             </div>
