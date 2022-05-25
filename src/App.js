@@ -8,17 +8,10 @@ import Watchlist from './components/Watchlist'
 import UserInfo from './components/UserInfo';
 import SearchStock from './components/Search';
 const key = process.env.STOCK_API_KEY
-const url = `https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&symbol=IBM&apikey=${key}`
+const url = `https://cloud.iexapis.com/stable/stock/ibm/quote?token=pk_348076a4671a4d4499147986cc6a52ef`
 const dbURL = 'https://fathomless-taiga-48002.herokuapp.com/portfolios/'
 
 function App() {
-  // const dbURL = 'https://fathomless-taiga-48002.herokuapp.com/portfolios'
-  //   const [dbData, setdbData] = useState(null)
-  //   useEffect(() => {
-  //       fetch(dbURL)
-  //           .then(res => res.json())
-  //           .then(data => setdbData(data))
-  //   }, [])
 
   const [stockData, setstockData] = useState(null)
   const [dbData, setdbData] = useState(null)
@@ -74,7 +67,8 @@ function App() {
         <Route path='/portfolio' element={<Portfolio
         dbData = {dbData}
         updateDbData={updateDbData}
-        deleteDbData = {deleteDbData}/>} />
+        deleteDbData = {deleteDbData}
+        stockData={stockData} />} />
         <Route path='/portfolio/watchlist' element={<Watchlist
         dbData = {dbData}
         updateDbData={updateDbData}
