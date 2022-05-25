@@ -13,7 +13,7 @@ function Stock(props) {
     const [num, setNum] = useState(0)
     const [numSell, setNumSell] = useState(0)
 
-    const url = `https://cloud.iexapis.com/stable/stock/${symbol}/quote?token=pk_348076a4671a4d4499147986cc6a52ef`
+    const url = `https://cloud.iexapis.com/stable/stock/${symbol}/quote?token=pk_d9852d149e8045839e4b9a57c023b057`
    
     function componentDidMount() {
         axios.get(url)
@@ -32,7 +32,7 @@ function Stock(props) {
 
     const handleChangeNumSell = event => {
         console.log(event.target.value)
-        let max = editForm.StockHoldings.filter(x => x.Symbol === symbol)[0].Holding / stockAPI.iexRealtimePrice
+        let max = editForm.StockHoldings.filter(x => x.Symbol === symbol)[0].Shares
         setNumSell(Math.min(event.target.value, max))
     }
 
@@ -53,8 +53,8 @@ function Stock(props) {
         let copyForm = editForm;
         if (copyForm.CashBalance >= (num * stockAPI.iexRealtimePrice)) {
         copyForm.CashBalance -= num * stockAPI.iexRealtimePrice
-        copyForm.PortfolioBalance += num * stockAPI.iexRealtimePrice
-        copyForm.StockHoldings.filter(x=>x.Symbol===symbol)[0].Holding += num * stockAPI.iexRealtimePrice
+        copyForm.StockHoldings.filter(x=>x.Symbol===symbol)[0].Shares += num
+        copyForm.StockHoldings.filter(x=>x.Symbol===symbol)[0].Cost += num * stockAPI.iexRealtimePrice
         setEditForm(copyForm)
         console.log(userInfo._id)
         props.updateDbData(editForm, userInfo._id)
@@ -64,10 +64,10 @@ function Stock(props) {
     const handleSubmitSell = event => {
         event.preventDefault()
         let copyForm = editForm;
-        if (copyForm.PortfolioBalance >= (num)) {
+        if (copyForm.StockHoldings.filter(x=>x.Symbol===symbol)[0].Shares >= (num)) {
         copyForm.CashBalance += numSell * stockAPI.iexRealtimePrice
-        copyForm.PortfolioBalance -= numSell * stockAPI.iexRealtimePrice
-        copyForm.StockHoldings.filter(x=>x.Symbol===symbol)[0].Holding -= numSell * stockAPI.iexRealtimePrice
+        copyForm.StockHoldings.filter(x=>x.Symbol===symbol)[0].Shares -= numSell
+        copyForm.StockHoldings.filter(x=>x.Symbol===symbol)[0].Cost -= numSell * stockAPI.iexRealtimePrice
         setEditForm(copyForm)
         console.log(editForm)
         props.updateDbData(editForm, userInfo._id)
@@ -102,7 +102,8 @@ function Stock(props) {
                         {userStockInfo.length === 0
                             ? null
                             : <div>
-                                <p> Your Portfolio Holdings: {userStockInfo[0].Holding}</p>
+                                <p> Your Share: {userStockInfo[0].Shares}</p>
+                                <p> Your Portfolio Value: {userStockInfo[0].Shares * stockAPI.iexRealtimePrice}</p>
                             <form onSubmit={handleSubmitSell}>
                             <input
                                 type="text"
