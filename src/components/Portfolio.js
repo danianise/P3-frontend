@@ -23,11 +23,11 @@ function Portfolio({dbData, stockData}) {
     //         })
     // }, [])
     
-    dbData.StockHoldings.map(Stock => {
-        axios.get(`https://cloud.iexapis.com/stable/stock/${Stock.Symbol}/quote?token=pk_d9852d149e8045839e4b9a57c023b057`)
-            .then(res => res.json())
-            .then(data => data.latestPrice)
-    })
+    // dbData.StockHoldings.map(Stock => {
+    //     axios.get(`https://cloud.iexapis.com/stable/stock/${Stock.Symbol}/quote?token=pk_d9852d149e8045839e4b9a57c023b057`)
+    //         .then(res => res.json())
+    //         .then(data => data.latestPrice)
+    // })
     let portfolioBalance = 0
     
     
@@ -57,8 +57,7 @@ function Portfolio({dbData, stockData}) {
                             })}
                             </div>
                         )
-                    })} */}
-                    <h2>Portfolio Balance: $</h2>                    
+                    })} */}                
                     {dbData[0].StockHoldings.forEach(stock => portfolioBalance+=stock.Cost)}
                     {dbData[0].StockHoldings.forEach(stock => {
                     portfolioBalance += stock.Shares * stock.Cost
@@ -82,7 +81,6 @@ function Portfolio({dbData, stockData}) {
                                 }
                                 {/* <div className="dailyInfo">{stockData.changePercent}%</div> */}
                                 <div className="holding">${each.Cost} </div>
-                                <div className="dailyInfo">+0.16</div>
                     
                             </div>
                             
