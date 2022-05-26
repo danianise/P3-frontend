@@ -32,7 +32,7 @@ function Portfolio({dbData, stockData}) {
     
     
     return (
-        <div className="main">
+      <div className="main">
         <h1>My Holdings</h1>
         {
             !dbData || !stockData
@@ -71,11 +71,12 @@ function Portfolio({dbData, stockData}) {
                                 <h3 className="symbol">
                                     {each.Symbol}
                                 </h3>
-                                </Link>
-                                <div className="holding">${each.Holding} </div>
+                            </Link>
+                            <div className="holding">${each.Shares} </div>
 
-                                {console.log(stockData.changePercent.toString())}
-                                {stockData.changePercent.toString().charAt(0) !== "-" 
+                            {console.log(stockData.changePercent.toString())}
+
+                            {stockData.changePercent.toString().charAt(0) !== "-" 
                                 ? <div className="percentChangePos">+{stockData.changePercent}%</div> 
                                 : <div className="percentChangeNeg">{stockData.changePercent}%</div>
                                 }
@@ -84,14 +85,15 @@ function Portfolio({dbData, stockData}) {
                     
                             </div>
                             
-                            )
-                        })}
-                    </div>
+                                
+                    )
+                })}
+            </div>
         }
         <Link to={'./watchlist'}>
             <h1>watchlist</h1>
         </Link>
-        </div>
+      </div>
     )
 }
 

@@ -68,3 +68,8 @@
 .percentChangeNeg {
   color: red;
 }
+
+.btn a {
+  color: white !important;
+  text-decoration: none;
+}
