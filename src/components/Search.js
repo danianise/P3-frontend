@@ -5,6 +5,7 @@ import axios from 'axios'
 
 function SearchStock(props) {
     const { symbol } = useParams()
+    console.log(symbol)
     const [dbData2, setdbData2] = useState(null)
     const [userInfo, setUserinfo] = useState(null)
     const [editForm, setEditForm] = useState(null)
@@ -15,7 +16,6 @@ function SearchStock(props) {
         try {fetch(dbURL)
             .then(res => res.json())
             .then(data => setdbData2(data))
-            .then(data => console.log(data))
 
         if (dbData2) {
             setEditForm(dbData2)
@@ -70,7 +70,7 @@ function SearchStock(props) {
 
     const handleChangeNumSell = event => {
         console.log(event.target.value)
-        let max = editForm.StockHoldings.filter(x => x.Symbol === symbol)[0].Shares / stockAPI.iexRealtimePrice
+        let max = editForm.StockHoldings.filter(x => x.Symbol === symbol.toUpperCase())[0].Shares / stockAPI.iexRealtimePrice
         setNumSell(Math.min(event.target.value, max))
     }
 
@@ -92,7 +92,7 @@ function SearchStock(props) {
         if (copyForm.CashBalance >= (num * stockAPI.iexRealtimePrice)) {
             copyForm.CashBalance -= num * stockAPI.iexRealtimePrice
             copyForm.PortfolioBalance += num * stockAPI.iexRealtimePrice
-            copyForm.StockHoldings.filter(x => x.Symbol === symbol)[0].Shares += num * stockAPI.iexRealtimePrice
+            copyForm.StockHoldings.filter(x => x.Symbol === symbol.toUpperCase())[0].Shares += num * stockAPI.iexRealtimePrice
             setEditForm(copyForm)
             props.updateDbData(editForm, dbData2[0]._id)
             setNum(0)
@@ -105,7 +105,7 @@ function SearchStock(props) {
         if (copyForm.PortfolioBalance >= (num)) {
             copyForm.CashBalance += numSell * stockAPI.iexRealtimePrice
             copyForm.PortfolioBalance -= numSell * stockAPI.iexRealtimePrice
-            copyForm.StockHoldings.filter(x => x.Symbol === symbol)[0].Shares -= numSell * stockAPI.iexRealtimePrice
+            copyForm.StockHoldings.filter(x => x.Symbol === symbol.toUpperCase())[0].Shares -= numSell * stockAPI.iexRealtimePrice
             setEditForm(copyForm)
             console.log(editForm)
             props.updateDbData(editForm, userInfo._id)
@@ -123,12 +123,12 @@ function SearchStock(props) {
         <>
 
             <div>
-                {dbData2 ? JSON.stringify(dbData2) : ""}
+                {dbData2 ? JSON.stringify(dbData2[0].StockHoldings[1].Shares) : ""}
                 <h1>break</h1>
                 {stockAPI ? JSON.stringify(stockAPI) : ""}
 
                 {editForm ? console.log(editForm) : ""}
-                {dbData2 ? JSON.stringify(dbData2[0].StockHoldings.filter(stock => stock.Symbol === symbol)) : ""}
+                Your Shares: {dbData2 ? JSON.stringify(dbData2[0].StockHoldings.filter(stock => stock.Symbol === symbol.toUpperCase())[0].Shares) : ""}
 
             </div>
             {(stockAPI && dbData2 )  ? <h1>{stockAPI.symbol}</h1> : ""}
@@ -147,8 +147,8 @@ function SearchStock(props) {
                         {!dbData2
                             ? null
                             : <div>
-                                <h1> Your Shares: {(dbData2[0].StockHoldings.filter(stock => stock.Symbol === symbol))[0].Shares}</h1>
-                                <p> Your Portfolio Value: {(dbData2[0].StockHoldings.filter(stock => stock.Symbol === symbol))[0].Shares * stockAPI.iexRealtimePrice}</p>
+                                <h1> Your Shares: {JSON.stringify(dbData2[0].StockHoldings.filter(stock => stock.Symbol === symbol.toUpperCase())[0].Shares)}</h1>
+                                <p> Your Portfolio Value: {dbData2[0].StockHoldings.filter(stock => stock.Symbol === symbol.toUpperCase())[0].Shares * stockAPI.iexRealtimePrice}</p>
                                 <form onSubmit={handleSubmitSell}>
                                     <input
                                         type="text"
