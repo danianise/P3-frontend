@@ -92,7 +92,8 @@ function SearchStock(props) {
         if (copyForm.CashBalance >= (num * stockAPI.iexRealtimePrice)) {
             copyForm.CashBalance -= num * stockAPI.iexRealtimePrice
             copyForm.PortfolioBalance += num * stockAPI.iexRealtimePrice
-            copyForm.StockHoldings.filter(x => x.Symbol === symbol.toUpperCase())[0].Shares += num * stockAPI.iexRealtimePrice
+            copyForm.StockHoldings.filter(x => x.Symbol === symbol.toUpperCase())[0].Shares += num
+            copyForm.StockHoldings.filter(x => x.Symbol === symbol.toUpperCase())[0].Cost += num * stockAPI.iexRealtimePrice
             setEditForm(copyForm)
             props.updateDbData(editForm, dbData2[0]._id)
             setNum(0)
@@ -102,13 +103,13 @@ function SearchStock(props) {
     const handleSubmitSell = event => {
         event.preventDefault()
         let copyForm = editForm;
-        if (copyForm.PortfolioBalance >= (num)) {
+        if (copyForm.StockHoldings.filter(x => x.Symbol === symbol.toUpperCase())[0].Shares >= (num)) {
             copyForm.CashBalance += numSell * stockAPI.iexRealtimePrice
-            copyForm.PortfolioBalance -= numSell * stockAPI.iexRealtimePrice
-            copyForm.StockHoldings.filter(x => x.Symbol === symbol.toUpperCase())[0].Shares -= numSell * stockAPI.iexRealtimePrice
+            copyForm.StockHoldings.filter(x => x.Symbol === symbol.toUpperCase())[0].Shares -= numSell
+            copyForm.StockHoldings.filter(x => x.Symbol === symbol.toUpperCase())[0].Cost -= numSell * stockAPI.iexRealtimePrice
             setEditForm(copyForm)
             console.log(editForm)
-            props.updateDbData(editForm, userInfo._id)
+            props.updateDbData(editForm, dbData2[0]._id)
             setNumSell(0)
             getDbData2()
         } else { console.log("not enough stock") }
