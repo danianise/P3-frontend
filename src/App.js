@@ -59,8 +59,6 @@ function App() {
     <>
     <Header />
     <UserInfo data={dbData}/>
-      {stockData ? console.log(stockData) : ""}
-      {dbData ? console.log(dbData) : ""}
     <Routes>
         <Route path='/portfolio/:symbol' element={<Stock 
         dbData = {dbData}
