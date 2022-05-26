@@ -4,23 +4,50 @@ import { useEffect, useState } from 'react'
 import axios from 'axios'
 
 function SearchStock(props) {
-
-    const [dbData, setdbData] = useState(null)
-    const dbURL = 'https://fathomless-taiga-48002.herokuapp.com/portfolios/'
-    const getDbData = () => {
-        fetch(dbURL)
-            .then(res => res.json())
-            .then(data => setdbData(data))
-
-    }
-    useEffect(() => getDbData(), [])
-    console.log(dbData)
-    
-    const userInfo = dbData[0]//now using the first user info - need to change into findby username in the future
-    const [editForm, setEditForm] = useState(userInfo)
-    const [stockAPI, setstockAPI] = useState(null)
     const { symbol } = useParams()
-    const userStockInfo = userInfo.StockHoldings.filter(stock => stock.Symbol === symbol)
+    const [dbData2, setdbData2] = useState(null)
+    const [userInfo, setUserinfo] = useState(null)
+    const [editForm, setEditForm] = useState(null)
+    const [stockAPI, setstockAPI] = useState(null)
+
+    const dbURL = 'https://fathomless-taiga-48002.herokuapp.com/portfolios/'
+    const getDbData2 = () => {
+        try {fetch(dbURL)
+            .then(res => res.json())
+            .then(data => setdbData2(data))
+            .then(data => console.log(data))
+
+        if (dbData2) {
+            setEditForm(dbData2)
+        }}
+
+        catch (error) {
+            console.log(error)
+        }
+        finally {
+        }
+    }
+
+    const getDbDataEdit = () => {
+        try {
+            fetch(dbURL)
+            .then(res => res.json())
+            .then(data => setEditForm(data[0]))
+        }
+
+        catch (error) {
+            console.log(error)
+        }
+        finally {
+        }
+    }
+    useEffect(() =>
+        getDbDataEdit(), [])
+    useEffect(() => 
+        getDbData2(), [])
+    
+    
+    
     const [num, setNum] = useState(0)
     const [numSell, setNumSell] = useState(0)
 
@@ -43,11 +70,11 @@ function SearchStock(props) {
 
     const handleChangeNumSell = event => {
         console.log(event.target.value)
-        let max = editForm.StockHoldings.filter(x => x.Symbol === symbol)[0].Holding / stockAPI.iexRealtimePrice
+        let max = editForm.StockHoldings.filter(x => x.Symbol === symbol)[0].Shares / stockAPI.iexRealtimePrice
         setNumSell(Math.min(event.target.value, max))
     }
 
-    //Need to add limit here
+    // Need to add limit here
 
     const addToWatchList = event => {
         event.preventDefault()
@@ -65,10 +92,9 @@ function SearchStock(props) {
         if (copyForm.CashBalance >= (num * stockAPI.iexRealtimePrice)) {
             copyForm.CashBalance -= num * stockAPI.iexRealtimePrice
             copyForm.PortfolioBalance += num * stockAPI.iexRealtimePrice
-            copyForm.StockHoldings.filter(x => x.Symbol === symbol)[0].Holding += num * stockAPI.iexRealtimePrice
+            copyForm.StockHoldings.filter(x => x.Symbol === symbol)[0].Shares += num * stockAPI.iexRealtimePrice
             setEditForm(copyForm)
-            console.log(userInfo._id)
-            props.updateDbData(editForm, userInfo._id)
+            props.updateDbData(editForm, dbData2[0]._id)
             setNum(0)
         } else { console.log("not enough cash") }
     }
@@ -79,11 +105,12 @@ function SearchStock(props) {
         if (copyForm.PortfolioBalance >= (num)) {
             copyForm.CashBalance += numSell * stockAPI.iexRealtimePrice
             copyForm.PortfolioBalance -= numSell * stockAPI.iexRealtimePrice
-            copyForm.StockHoldings.filter(x => x.Symbol === symbol)[0].Holding -= numSell * stockAPI.iexRealtimePrice
+            copyForm.StockHoldings.filter(x => x.Symbol === symbol)[0].Shares -= numSell * stockAPI.iexRealtimePrice
             setEditForm(copyForm)
             console.log(editForm)
             props.updateDbData(editForm, userInfo._id)
             setNumSell(0)
+            getDbData2()
         } else { console.log("not enough stock") }
     }
 
@@ -95,13 +122,18 @@ function SearchStock(props) {
     return (
         <>
 
-            <p>
+            <div>
+                {dbData2 ? JSON.stringify(dbData2) : ""}
+                <h1>break</h1>
                 {stockAPI ? JSON.stringify(stockAPI) : ""}
 
-            </p>
-            {stockAPI ? <h1>{stockAPI.symbol}</h1> : ""}
+                {editForm ? console.log(editForm) : ""}
+                {dbData2 ? JSON.stringify(dbData2[0].StockHoldings.filter(stock => stock.Symbol === symbol)) : ""}
+
+            </div>
+            {(stockAPI && dbData2 )  ? <h1>{stockAPI.symbol}</h1> : ""}
             {
-                !stockAPI
+                !(stockAPI && dbData2)
                     ? <p>loading</p>
                     : <div>
                         <h1>{stockAPI.companyName} ({stockAPI.symbol})</h1>
@@ -112,10 +144,11 @@ function SearchStock(props) {
                         <p>Market Close: {stockAPI.close}</p>
                         <p>Daily Change: {stockAPI.change}</p>
                         <p>Daily Change: {stockAPI.change}</p>
-                        {userStockInfo.length === 0
+                        {!dbData2
                             ? null
                             : <div>
-                                <p> Your Portfolio Holdings: {userStockInfo[0].Holding}</p>
+                                <h1> Your Shares: {(dbData2[0].StockHoldings.filter(stock => stock.Symbol === symbol))[0].Shares}</h1>
+                                <p> Your Portfolio Value: {(dbData2[0].StockHoldings.filter(stock => stock.Symbol === symbol))[0].Shares * stockAPI.iexRealtimePrice}</p>
                                 <form onSubmit={handleSubmitSell}>
                                     <input
                                         type="text"
@@ -143,6 +176,7 @@ function SearchStock(props) {
                         </form>
                     </div>
             }
+            
         </>
 
     )
