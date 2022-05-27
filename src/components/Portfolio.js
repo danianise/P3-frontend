@@ -3,39 +3,61 @@ import { useParams, Link } from 'react-router-dom'
 import { useEffect, useState } from 'react'
 import axios from 'axios'
 
-
-
-function Portfolio({dbData, stockData}) { 
-    // let changePercent = ""
-    // const [price, setPrice] = useState(0)
-    // const getPrice = (symbol) => {
-    //     axios.get(`https://cloud.iexapis.com/stable/stock/${symbol}/quote?token=pk_696f559b3cb64b788e34f7848ef884cb`)
-    //         .then(res => {
-    //             const data = res.data
-    //             setPrice(data.iexRealtimePrice)
-    //         })
-    // }
-    // useEffect(getPrice = (symbol) => {
-    //     axios.get(`https://cloud.iexapis.com/stable/stock/${symbol}/quote?token=pk_696f559b3cb64b788e34f7848ef884cb`)
-    //         .then(res => {
-    //             const data = res.data
-    //             setPrice(data.iexRealtimePrice)
-    //         })
-    // }, [])
+function Portfolio({dbData}) {
+    console.log({ dbData })
+    const [stockData, setStockData] = useState(null)
+    // const [portfolioBalance, setPortfolioBalance] = useState(0)
+    // const [gain, setGain] = useState(0)
+    // const dbURL = 'https://fathomless-taiga-48002.herokuapp.com/portfolios/'
     
-    // dbData.StockHoldings.map(Stock => {
-    //     axios.get(`https://cloud.iexapis.com/stable/stock/${Stock.Symbol}/quote?token=pk_d9852d149e8045839e4b9a57c023b057`)
-    //         .then(res => res.json())
-    //         .then(data => data.latestPrice)
-    // })
-    let portfolioBalance = 0
+    let symbols = []
+    dbData[0].StockHoldings.map(stock => {
+        symbols.push(stock.Symbol)
+    })
+    console.log(symbols)
+    let symbolStrings = symbols.join("%2C")
+    console.log(symbolStrings)
     
+    // // const url = `https://query1.finance.yahoo.com/v7/finance/quote?lang=en-US&region=US&corsDomain=finance.yahoo.com&symbols=${symbolStrings}`
+    const options = {
+        method: 'GET',
+        url: `https://yfapi.net/v6/finance/quote?region=US&lang=en&symbols=${symbolStrings}`,
+        headers: {
+            'x-api-key': 'GW8PTGhaii4nWR17s628j9t73Awi1MOpiy7NRyC4',
+            'Content-Type': 'application/json'
+        }
+    };
+    
+    useEffect(() => {
+        axios.request(options).then(function (response) {
+            setStockData(response.data.quoteResponse.result);
+        }).catch(function (error) {
+            console.error(error);
+        })
+    }, [])
+
+    console.log(stockData)
+    
+    const calPortfolioBalance = () => {
+        let portfolioBalance = 0
+        for (let i = 0; i < stockData.length; i++) {
+            portfolioBalance += stockData[i].regularMarketPrice * dbData[0].StockHoldings[i].Shares;
+        }
+        return portfolioBalance
+    }
+    const calGain = () => {
+        let gain = 0
+        for (let i = 0; i < stockData.length; i++) {
+            gain += (stockData[i].regularMarketPrice - dbData[0].StockHoldings[i].Cost) * dbData[0].StockHoldings[i].Shares
+        }
+        return gain
+    }
     
     return (
       <div className="main">
         <h1>My Holdings</h1>
         {
-            !dbData || !stockData
+            dbData.length <= 0 || !stockData 
             ? <h1>Loading</h1>
             : <div>
             
@@ -57,14 +79,10 @@ function Portfolio({dbData, stockData}) {
                             })}
                             </div>
                         )
-                    })} */}                
-                    {dbData[0].StockHoldings.forEach(stock => portfolioBalance+=stock.Cost)}
-                    {dbData[0].StockHoldings.forEach(stock => {
-                    portfolioBalance += stock.Shares * stock.Cost
-                    })
-                     }
-                    <h2>Portfolio Balance: ${portfolioBalance}</h2>                    
-                    {dbData[0].StockHoldings.map((each) => {
+                    })} */}   
+                        <h2>Portfolio Balance: ${calPortfolioBalance()}</h2> 
+                        <h3>Total Gain: ${calGain()}</h3>    
+                    {dbData[0].StockHoldings.map((each, index) => {
                             return(
                             <div className="myHoldings">
                                 <Link to={`/portfolio/${each.Symbol}`}>
@@ -72,16 +90,17 @@ function Portfolio({dbData, stockData}) {
                                     {each.Symbol}
                                 </h3>
                             </Link>
-                            <div className="holding">${each.Shares} </div>
+                                    <div className="holding">Shares: {each.Shares} </div>
+                                    <div className="holding">Cost: ${each.Cost} </div>
 
-                            {console.log(stockData.changePercent.toString())}
-
-                            {stockData.changePercent.toString().charAt(0) !== "-" 
-                                ? <div className="percentChangePos">+{stockData.changePercent}%</div> 
-                                : <div className="percentChangeNeg">{stockData.changePercent}%</div>
-                                }
+                            {/* {console.log(stockData.changePercent.toString())} */}
+                            {console.log(stockData[index].regularMarketChangePercent)}
+                            {stockData[index].regularMarketChangePercent > 0 
+                                ? <div className="percentChangePos">+{stockData[index].regularMarketChangePercent}%</div> 
+                                : <div className="percentChangeNeg">{stockData[index].regularMarketChangePercent}%</div>
+                                } 
                                 {/* <div className="dailyInfo">{stockData.changePercent}%</div> */}
-                                <div className="holding">${each.Cost} </div>
+                                
                     
                             </div>
                             
