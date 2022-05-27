@@ -110,7 +110,7 @@ function SearchStock(props) {
             setEditForm(copyForm)
             updateDbData2(editForm, dbData2[0]._id)
             setNum(0)} else {
-                let temp = {Symbol: symbol, Shares: num, Cost: num * stockAPI.iexRealtimePrice }
+                let temp = {Symbol: symbol.toUpperCase(), Shares: num, Cost: num * stockAPI.iexRealtimePrice }
                 copyForm.StockHoldings.push(temp)
                 setEditForm(copyForm)
                 updateDbData2(editForm, dbData2[0]._id)
