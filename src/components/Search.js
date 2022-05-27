@@ -82,7 +82,9 @@ function SearchStock(props) {
         console.log(event.target.value)
         if ((JSON.stringify(dbData2[0].StockHoldings.filter(stock => stock.Symbol === symbol.toUpperCase()).length) > 0)) {
         let max = editForm.StockHoldings.filter(x => x.Symbol === symbol.toUpperCase())[0].Shares / stockAPI.iexRealtimePrice
-        setNumSell(Math.min(event.target.value, max))}
+        setNumSell(Math.min(event.target.value, max))} else {
+            setNumSell(0)
+        }
     }
 
     // Need to add limit here
