@@ -84,6 +84,7 @@ function Portfolio({dbData}) {
                         <h3>Total Gain: ${calGain()}</h3>    
                     {dbData[0].StockHoldings.map((each, index) => {
                             return(
+                                (each.Shares > 0.000000001) ? 
                             <div className="myHoldings">
                                 <Link to={`/portfolio/${each.Symbol}`}>
                                 <h3 className="symbol">
@@ -102,7 +103,7 @@ function Portfolio({dbData}) {
                                 {/* <div className="dailyInfo">{stockData.changePercent}%</div> */}
                                 
                     
-                            </div>
+                            </div>: ""
                             
                                 
                     )
