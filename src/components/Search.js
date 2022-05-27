@@ -5,7 +5,6 @@ import axios from 'axios'
 
 function SearchStock(props) {
     const { symbol } = useParams()
-    console.log(symbol)
     const [dbData2, setdbData2] = useState(null)
     const [userInfo, setUserinfo] = useState(null)
     const [editForm, setEditForm] = useState(null)
@@ -45,6 +44,17 @@ function SearchStock(props) {
         getDbDataEdit(), [])
     useEffect(() => 
         getDbData2(), [])
+
+    const updateDbData2 = async (data, id) => {
+        await fetch(dbURL + id, {
+            method: 'put',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(data)
+        })
+        getDbData2();
+    }
     
     
     
@@ -82,7 +92,7 @@ function SearchStock(props) {
         let temp = { symbol: stockAPI.symbol }
         copyForm.Watch.push(temp)
         setEditForm(copyForm)
-        props.updateDbData(editForm, userInfo._id)
+        updateDbData2(editForm, dbData2[0]._id)
 
     }
 
@@ -95,7 +105,7 @@ function SearchStock(props) {
             copyForm.StockHoldings.filter(x => x.Symbol === symbol.toUpperCase())[0].Shares += num
             copyForm.StockHoldings.filter(x => x.Symbol === symbol.toUpperCase())[0].Cost += num * stockAPI.iexRealtimePrice
             setEditForm(copyForm)
-            props.updateDbData(editForm, dbData2[0]._id)
+            updateDbData2(editForm, dbData2[0]._id)
             setNum(0)
         } else { console.log("not enough cash") }
     }
@@ -109,7 +119,7 @@ function SearchStock(props) {
             copyForm.StockHoldings.filter(x => x.Symbol === symbol.toUpperCase())[0].Cost -= numSell * stockAPI.iexRealtimePrice
             setEditForm(copyForm)
             console.log(editForm)
-            props.updateDbData(editForm, dbData2[0]._id)
+            updateDbData2(editForm, dbData2[0]._id)
             setNumSell(0)
             getDbData2()
         } else { console.log("not enough stock") }
@@ -124,12 +134,17 @@ function SearchStock(props) {
         <>
 
             <div>
-                {dbData2 ? JSON.stringify(dbData2[0].StockHoldings[1].Shares) : ""}
-                <h1>break</h1>
+                {dbData2 ? JSON.stringify(dbData2[0].StockHoldings) : ""}
                 {stockAPI ? JSON.stringify(stockAPI) : ""}
 
                 {editForm ? console.log(editForm) : ""}
-                Your Shares: {dbData2 ? JSON.stringify(dbData2[0].StockHoldings.filter(stock => stock.Symbol === symbol.toUpperCase())[0].Shares) : ""}
+                <h1>break</h1>
+                { dbData2 ?
+                            ((JSON.stringify(dbData2[0].StockHoldings.filter(stock => stock.Symbol === symbol.toUpperCase()).length) > 0) 
+                                ? JSON.stringify(dbData2[0].StockHoldings.filter(stock => stock.Symbol === symbol.toUpperCase()).length)
+                                : "fuck you")
+                            : "You have no shares"}
+                
 
             </div>
             {(stockAPI && dbData2 )  ? <h1>{stockAPI.symbol}</h1> : ""}
@@ -148,8 +163,16 @@ function SearchStock(props) {
                         {!dbData2
                             ? null
                             : <div>
-                                <h1> Your Shares: {JSON.stringify(dbData2[0].StockHoldings.filter(stock => stock.Symbol === symbol.toUpperCase())[0].Shares)}</h1>
-                                <p> Your Portfolio Value: {dbData2[0].StockHoldings.filter(stock => stock.Symbol === symbol.toUpperCase())[0].Shares * stockAPI.iexRealtimePrice}</p>
+                                <h1> Your Shares: 
+                                    {
+                                        ((JSON.stringify(dbData2[0].StockHoldings.filter(stock => stock.Symbol === symbol.toUpperCase()).length) > 0)
+                                    ? JSON.stringify(dbData2[0].StockHoldings.filter(stock => stock.Symbol === symbol.toUpperCase())[0].Shares)
+                                    : "0")}</h1>
+                                <p> Your Portfolio Value: 
+                                    {
+                                        ((JSON.stringify(dbData2[0].StockHoldings.filter(stock => stock.Symbol === symbol.toUpperCase()).length) > 0) 
+                                    ? JSON.stringify(dbData2[0].StockHoldings.filter(stock => stock.Symbol === symbol.toUpperCase())[0].Shares)
+                                    : "0")}</p>
                                 <form onSubmit={handleSubmitSell}>
                                     <input
                                         type="text"
