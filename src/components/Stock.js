@@ -87,6 +87,7 @@ function Stock(props) {
 
             </p>
             {stockAPI ? <h1>{stockAPI.symbol}</h1> : ""}
+            
             {
                 !stockAPI
                     ? <p>loading</p>
