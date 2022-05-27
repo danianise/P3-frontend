@@ -55,7 +55,7 @@ function Portfolio({dbData}) {
     
     return (
       <div className="main">
-        <h1>My Holdings</h1>
+        <h1>Your Holdings</h1>
         {
             dbData.length <= 0 || !stockData 
             ? <h1>Loading</h1>
@@ -80,8 +80,8 @@ function Portfolio({dbData}) {
                             </div>
                         )
                     })} */}   
-                        <h2>Portfolio Balance: ${calPortfolioBalance()}</h2> 
-                        <h3>Total Gain: ${calGain()}</h3>    
+                        <h5>Portfolio Balance: ${calPortfolioBalance().toFixed(2)}</h5> 
+                        <h5>Total Gain: ${calGain().toFixed(2)}</h5>    
                     {dbData[0].StockHoldings.map((each, index) => {
                             return(
                                 (each.Shares > 0.000000001) ? 
@@ -91,7 +91,7 @@ function Portfolio({dbData}) {
                                     {each.Symbol}
                                 </h3>
                             </Link>
-                                    <div className="holding">Shares: {each.Shares} </div>
+                                    <div className="holding">Shares: {each.Shares} </div><br></br>
                                     <div className="holding">Cost: ${each.Cost} </div>
 
                             {/* {console.log(stockData.changePercent.toString())} */}
@@ -110,9 +110,7 @@ function Portfolio({dbData}) {
                 })}
             </div>
         }
-        <Link to={'./watchlist'}>
-            <h1>watchlist</h1>
-        </Link>
+        
       </div>
     )
 }
