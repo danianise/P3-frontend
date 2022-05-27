@@ -82,18 +82,17 @@ function Stock(props) {
     return (
         <>
             
-            <p>
-                {stockAPI ? JSON.stringify(stockAPI) : ""}
-
-            </p>
-            {stockAPI ? <h1>{stockAPI.symbol}</h1> : ""}
             
             {
                 !stockAPI
                     ? <p>loading</p>
-                    : <div>
+                    : <div className="card" >
                         <h1>{stockAPI.companyName} ({stockAPI.symbol})</h1>
                         <h3>Data updated {stockAPI.latestTime} from {stockAPI.primaryExchange}</h3>
+                        <form onSubmit={addToWatchList}>
+                            <input type="submit" className="btn btn-primary" value={`Add ${stockAPI.symbol} to WatchList`} />
+                        </form>
+                        <div className="card-body">
                         <p>Market Open: {stockAPI.open}</p>
                         <p>Latest Price: {stockAPI.iexRealtimePrice}</p>
                         <p>Daily High: {stockAPI.iexAskPrice}</p>
@@ -105,6 +104,16 @@ function Stock(props) {
                             : <div>
                                 <p> Your Share: {userStockInfo[0].Shares}</p>
                                 <p> Your Portfolio Value: {userStockInfo[0].Shares * stockAPI.iexRealtimePrice}</p>
+                                    <form onSubmit={handleSubmitBuy}>
+                                        <input
+                                            type="text"
+                                            value={num}
+                                            name="name"
+                                            placeholder="Amount"
+                                            onChange={handleChangeNum}
+                                        />
+                                        <input type="submit" className="btn btn-success" value={`Buy ${num} of ${stockAPI.symbol} for ${stockAPI.iexRealtimePrice * num}`} />
+                                    </form>
                             <form onSubmit={handleSubmitSell}>
                             <input
                                 type="text"
@@ -113,23 +122,13 @@ function Stock(props) {
                                 placeholder="Amount"
                                 onChange={handleChangeNumSell}
                             />
-                                    <input type="submit" value={`Sell ${numSell} of ${stockAPI.symbol} for ${stockAPI.iexRealtimePrice * numSell}`} />
+                                        <input type="submit" className="btn btn-danger" value={`Sell ${numSell} of ${stockAPI.symbol} for ${stockAPI.iexRealtimePrice * numSell}`} />
                                 </form>
                                 </div>}
                         
-                        <form onSubmit={handleSubmitBuy}>
-                            <input
-                                type="text"
-                                value={num}
-                                name="name"
-                                placeholder="Amount"
-                                onChange={handleChangeNum}
-                            />
-                            <input type="submit" value={`Buy ${num} of ${stockAPI.symbol} for ${stockAPI.iexRealtimePrice * num}`} />
-                        </form>
-                        <form onSubmit={addToWatchList}>
-                            <input type="submit" value={`Add ${stockAPI.symbol} to WatchList`} />
-                        </form>
+                       
+                        
+                        </div>
                     </div>
             }
         </>
