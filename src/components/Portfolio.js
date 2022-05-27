@@ -55,7 +55,7 @@ function Portfolio({ dbData }) {
             console.error(error);
         })
     }, [])
-    // getStockData()
+
     console.log(stockData)
     let portfolioBalance = 0
     let gain = 0
@@ -94,7 +94,7 @@ function Portfolio({ dbData }) {
                     })} */}   
                         <h2>Portfolio Balance: ${portfolioBalance}</h2> 
                         <h3>Total Gain: ${gain}</h3>    
-                    {dbData[0].StockHoldings.map((each) => {
+                    {dbData[0].StockHoldings.map((each, index) => {
                             return(
                             <div className="myHoldings">
                                 <Link to={`/portfolio/${each.Symbol}`}>
@@ -102,16 +102,16 @@ function Portfolio({ dbData }) {
                                     {each.Symbol}
                                 </h3>
                             </Link>
-                            <div className="holding">${each.Shares} </div>
+                            <div className="holding">Shares: {each.Shares} </div>
 
-                            {console.log(stockData.changePercent.toString())}
-
-                            {stockData.changePercent.toString().charAt(0) !== "-" 
-                                ? <div className="percentChangePos">+{stockData.changePercent}%</div> 
-                                : <div className="percentChangeNeg">{stockData.changePercent}%</div>
-                                } */}
+                            {/* {console.log(stockData.changePercent.toString())} */}
+                            {console.log(stockData[index].regularMarketChangePercent)}
+                            {stockData[index].regularMarketChangePercent > 0 
+                                ? <div className="percentChangePos">+{stockData[index].regularMarketChangePercent}%</div> 
+                                : <div className="percentChangeNeg">{stockData[index].regularMarketChangePercent}%</div>
+                                } 
                                 {/* <div className="dailyInfo">{stockData.changePercent}%</div> */}
-                                <div className="holding">${each.Cost} </div>
+                                <div className="holding">Cost: ${each.Cost} </div>
                     
                             </div>
                             
