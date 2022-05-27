@@ -15,7 +15,7 @@ const dbURL = 'https://fathomless-taiga-48002.herokuapp.com/portfolios/'
 
 function App() {
 
-  const [dbData, setdbData] = useState(null)
+  const [dbData, setdbData] = useState([])
 
   const getDbData = () => {
     fetch(dbURL)
@@ -48,7 +48,9 @@ function App() {
 
   return (
     <>
-    <Header />
+      <Header />
+      {dbData.length > 0 && (
+        <>
     <UserInfo data={dbData}/>
     <Routes>
         <Route path='/portfolio/:symbol' element={<Stock 
@@ -67,7 +69,8 @@ function App() {
         dbData = {dbData}
         updateDbData={updateDbData}
         deleteDbData={deleteDbData} />} />
-    </Routes>
+          </Routes>
+    </>)}
     </>
   );
 }
