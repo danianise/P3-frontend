@@ -80,8 +80,9 @@ function SearchStock(props) {
 
     const handleChangeNumSell = event => {
         console.log(event.target.value)
+        if ((JSON.stringify(dbData2[0].StockHoldings.filter(stock => stock.Symbol === symbol.toUpperCase()).length) > 0)) {
         let max = editForm.StockHoldings.filter(x => x.Symbol === symbol.toUpperCase())[0].Shares / stockAPI.iexRealtimePrice
-        setNumSell(Math.min(event.target.value, max))
+        setNumSell(Math.min(event.target.value, max))}
     }
 
     // Need to add limit here
@@ -99,14 +100,22 @@ function SearchStock(props) {
     const handleSubmitBuy = event => {
         event.preventDefault()
         let copyForm = editForm;
+        //need an if statement here that says basically if the stock exists, do below, if it doesnt, need to do a different updateDBdata PUT
         if (copyForm.CashBalance >= (num * stockAPI.iexRealtimePrice)) {
             copyForm.CashBalance -= num * stockAPI.iexRealtimePrice
             copyForm.PortfolioBalance += num * stockAPI.iexRealtimePrice
+            if ((JSON.stringify(dbData2[0].StockHoldings.filter(stock => stock.Symbol === symbol.toUpperCase()).length) > 0)) {
             copyForm.StockHoldings.filter(x => x.Symbol === symbol.toUpperCase())[0].Shares += num
             copyForm.StockHoldings.filter(x => x.Symbol === symbol.toUpperCase())[0].Cost += num * stockAPI.iexRealtimePrice
             setEditForm(copyForm)
             updateDbData2(editForm, dbData2[0]._id)
-            setNum(0)
+            setNum(0)} else {
+                let temp = {Symbol: symbol, Shares: num, Cost: num * stockAPI.iexRealtimePrice }
+                copyForm.StockHoldings.push(temp)
+                setEditForm(copyForm)
+                updateDbData2(editForm, dbData2[0]._id)
+                setNum(0)
+            }
         } else { console.log("not enough cash") }
     }
 
