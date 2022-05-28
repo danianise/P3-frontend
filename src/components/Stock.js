@@ -51,10 +51,10 @@ function Stock(props) {
     const handleSubmitBuy = event => {
         event.preventDefault()
         let copyForm = editForm;
-        if (copyForm.CashBalance >= (num * stockAPI.iexRealtimePrice)) {
-        copyForm.CashBalance -= num * stockAPI.iexRealtimePrice
+        if (copyForm.CashBalance >= (num * stockAPI.latestPrice)) {
+        copyForm.CashBalance -= num * stockAPI.latestPrice
         copyForm.StockHoldings.filter(x=>x.Symbol===symbol)[0].Shares += num
-        copyForm.StockHoldings.filter(x=>x.Symbol===symbol)[0].Cost += num * stockAPI.iexRealtimePrice
+        copyForm.StockHoldings.filter(x=>x.Symbol===symbol)[0].Cost += num * stockAPI.latestPrice
         setEditForm(copyForm)
         console.log(userInfo._id)
         props.updateDbData(editForm, userInfo._id)
@@ -65,9 +65,9 @@ function Stock(props) {
         event.preventDefault()
         let copyForm = editForm;
         if (copyForm.StockHoldings.filter(x=>x.Symbol===symbol)[0].Shares >= (num)) {
-        copyForm.CashBalance += numSell * stockAPI.iexRealtimePrice
+        copyForm.CashBalance += numSell * stockAPI.latestPrice
         copyForm.StockHoldings.filter(x=>x.Symbol===symbol)[0].Shares -= numSell
-        copyForm.StockHoldings.filter(x=>x.Symbol===symbol)[0].Cost -= numSell * stockAPI.iexRealtimePrice
+        copyForm.StockHoldings.filter(x=>x.Symbol===symbol)[0].Cost -= numSell * stockAPI.latestPrice
         setEditForm(copyForm)
         console.log(editForm)
         props.updateDbData(editForm, userInfo._id)
@@ -93,17 +93,17 @@ function Stock(props) {
                             <input type="submit" className="btn btn-primary" value={`Add ${stockAPI.symbol} to WatchList`} />
                         </form>
                         <div className="card-body">
+                        <p>Latest Price: {stockAPI.latestPrice}</p>
                         <p>Market Open: {stockAPI.open}</p>
-                        <p>Latest Price: {stockAPI.iexRealtimePrice}</p>
-                        <p>Daily High: {stockAPI.iexAskPrice}</p>
+                        <p>Daily High: {stockAPI.high}</p>
+                        <p>Daily Low: {stockAPI.low}</p>
                         <p>Market Close: {stockAPI.close}</p>
-                        <p>Daily Change: {stockAPI.change}</p>
                         <p>Daily Change: {stockAPI.change}</p>
                         {userStockInfo.length === 0
                             ? null
                             : <div>
                                 <p> Your Share: {userStockInfo[0].Shares}</p>
-                                <p> Your Portfolio Value: {userStockInfo[0].Shares * stockAPI.iexRealtimePrice}</p>
+                                <p> Your Portfolio Value: {userStockInfo[0].Shares * stockAPI.latestPrice}</p>
                                     <form onSubmit={handleSubmitBuy}>
                                         <input
                                             type="text"
@@ -112,7 +112,7 @@ function Stock(props) {
                                             placeholder="Amount"
                                             onChange={handleChangeNum}
                                         />
-                                        <input type="submit" className="btn btn-success" value={`Buy ${num} of ${stockAPI.symbol} for ${stockAPI.iexRealtimePrice * num}`} />
+                                        <input type="submit" className="btn btn-success" value={`Buy ${num} of ${stockAPI.symbol} for ${stockAPI.latestPrice * num}`} />
                                     </form>
                             <form onSubmit={handleSubmitSell}>
                             <input
@@ -122,7 +122,7 @@ function Stock(props) {
                                 placeholder="Amount"
                                 onChange={handleChangeNumSell}
                             />
-                                        <input type="submit" className="btn btn-danger" value={`Sell ${numSell} of ${stockAPI.symbol} for ${stockAPI.iexRealtimePrice * numSell}`} />
+                                        <input type="submit" className="btn btn-danger" value={`Sell ${numSell} of ${stockAPI.symbol} for ${stockAPI.latestPrice * numSell}`} />
                                 </form>
                                 </div>}
                         
