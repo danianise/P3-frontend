@@ -2,6 +2,7 @@
   text-align: center;
 }
 
+
 .App-logo {
   height: 40vmin;
   pointer-events: none;
@@ -341,6 +342,7 @@ optgroup,
 select,
 textarea {
   margin: 0;
+  padding: 5px;
   font-family: inherit;
   font-size: inherit;
   line-height: inherit

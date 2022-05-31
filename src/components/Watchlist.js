@@ -27,8 +27,9 @@ function Watchlist() {
                                 portfolio.Watch.map(stock => {
                                     return (
                                         <div>
+                                            You are watching:
                                             <Link to={`/portfolio/${stock.Symbol}`}>
-                                            <h3>You are watching:{stock.Symbol}</h3>
+                                                <>{stock.Symbol}</>
                                             </Link>
                                         </div>
                                     )
