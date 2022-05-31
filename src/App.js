@@ -48,7 +48,7 @@ function App() {
 
   return (
     <>
-      <Header />
+      {window.location.pathname !== "/portfolio/search/:symbol" ? <Header /> : null}
       {dbData.length > 0 && (
         <>
     <UserInfo data={dbData}/>
