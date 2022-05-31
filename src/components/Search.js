@@ -9,6 +9,7 @@ function SearchStock(props) {
     const [dbData2, setdbData2] = useState(null)
     const [editForm, setEditForm] = useState(null)
     const [stockAPI, setstockAPI] = useState(null)
+    
 
     let navigate = useNavigate();
     const routeChange = () => {
@@ -44,7 +45,7 @@ function SearchStock(props) {
             console.log(error)
         }
         finally {
-
+            console.log("pulling from mongo")
             props.getDbDataUser()
         }
     }
@@ -74,8 +75,11 @@ function SearchStock(props) {
     const url = `https://cloud.iexapis.com/stable/stock/${symbol}/quote?token=pk_d9852d149e8045839e4b9a57c023b057`
 
     function componentDidMount() {
+        setstockAPI(null)
+        console.log("pulling from API")
         axios.get(url)
             .then(res => {
+
                 const data = res.data;
                 setstockAPI(data);
             })
@@ -145,7 +149,6 @@ function SearchStock(props) {
             copyForm.StockHoldings.filter(x => x.Symbol === symbol.toUpperCase())[0].Shares -= numSell
             copyForm.StockHoldings.filter(x => x.Symbol === symbol.toUpperCase())[0].Cost -= numSell * stockAPI.iexRealtimePrice
             setEditForm(copyForm)
-            console.log(editForm)
             updateDbData2(editForm, dbData2[0]._id)
             setNumSell(0)
             getDbData2()
@@ -166,7 +169,7 @@ function SearchStock(props) {
                 ? <p>No results found, please double check your Symbol!</p>
                 : <div className="card"> 
                     {
-                !(stockAPI && dbData2)
+                !(stockAPI || dbData2)
                     ? <p>loading</p>
                     : <div>
                         <h1>{stockAPI.companyName} ({stockAPI.symbol})</h1>
