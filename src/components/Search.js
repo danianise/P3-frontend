@@ -2,11 +2,11 @@ import React from 'react'
 import { useParams } from 'react-router-dom'
 import { useEffect, useState } from 'react'
 import axios from 'axios'
+import { Link } from 'react-router-dom'
 
 function SearchStock(props) {
     const { symbol } = useParams()
     const [dbData2, setdbData2] = useState(null)
-    const [userInfo, setUserinfo] = useState(null)
     const [editForm, setEditForm] = useState(null)
     const [stockAPI, setstockAPI] = useState(null)
 
@@ -38,10 +38,13 @@ function SearchStock(props) {
             console.log(error)
         }
         finally {
+
+            props.getDbDataUser()
         }
     }
     useEffect(() =>
         getDbDataEdit(), [])
+
     useEffect(() => 
         getDbData2(), [])
 
@@ -54,6 +57,7 @@ function SearchStock(props) {
             body: JSON.stringify(data)
         })
         getDbData2();
+        props.getDbDataUser()
     }
     
     
@@ -91,7 +95,7 @@ function SearchStock(props) {
 
     const addToWatchList = event => {
         event.preventDefault()
-        if ((JSON.stringify(dbData2[0].Watch.filter(stock => stock.Symbol === symbol.toUpperCase()).length) == 0)) {
+        if ((JSON.stringify(dbData2[0].Watch.filter(stock => stock.Symbol === symbol.toUpperCase()).length) === 0)) {
         let copyForm = editForm;
         let temp = { Symbol: stockAPI.symbol.toUpperCase() }
         copyForm.Watch.push(temp)
@@ -118,6 +122,7 @@ function SearchStock(props) {
                 setEditForm(copyForm)
                 updateDbData2(editForm, dbData2[0]._id)
                 setNum(0)
+                props.getDbDataUser()
             }
         } else { console.log("not enough cash") }
     }
@@ -134,6 +139,7 @@ function SearchStock(props) {
             updateDbData2(editForm, dbData2[0]._id)
             setNumSell(0)
             getDbData2()
+            props.getDbDataUser()
         } else { console.log("not enough stock") }
     }
 
@@ -145,27 +151,19 @@ function SearchStock(props) {
     return (
         <>
 
-            <div>
-                {dbData2 ? JSON.stringify(dbData2[0].StockHoldings) : ""}
-                {stockAPI ? JSON.stringify(stockAPI) : ""}
-
-                {editForm ? console.log(editForm) : ""}
-                <h1>break</h1>
-                { dbData2 ?
-                            ((JSON.stringify(dbData2[0].StockHoldings.filter(stock => stock.Symbol === symbol.toUpperCase()).length) > 0) 
-                                ? JSON.stringify(dbData2[0].StockHoldings.filter(stock => stock.Symbol === symbol.toUpperCase()).length)
-                                : "fuck you")
-                            : "You have no shares"}
-                
-
-            </div>
-            {(stockAPI && dbData2 )  ? <h1>{stockAPI.symbol}</h1> : ""}
-            {
+            {!stockAPI
+                ? <p>No results found, please double check your Symbol!</p>
+                : <div className="card"> 
+                    {
                 !(stockAPI && dbData2)
                     ? <p>loading</p>
                     : <div>
                         <h1>{stockAPI.companyName} ({stockAPI.symbol})</h1>
                         <h3>Data updated {stockAPI.latestTime} from {stockAPI.primaryExchange}</h3>
+                        <form onSubmit={addToWatchList}>
+                            <input type="submit" className="btn btn-primary" value={`Add ${stockAPI.symbol} to WatchList`} />
+                        </form>
+                        <div className="card-body">
                         <p>Market Open: {stockAPI.open}</p>
                         <p>Latest Price: {stockAPI.iexRealtimePrice}</p>
                         <p>Daily High: {stockAPI.iexAskPrice}</p>
@@ -185,33 +183,38 @@ function SearchStock(props) {
                                         ((JSON.stringify(dbData2[0].StockHoldings.filter(stock => stock.Symbol === symbol.toUpperCase()).length) > 0) 
                                     ? JSON.stringify(dbData2[0].StockHoldings.filter(stock => stock.Symbol === symbol.toUpperCase())[0].Shares)
                                     : "0")}</p>
+
+                                <form onSubmit={handleSubmitBuy}>
+                                <input
+                                                    type="text"
+                                                    value={num}
+                                                    name="name"
+                                                    placeholder="Amount"
+                                                    onChange={handleChangeNum}
+                                                />
+                                <input type="submit" className="btn btn-success" value={`Buy ${num} of ${stockAPI.symbol} for ${stockAPI.iexRealtimePrice * num}`} />         
+                                </form>
+
                                 <form onSubmit={handleSubmitSell}>
-                                    <input
+                                <input
                                         type="text"
                                         value={numSell}
                                         name="sell"
                                         placeholder="Amount"
                                         onChange={handleChangeNumSell}
                                     />
-                                    <input type="submit" value={`Sell ${numSell} of ${stockAPI.symbol} for ${stockAPI.iexRealtimePrice * numSell}`} />
+                                <input type="submit" className="btn btn-danger" value={`Sell ${numSell} of ${stockAPI.symbol} for ${stockAPI.iexRealtimePrice * numSell}`} />
                                 </form>
                             </div>}
 
-                        <form onSubmit={handleSubmitBuy}>
-                            <input
-                                type="text"
-                                value={num}
-                                name="name"
-                                placeholder="Amount"
-                                onChange={handleChangeNum}
-                            />
-                            <input type="submit" value={`Buy ${num} of ${stockAPI.symbol} for ${stockAPI.iexRealtimePrice * num}`} />
-                        </form>
+                        
                         <form onSubmit={addToWatchList}>
                             <input type="submit" value={`Add ${stockAPI.symbol} to WatchList`} />
                         </form>
+                        </div>
                     </div>
-            }
+            } </div>}
+            
             
         </>
 

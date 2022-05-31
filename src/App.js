@@ -67,6 +67,7 @@ function App() {
         deleteDbData = {deleteDbData}/>} />
         <Route path='/portfolio/search/:symbol' element={<SearchStock
         dbData = {dbData}
+        getDbDataUser = {getDbData}
         updateDbData={updateDbData}
         deleteDbData={deleteDbData} />} />
           </Routes>
