@@ -2,13 +2,19 @@ import React from 'react'
 import { useParams } from 'react-router-dom'
 import { useEffect, useState } from 'react'
 import axios from 'axios'
-import { Link } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 
 function SearchStock(props) {
     const { symbol } = useParams()
     const [dbData2, setdbData2] = useState(null)
     const [editForm, setEditForm] = useState(null)
     const [stockAPI, setstockAPI] = useState(null)
+
+    let navigate = useNavigate();
+    const routeChange = () => {
+        let path = `/portfolio`;
+        navigate(path);
+    }
 
     const dbURL = 'https://fathomless-taiga-48002.herokuapp.com/portfolios/'
     const getDbData2 = () => {
@@ -85,7 +91,7 @@ function SearchStock(props) {
     const handleChangeNumSell = event => {
         console.log(event.target.value)
         if ((JSON.stringify(dbData2[0].StockHoldings.filter(stock => stock.Symbol === symbol.toUpperCase()).length) > 0)) {
-        let max = editForm.StockHoldings.filter(x => x.Symbol === symbol.toUpperCase())[0].Shares / stockAPI.iexRealtimePrice
+        let max = editForm.StockHoldings.filter(x => x.Symbol === symbol.toUpperCase())[0].Shares
         setNumSell(Math.min(event.target.value, max))} else {
             setNumSell(0)
         }
@@ -116,13 +122,17 @@ function SearchStock(props) {
             copyForm.StockHoldings.filter(x => x.Symbol === symbol.toUpperCase())[0].Cost += num * stockAPI.iexRealtimePrice
             setEditForm(copyForm)
             updateDbData2(editForm, dbData2[0]._id)
-            setNum(0)} else {
+            setNum(0)
+            props.getDbDataUser()
+            routeChange()
+            } else {
                 let temp = {Symbol: symbol.toUpperCase(), Shares: num, Cost: num * stockAPI.iexRealtimePrice }
                 copyForm.StockHoldings.push(temp)
                 setEditForm(copyForm)
                 updateDbData2(editForm, dbData2[0]._id)
                 setNum(0)
                 props.getDbDataUser()
+                routeChange()
             }
         } else { console.log("not enough cash") }
     }
@@ -140,6 +150,7 @@ function SearchStock(props) {
             setNumSell(0)
             getDbData2()
             props.getDbDataUser()
+            routeChange()
         } else { console.log("not enough stock") }
     }
 
