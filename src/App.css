@@ -54,10 +54,40 @@
 
 .myHoldings{
   border: 1px solid black;
+  border-radius: 5px;
   padding-left: 10px;
   padding-right: 10px;
-  width: 20vw;
-  margin: 0 auto
+  width: 90vw;
+  height: 15vh;
+  margin: 0 auto;
+}
+
+.myHoldingsHead {
+  /* border: 1px solid purple; */
+}
+
+.myHoldingsContent {
+  display: flex;
+  /* border: 1px solid red; */
+}
+
+.holding {
+  /* border: 1px solid blue; */
+}
+
+.shares {
+  /* border: 1px solid green; */
+}
+
+.cost {
+  /* border: 1px solid orange; */
+}
+
+.marketChange {
+  border-radius: 5px;
+  padding: 4px;
+  margin-left: auto;
+  order: 2;
 }
 
 .stock {
@@ -66,17 +96,7 @@
   width: 40vw;
   margin: 0 auto
 }
-.holding {
-  float: right;
-}
 
-.percentChangePos {
-  color: green;
-}
-
-.percentChangeNeg {
-  color: red;
-}
 
 .btn a {
   color: white !important;
