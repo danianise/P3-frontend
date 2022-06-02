@@ -105,12 +105,13 @@ function SearchStock(props) {
 
     const addToWatchList = event => {
         event.preventDefault()
-        if ((JSON.stringify(dbData2[0].Watch.filter(stock => stock.Symbol === symbol.toUpperCase()).length) === 0)) {
+       
+        if ((JSON.stringify(dbData2[0].Watch.filter(stock => stock.Symbol === symbol.toUpperCase()).length) === "0")) {
         let copyForm = editForm;
         let temp = { Symbol: stockAPI.symbol.toUpperCase() }
         copyForm.Watch.push(temp)
         setEditForm(copyForm)
-        updateDbData2(editForm, dbData2[0]._id)}
+        updateDbData2(editForm, dbData2[0]._id)} else {console.log("not working")}
 
     }
 
