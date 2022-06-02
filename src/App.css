@@ -22,6 +22,53 @@
   }
 }
 
+/* the following media query for the table on the portfolio page comes from */
+/* https://css-tricks.com/responsive-data-tables/ */
+@media 
+only screen and (max-width: 760px),
+(min-device-width: 768px) and (max-device-width: 1024px)  {
+
+	table, thead, tbody, th, td, tr { 
+		display: block; 
+	}
+	
+	/* Hides the table headers*/
+	thead tr { 
+		position: absolute;
+		top: -9999px;
+		left: -9999px;
+	}
+	
+	tr { border: 1px solid #ccc; }
+	
+	td { 
+		/* Behave  like a "row" */
+		border: none;
+		border-bottom: 1px solid #eee; 
+		position: relative;
+		padding-left: 80%; 
+	}
+	
+	td:before { 
+		/* Now like a table header */
+		position: absolute;
+		/* Top/left values mimic padding */
+		top: 6px;
+		left: 6px;
+		width: 45%; 
+		padding-right: 10px; 
+		white-space: nowrap;
+	}
+	
+	/*
+	Label the data
+	*/
+	td:nth-of-type(3)::before { content: "Holding";}
+	td:nth-of-type(4)::before { content: "Shares"; }
+	td:nth-of-type(5)::before { content: "Cost"; }
+
+}
+
 .App-header {
   background-color: #282c34;
   min-height: 100vh;
@@ -46,6 +93,10 @@
   }
 }
 
+.bold {
+  font-weight: bold;
+}
+
 .main{
   display: flex;
   flex-direction: column;
@@ -67,36 +118,20 @@
   padding-left: 10px;
   padding-right: 10px;
   width: 90vw;
-  height: 15vh;
-  margin: 0 auto;
-}
-
-.myHoldingsHead {
-  /* border: 1px solid purple; */
-}
-
-.myHoldingsContent {
+  height: fit-content;
   display: flex;
-  /* border: 1px solid red; */
 }
 
-.holding {
-  /* border: 1px solid blue; */
-}
-
-.shares {
-  /* border: 1px solid green; */
-}
-
-.cost {
-  /* border: 1px solid orange; */
-}
 
 .marketChange {
   border-radius: 5px;
   padding: 4px;
+  height:fit-content;
+  width: fit-content;
+  /* margin-top: 5px; */
+  /* align-items: flex-end; */
   margin-left: auto;
-  order: 2;
+  order: 4;
 }
 
 .stock {

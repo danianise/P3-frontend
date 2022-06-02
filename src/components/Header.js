@@ -1,6 +1,11 @@
 import React, {useState} from 'react'
 import { Link } from 'react-router-dom'
 import { useNavigate } from 'react-router-dom'
+import Navbar from 'react-bootstrap/Navbar'
+import Button from 'react-bootstrap/Button'
+import Form from 'react-bootstrap/Form'
+import Nav from 'react-bootstrap/Nav'
+import Container from 'react-bootstrap/Container'
 
 function Header() {
     const initialState = { symbol: ''};
@@ -23,46 +28,49 @@ function Header() {
     };
 
     return (
-        <div>
-            <header className='Headercustom2'>
-                <a href="/Portfolio" className='Headercustom'>
-                    MockStock
-                </a>
-
-            </header>
-            <nav className="navbar navbar-expand-lg navbar-light bg-light">
-                <div className="collapse navbar-collapse" id="navbarSupportedContent">
-                    <ul className="navbar-nav mr-auto">
-                        <li className="nav-item active">
-                            <a href="/Portfolio" className="btn btn-primary right">Your Portfolio</a>
-                        </li>
-                        <li className="nav-item">
-                            <a className="btn btn-light" href="/portfolio/watchlist">Watchlist</a>
-                        </li>
-                    </ul>
-    
-                    <form 
-                        className="form-inline my-2 my-lg-0"
-                        onSubmit={handleSubmit}>
-                        <input 
-                            className="form-control mr-sm-2 searchInput"
-                            type="text"
-                            id="symbol"
-                            placeholder="Search Stocks"
-                            aria-label="Search"
-                            onChange={handleChange}
-                            value={formState.symbol}/>
-                        <Link to={`/portfolio/search/${formState.symbol}`}>
-                            <button 
-                                type='submit'
-                                className="btn btn-outline-success my-2 my-sm-0 searchButton">GO
-                            </button>
-                        </Link>
-                        
-                    </form>
-                </div>
-            </nav>
-        </div>
+        <Navbar bg="light" variant="light">
+            <Button 
+                href='/Portfolio' 
+                variant="primary"
+            >
+            Your Portfolio
+            </Button>{''}
+            <Button 
+                href='/Watchlist'
+                variant="primary"
+                style={{marginLeft: '5px'}}
+            >
+            Watchlist
+            </Button>{''}
+            <Form>
+                <Form.Group 
+                    className="form-inline my-2 my-lg-0"    
+                    // controlId="formBasicSearch"
+                >
+                    <Form.Control
+                        type="text"
+                        placeholder="Search Stocks"
+                        id="symbol"
+                        aria-label="Search"
+                        onChange={handleChange}
+                        value={formState.symbol}
+                        onSubmit={handleSubmit} 
+                    />
+                    <Button
+                        href={`/portfolio/search/${formState.symbol}`} 
+                        variant="outline-success"
+                        size="sm"
+                        as="input"
+                        type="submit"
+                        value="GO" 
+                    />{' '}
+          {console.log(formState.symbol)}
+                    <Form.Text className="text-muted">
+                        Enter a symbol to search for stock information.
+                    </Form.Text>
+                </Form.Group>
+            </Form>
+        </Navbar>
     )
 }
 
