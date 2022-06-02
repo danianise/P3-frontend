@@ -88,7 +88,7 @@ function SearchStock(props) {
 
     const handleChangeNum = event => {
         console.log(event.target.value)
-        let max = editForm.CashBalance / stockAPI.iexRealtimePrice
+        let max = editForm.CashBalance / stockAPI.latestPrice
         setNum(Math.min(event.target.value, max))
     }
 
@@ -119,19 +119,19 @@ function SearchStock(props) {
         event.preventDefault()
         let copyForm = editForm;
         //need an if statement here that says basically if the stock exists, do below, if it doesnt, need to do a different updateDBdata PUT
-        if (copyForm.CashBalance >= (num * stockAPI.iexRealtimePrice)) {
-            copyForm.CashBalance -= num * stockAPI.iexRealtimePrice
-            copyForm.PortfolioBalance += num * stockAPI.iexRealtimePrice
+        if (copyForm.CashBalance >= (num * stockAPI.latestPrice)) {
+            copyForm.CashBalance -= num * stockAPI.latestPrice
+            copyForm.PortfolioBalance += num * stockAPI.latestPrice
             if ((JSON.stringify(dbData2[0].StockHoldings.filter(stock => stock.Symbol === symbol.toUpperCase()).length) > 0)) {
             copyForm.StockHoldings.filter(x => x.Symbol === symbol.toUpperCase())[0].Shares += num
-            copyForm.StockHoldings.filter(x => x.Symbol === symbol.toUpperCase())[0].Cost += num * stockAPI.iexRealtimePrice
+            copyForm.StockHoldings.filter(x => x.Symbol === symbol.toUpperCase())[0].Cost += num * stockAPI.latestPrice
             setEditForm(copyForm)
             updateDbData2(editForm, dbData2[0]._id)
             setNum(0)
             props.getDbDataUser()
             routeChange()
             } else {
-                let temp = {Symbol: symbol.toUpperCase(), Shares: num, Cost: num * stockAPI.iexRealtimePrice }
+                let temp = {Symbol: symbol.toUpperCase(), Shares: num, Cost: num * stockAPI.latestPrice }
                 copyForm.StockHoldings.push(temp)
                 setEditForm(copyForm)
                 updateDbData2(editForm, dbData2[0]._id)
@@ -146,9 +146,9 @@ function SearchStock(props) {
         event.preventDefault()
         let copyForm = editForm;
         if (copyForm.StockHoldings.filter(x => x.Symbol === symbol.toUpperCase())[0].Shares >= (num)) {
-            copyForm.CashBalance += numSell * stockAPI.iexRealtimePrice
+            copyForm.CashBalance += numSell * stockAPI.latestPrice
             copyForm.StockHoldings.filter(x => x.Symbol === symbol.toUpperCase())[0].Shares -= numSell
-            copyForm.StockHoldings.filter(x => x.Symbol === symbol.toUpperCase())[0].Cost -= numSell * stockAPI.iexRealtimePrice
+            copyForm.StockHoldings.filter(x => x.Symbol === symbol.toUpperCase())[0].Cost -= numSell * stockAPI.latestPrice
             setEditForm(copyForm)
             updateDbData2(editForm, dbData2[0]._id)
             setNumSell(0)
@@ -179,11 +179,11 @@ function SearchStock(props) {
                             <input type="submit" className="btn btn-primary" value={`Add ${stockAPI.symbol} to WatchList`} />
                         </form>
                         <div className="card-body">
+                        <p>Latest Price: {stockAPI.latestPrice}</p>
                         <p>Market Open: {stockAPI.open}</p>
-                        <p>Latest Price: {stockAPI.iexRealtimePrice}</p>
-                        <p>Daily High: {stockAPI.iexAskPrice}</p>
+                        <p>Daily High: {stockAPI.high}</p>
+                        <p>Daily Low: {stockAPI.low}</p>
                         <p>Market Close: {stockAPI.close}</p>
-                        <p>Daily Change: {stockAPI.change}</p>
                         <p>Daily Change: {stockAPI.change}</p>
                         {!dbData2
                             ? null
