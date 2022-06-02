@@ -37,9 +37,6 @@ function Header() {
                             <a href="/Portfolio" className="btn btn-primary right">Your Portfolio</a>
                         </li>
                         <li className="nav-item">
-                            <a className="btn btn-light" href="/posts/archive">Temp</a>
-                        </li>
-                        <li className="nav-item">
                             <a className="btn btn-light" href="/portfolio/watchlist">Watchlist</a>
                         </li>
                     </ul>

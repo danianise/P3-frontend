@@ -58,7 +58,7 @@ function Portfolio({dbData}) {
     
     return (
       <div className="main">
-        <h1>Your Holdings</h1>
+            <h3>{dbData[0].Username}'s Holdings</h3><br></br>
         {
             dbData.length <= 0 || !stockData 
             ? <h1>Loading</h1>
