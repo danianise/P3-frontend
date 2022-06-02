@@ -2,10 +2,9 @@ import React, {useState} from 'react'
 import { Link } from 'react-router-dom'
 import { useNavigate } from 'react-router-dom'
 import Navbar from 'react-bootstrap/Navbar'
+import Nav from 'react-bootstrap/Nav'
 import Button from 'react-bootstrap/Button'
 import Form from 'react-bootstrap/Form'
-import Nav from 'react-bootstrap/Nav'
-import Container from 'react-bootstrap/Container'
 
 function Header() {
     const initialState = { symbol: ''};
@@ -28,7 +27,15 @@ function Header() {
     };
 
     return (
-        <Navbar bg="light" variant="light">
+        <div>
+            {/* <header className='Headercustom2'>
+                <a href="/Portfolio" className='Headercustom'>
+                    MockStock
+                </a>
+
+            </header> */}
+
+            <Navbar bg="light" variant="light">
             <Button 
                 href='/Portfolio' 
                 variant="primary"
@@ -71,6 +78,7 @@ function Header() {
                 </Form.Group>
             </Form>
         </Navbar>
+        </div>
     )
 }
 
