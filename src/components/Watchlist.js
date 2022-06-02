@@ -17,19 +17,17 @@ function Watchlist() {
     return (
         <>
             {console.log(dbData)}
-            <h1>Watchlist</h1>
+            <h3 style={{ textAlign: "center" }}>Your Stock Watchlist:</h3>
             {
                 !dbData
                     ? <h1>Loading</h1>
-                    : <div>
+                    : <div style={{textAlign:"center"}}>
                         {dbData.map(portfolio => {
                             return (
                                 portfolio.Watch.map(stock => {
                                     return (
                                         <div>
-                                            {portfolio.Username}
-                                            You are watching:
-                                            <Link to={`/portfolio/${stock.Symbol}`}>
+                                            <Link to={`/portfolio/search/${stock.Symbol}`}>
                                                 <>{stock.Symbol}</>
                                             </Link>
                                         </div>

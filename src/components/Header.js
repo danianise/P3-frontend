@@ -24,6 +24,12 @@ function Header() {
 
     return (
         <div>
+            <header className='Headercustom2'>
+                <a href="/Portfolio" className='Headercustom'>
+                    MockStock
+                </a>
+
+            </header>
             <nav className="navbar navbar-expand-lg navbar-light bg-light">
                 <div className="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul className="navbar-nav mr-auto">
