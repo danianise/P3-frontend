@@ -3,12 +3,14 @@ import { useParams } from 'react-router-dom'
 import { useEffect, useState } from 'react'
 import axios from 'axios'
 import { useNavigate } from 'react-router-dom'
-
 function SearchStock(props) {
+
+    
     const { symbol } = useParams()
     const [dbData2, setdbData2] = useState(null)
     const [editForm, setEditForm] = useState(null)
     const [stockAPI, setstockAPI] = useState(null)
+    const [graphData, setgraphData] = useState(null)
     
 
     let navigate = useNavigate();
@@ -85,6 +87,7 @@ function SearchStock(props) {
             })
     }
 
+   
 
     const handleChangeNum = event => {
         console.log(event.target.value)
@@ -223,9 +226,7 @@ function SearchStock(props) {
                             </div>}
 
                         
-                        <form onSubmit={addToWatchList}>
-                            <input type="submit" value={`Add ${stockAPI.symbol} to WatchList`} />
-                        </form>
+                        
                         </div>
                     </div>
             } </div>}
