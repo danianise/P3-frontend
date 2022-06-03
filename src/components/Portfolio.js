@@ -63,20 +63,20 @@ function Portfolio({dbData}) {
             dbData.length <= 0 || !stockData 
             ? <h1>Loading</h1>
             : <div>  
-                <h3>
+                <h5 style={{fontWeight: "bold"}}>
                     Portfolio Balance: ${calPortfolioBalance().toLocaleString(undefined, { maximumFractionDigits: 2 })}
-                </h3> 
-                <h5>
+                </h5> 
+                <h6>
                     Total Gain: $
                     {calGain() > 0
-                    ?   <span style={{color: 'green'}}>
+                    ?   <span style={{color: '#2bc20e'}}>
                             {calGain().toLocaleString(undefined, { maximumFractionDigits: 2 })}
                         </span>
                     :   <span style={{color: 'red'}}>
                             {calGain().toLocaleString(undefined, { maximumFractionDigits: 2 })}
                         </span>   
                     }
-                </h5>
+                </h6>
                     
         <Table striped bordered hover responsive>
             <thead>
@@ -113,10 +113,10 @@ function Portfolio({dbData}) {
                                 ${each.Cost.toLocaleString(undefined, { maximumFractionDigits: 2 })}
                             </td>
                             {stockData[index].regularMarketChangePercent > 0 
-                                ? <td style={{color: 'white', background: 'green', borderRadius: '10px'}}>
+                                ? <td className="gain" style={{color: 'white', background: '#2bc20e', borderRadius: '10px'}}>
                                     +{stockData[index].regularMarketChangePercent.toFixed(2)}%
                                 </td> 
-                                : <td style={{color: 'white', background: 'red', borderRadius: '10px'}}>
+                                : <td className="gain" style={{color: 'white', background: 'red', borderRadius: '10px'}}>
                                     {stockData[index].regularMarketChangePercent.toFixed(2)}%
                                 </td>
                             }

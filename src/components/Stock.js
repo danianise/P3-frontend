@@ -107,8 +107,8 @@ const addToWatchList = event => {
                         {userStockInfo.length === 0
                             ? null
                             : <div>
-                                <p> Your Share: {userStockInfo[0].Shares}</p>
-                                <p> Your Portfolio Value: {userStockInfo[0].Shares * stockAPI.latestPrice}</p>
+                                <p style={{fontWeight: "bold"}}> Your Share: {userStockInfo[0].Shares}</p>
+                                <p style={{fontWeight: "bold"}}> Your Holding: ${userStockInfo[0].Shares * stockAPI.latestPrice}</p>
                                     <form onSubmit={handleSubmitBuy}>
                                         <input
                                             type="text"
@@ -117,7 +117,7 @@ const addToWatchList = event => {
                                             placeholder="Amount"
                                             onChange={handleChangeNum}
                                         />
-                                        <input type="submit" className="btn btn-success" value={`Buy ${num} of ${stockAPI.symbol} for ${stockAPI.latestPrice * num}`} />
+                                        <input type="submit" style={{backgroundColor: "#2bc20e"}} className="btn btn-success" value={`Buy ${num} of ${stockAPI.symbol} for ${stockAPI.latestPrice * num}`} />
                                     </form>
                             <form onSubmit={handleSubmitSell}>
                             <input
