@@ -132,7 +132,6 @@ function SearchStock(props) {
             updateDbData2(editForm, dbData2[0]._id)
             setNum(0)
             props.getDbDataUser()
-            routeChange()
             } else {
                 let temp = {Symbol: symbol.toUpperCase(), Shares: num, Cost: num * stockAPI.latestPrice }
                 copyForm.StockHoldings.push(temp)
@@ -140,7 +139,6 @@ function SearchStock(props) {
                 updateDbData2(editForm, dbData2[0]._id)
                 setNum(0)
                 props.getDbDataUser()
-                routeChange()
             }
         } else { console.log("not enough cash") }
     }
@@ -157,7 +155,6 @@ function SearchStock(props) {
             setNumSell(0)
             getDbData2()
             props.getDbDataUser()
-            routeChange()
         } else { console.log("not enough stock") }
     }
 
@@ -191,7 +188,7 @@ function SearchStock(props) {
                         {!dbData2
                             ? null
                             : <div>
-                                {/* <p style={{fontWeight: "bold"}}> Your Shares:  
+                                <p style={{fontWeight: "bold"}}> Your Shares:  
                                     {
                                         ((JSON.stringify(dbData2[0].StockHoldings.filter(stock => stock.Symbol === symbol.toUpperCase()).length) > 0)
                                     ? JSON.stringify(dbData2[0].StockHoldings.filter(stock => stock.Symbol === symbol.toUpperCase())[0].Shares)
@@ -199,15 +196,8 @@ function SearchStock(props) {
                                 <p style={{fontWeight: "bold"}}> Your holding: 
                                     {
                                         ((JSON.stringify(dbData2[0].StockHoldings.filter(stock => stock.Symbol === symbol.toUpperCase()).length) > 0) 
-                                    ? JSON.stringify(dbData2[0].StockHoldings.filter(stock => stock.Symbol === symbol.toUpperCase())[0].Shares)
-                                    : "0")}</p> */}
-                                    {!dbData2[0].shares
-                                    ? <p style={{fontWeight: "bold"}}> Your Shares: 0</p>
-                                    
-                                    : <><p style={{fontWeight: "bold"}}> Your Shares: {dbData2[0].Shares}</p>
-                                    <p style={{fontWeight: "bold"}}> Your Holding: ${dbData2[0].Shares * stockAPI}</p>
-                                    </>
-                                    }
+                                    ? (dbData2[0].StockHoldings.filter(stock => stock.Symbol === symbol.toUpperCase())[0].Shares) * stockAPI.latestPrice
+                                    : "0")}</p>
 
                                 <form onSubmit={handleSubmitBuy}>
                                 <input

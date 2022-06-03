@@ -90,41 +90,44 @@ function Portfolio({dbData}) {
                 </tr>
             </thead>
             <tbody>
-                {dbData[0].StockHoldings.map((each, index) => {
-                    return(
-                        (each.Shares > 0.000000001)
-                        ? <>
-                        <tr>
-                            <td>
-                                <Link to={`/portfolio/${each.Symbol}`}>
-                                    {each.Symbol}
-                                </Link>
-                            </td>
-                            <td>
-                                {stockData[index].displayName}
-                            </td>
-                            <td>
-                                ${(stockData[index].regularMarketPrice * each.Shares).toLocaleString(undefined, { maximumFractionDigits: 2 })}
-                            </td>
-                            <td>
-                                {each.Shares}
-                            </td>
-                            <td>
-                                ${each.Cost.toLocaleString(undefined, { maximumFractionDigits: 2 })}
-                            </td>
-                            {stockData[index].regularMarketChangePercent > 0 
-                                ? <td className="gain" style={{color: 'white', background: '#2bc20e', borderRadius: '10px'}}>
-                                    +{stockData[index].regularMarketChangePercent.toFixed(2)}%
-                                </td> 
-                                : <td className="gain" style={{color: 'white', background: 'red', borderRadius: '10px'}}>
-                                    {stockData[index].regularMarketChangePercent.toFixed(2)}%
-                                </td>
-                            }
-                        </tr>
-                        </>
-                        : ""
-                    )
-                })}
+                                {dbData ? 
+                                    dbData[0].StockHoldings.map((each, index) => {
+                                        return (
+                                            (each.Shares > 0.000000001)
+                                                ? <>
+                                                    <tr>
+                                                        <td>
+                                                            <Link to={`/portfolio/${each.Symbol}`}>
+                                                                {each.Symbol}
+                                                            </Link>
+                                                        </td>
+                                                        <td>
+                                                            {stockData[index].displayName}
+                                                        </td>
+                                                        <td>
+                                                            ${(stockData[index].regularMarketPrice * each.Shares).toLocaleString(undefined, { maximumFractionDigits: 2 })}
+                                                        </td>
+                                                        <td>
+                                                            {each.Shares}
+                                                        </td>
+                                                        <td>
+                                                            ${each.Cost.toLocaleString(undefined, { maximumFractionDigits: 2 })}
+                                                        </td>
+                                                        {stockData[index].regularMarketChangePercent > 0
+                                                            ? <td className="gain" style={{ color: 'white', background: '#2bc20e', borderRadius: '10px' }}>
+                                                                +{stockData[index].regularMarketChangePercent.toFixed(2)}%
+                                                            </td>
+                                                            : <td className="gain" style={{ color: 'white', background: 'red', borderRadius: '10px' }}>
+                                                                {stockData[index].regularMarketChangePercent.toFixed(2)}%
+                                                            </td>
+                                                        }
+                                                    </tr>
+                                                </>
+                                                : ""
+                                        )
+                                    })
+                                : ""}
+                
             </tbody>
         </Table>
       </div>
