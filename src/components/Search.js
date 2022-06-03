@@ -182,25 +182,32 @@ function SearchStock(props) {
                             <input type="submit" className="btn btn-primary" value={`Add ${stockAPI.symbol} to WatchList`} />
                         </form>
                         <div className="card-body">
-                        <p>Latest Price: {stockAPI.latestPrice}</p>
-                        <p>Market Open: {stockAPI.open}</p>
-                        <p>Daily High: {stockAPI.high}</p>
-                        <p>Daily Low: {stockAPI.low}</p>
-                        <p>Market Close: {stockAPI.close}</p>
-                        <p>Daily Change: {stockAPI.change}</p>
+                        <p>Latest Price: ${stockAPI.latestPrice}</p>
+                        <p>Market Open: ${stockAPI.open}</p>
+                        <p>Daily High: ${stockAPI.high}</p>
+                        <p>Daily Low: ${stockAPI.low}</p>
+                        <p>Market Close: ${stockAPI.close}</p>
+                        <p>Daily Change: {stockAPI.change}%</p>
                         {!dbData2
                             ? null
                             : <div>
-                                <h1> Your Shares: 
+                                {/* <p style={{fontWeight: "bold"}}> Your Shares:  
                                     {
                                         ((JSON.stringify(dbData2[0].StockHoldings.filter(stock => stock.Symbol === symbol.toUpperCase()).length) > 0)
                                     ? JSON.stringify(dbData2[0].StockHoldings.filter(stock => stock.Symbol === symbol.toUpperCase())[0].Shares)
-                                    : "0")}</h1>
-                                <p> Your Portfolio Value: 
+                                    : "0")}</p>
+                                <p style={{fontWeight: "bold"}}> Your holding: 
                                     {
                                         ((JSON.stringify(dbData2[0].StockHoldings.filter(stock => stock.Symbol === symbol.toUpperCase()).length) > 0) 
                                     ? JSON.stringify(dbData2[0].StockHoldings.filter(stock => stock.Symbol === symbol.toUpperCase())[0].Shares)
-                                    : "0")}</p>
+                                    : "0")}</p> */}
+                                    {!dbData2[0].shares
+                                    ? <p style={{fontWeight: "bold"}}> Your Shares: 0</p>
+                                    
+                                    : <><p style={{fontWeight: "bold"}}> Your Shares: {dbData2[0].Shares}</p>
+                                    <p style={{fontWeight: "bold"}}> Your Holding: ${dbData2[0].Shares * stockAPI}</p>
+                                    </>
+                                    }
 
                                 <form onSubmit={handleSubmitBuy}>
                                 <input
@@ -210,7 +217,7 @@ function SearchStock(props) {
                                                     placeholder="Amount"
                                                     onChange={handleChangeNum}
                                                 />
-                                <input type="submit" className="btn btn-success" value={`Buy ${num} of ${stockAPI.symbol} for ${stockAPI.iexRealtimePrice * num}`} />         
+                                <input type="submit" className="btn btn-success" style={{backgroundColor: "#2bc20e"}} value={`Buy ${num} of ${stockAPI.symbol} for ${stockAPI.iexRealtimePrice * num}`} />         
                                 </form>
 
                                 <form onSubmit={handleSubmitSell}>

@@ -2,6 +2,8 @@ import React from 'react'
 import { useParams, Link } from 'react-router-dom'
 import { useEffect, useState } from 'react'
 import axios from 'axios'
+import Card from 'react-bootstrap/Card'
+import Button from 'react-bootstrap/Button'
 
 
 
@@ -26,10 +28,14 @@ function Watchlist() {
                             return (
                                 portfolio.Watch.map(stock => {
                                     return (
-                                        <div>
-                                            <Link to={`/portfolio/search/${stock.Symbol}`}>
-                                                <>{stock.Symbol}</>
-                                            </Link>
+                                        !stock.Symbol
+                                        ? <></>
+                                        : <div>
+                                            <Button variant="secondary" style={{margin: "5px"}}>
+                                                <Link to={`/portfolio/search/${stock.Symbol}`}>
+                                                    {stock.Symbol}
+                                                </Link>
+                                            </Button>
                                         </div>
                                     )
                                 }))

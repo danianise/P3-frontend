@@ -27,56 +27,54 @@ function Header() {
     };
 
     return (
-        <div>
-            {/* <header className='Headercustom2'>
-                <a href="/Portfolio" className='Headercustom'>
-                    MockStock
-                </a>
-
-            </header> */}
-
-            <Navbar bg="light" variant="light">
+        <div style={{backgroundImage: "url(https://i.imgur.com/MfcSGXF.png)"}}>
+            <Navbar variant="light">
             <Button 
                 href='/portfolio' 
-                variant="primary"
+                variant="secondary"
+                className="portfolioButton"
             >
-            Your Portfolio
-            </Button>{''}
+            Portfolio
+            </Button>
             <Button 
                 href='/portfolio/watchlist'
-                variant="primary"
-                style={{marginLeft: '5px'}}
+                style={{marginLeft: "5px"}}
+                variant="secondary"
             >
             Watchlist
-            </Button>{''}
-            <Form>
-                <Form.Group 
-                    className="form-inline my-2 my-lg-0"    
-                    // controlId="formBasicSearch"
-                >
-                    <Form.Control
-                        type="text"
-                        placeholder="Search Stocks"
-                        id="symbol"
-                        aria-label="Search"
-                        onChange={handleChange}
-                        value={formState.symbol}
-                        onSubmit={handleSubmit} 
-                    />
-                    <Button
-                        href={`/portfolio/search/${formState.symbol}`} 
-                        variant="outline-success"
-                        size="sm"
-                        as="input"
-                        type="submit"
-                        value="GO" 
-                    />{' '}
+            </Button>
+            <Nav className="ml-auto">
+                <Form>
+                    <Form.Group 
+                        className="form-inline my-2 my-lg-0"  
+                    >
+                        <Form.Control
+                            type="text"
+                            placeholder="Search by Stock Symbol"
+                            id="symbol"
+                            aria-label="Search"
+                            onChange={handleChange}
+                            value={formState.symbol} 
+                        />
+                        <Link to={`/portfolio/search/${formState.symbol}`}>
+                            <Button 
+                                variant="secondary"
+                                size="sm"
+                                as="input"
+                                type="submit"
+                                value="GO"
+                                style={{marginLeft: "5px"}} 
+                            />
+                        </Link>
+
           {console.log(formState.symbol)}
-                    <Form.Text className="text-muted">
-                        Enter a symbol to search for stock information.
-                    </Form.Text>
-                </Form.Group>
-            </Form>
+
+                        {/* <Form.Text className="text-muted">
+                            Enter a symbol to search for stock information.
+                        </Form.Text> */}
+                    </Form.Group>
+                </Form>
+            </Nav>
         </Navbar>
         </div>
     )
