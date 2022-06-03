@@ -37,13 +37,13 @@ function Header() {
 
             <Navbar bg="light" variant="light">
             <Button 
-                href='/Portfolio' 
+                href='/portfolio' 
                 variant="primary"
             >
             Your Portfolio
             </Button>{''}
             <Button 
-                href='/Watchlist'
+                href='/portfolio/watchlist'
                 variant="primary"
                 style={{marginLeft: '5px'}}
             >
