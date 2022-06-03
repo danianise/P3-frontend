@@ -132,6 +132,7 @@ function SearchStock(props) {
             updateDbData2(editForm, dbData2[0]._id)
             setNum(0)
             props.getDbDataUser()
+                getDbDataEdit()
             } else {
                 let temp = {Symbol: symbol.toUpperCase(), Shares: num, Cost: num * stockAPI.latestPrice }
                 copyForm.StockHoldings.push(temp)
@@ -139,6 +140,8 @@ function SearchStock(props) {
                 updateDbData2(editForm, dbData2[0]._id)
                 setNum(0)
                 props.getDbDataUser()
+
+                getDbDataEdit()
             }
         } else { console.log("not enough cash") }
     }
@@ -154,6 +157,8 @@ function SearchStock(props) {
             updateDbData2(editForm, dbData2[0]._id)
             setNumSell(0)
             getDbData2()
+
+            getDbDataEdit()
             props.getDbDataUser()
         } else { console.log("not enough stock") }
     }
