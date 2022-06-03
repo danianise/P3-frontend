@@ -23,7 +23,8 @@ function Portfolio({dbData}) {
         method: 'GET',
         url: `https://yfapi.net/v6/finance/quote?region=US&lang=en&symbols=${symbolStrings}`,
         headers: {
-            'x-api-key': 'GW8PTGhaii4nWR17s628j9t73Awi1MOpiy7NRyC4',
+            // 'x-api-key': 'GW8PTGhaii4nWR17s628j9t73Awi1MOpiy7NRyC4',
+            'x-api-key': 'SAt1ZodoG84fd4ZMP1Aq575wHne1e9ts5CUzkfLZ',
             'Content-Type': 'application/json'
         }
     };
@@ -62,53 +63,45 @@ function Portfolio({dbData}) {
         {
             dbData.length <= 0 || !stockData 
             ? <h1>Loading</h1>
-            : <div>
-            
-                    {/* {data.map(portfolio => {
-                        return (
-                            <div className="eachPortfolio">
-                            <h2 className="userName">{portfolio.Username}</h2>
-                            {console.log(portfolio)}
-                            <h2 className="portfolioBalance">Portfolio Balance: ${portfolio.PortfolioBalance}</h2>
-                            {portfolio.StockHoldings.map(stock => {
-                                return(
-                                    <div>
-                                        <Link to={`/portfolio/${stock.Symbol}`}>
-                                            <h3>{stock.Symbol}</h3>
-                                            </Link>
-                                        <h3>Your Holdings: {stock.Holding}</h3>
-                                    </div>
-                                )
-                            })}
-                            </div>
-                        )
-                    })} */}   
-                        <h5>Portfolio Balance: ${calPortfolioBalance().toFixed(2)}</h5> 
-                        <h5>Total Gain: ${calGain().toFixed(2)}</h5>    
-                    {dbData[0].StockHoldings.map((each, index) => {
-                            return(
-                                (each.Shares > 0.000000001) ? 
-                            <div className="myHoldings">
-                                <Link to={`/portfolio/${each.Symbol}`}>
-                                <h3 className="symbol">
-                                    {each.Symbol}
-                                </h3>
-                            </Link>
-                                    <div className="holding">Shares: {each.Shares} </div><br></br>
-                                    <div className="holding">Cost: ${each.Cost.toFixed(2)} </div>
-
-                            {/* {console.log(stockData.changePercent.toString())} */}
-                            {console.log(stockData[index].regularMarketChangePercent)}
-                            {stockData[index].regularMarketChangePercent > 0 
-                                ? <div className="percentChangePos">+{stockData[index].regularMarketChangePercent}%</div> 
-                                : <div className="percentChangeNeg">{stockData[index].regularMarketChangePercent}%</div>
-                                } 
-                                {/* <div className="dailyInfo">{stockData.changePercent}%</div> */}
-                                
+            : <div>  
+                <h3>Portfolio Balance: ${calPortfolioBalance().toLocaleString(undefined, { maximumFractionDigits: 2 })}</h3> 
+                <h5>Total Gain: $
+                {calGain() > 0
+                ?   <span style={{color: 'green'}}>
+                        {calGain().toLocaleString(undefined, { maximumFractionDigits: 2 })}
+                    </span>
+                :   <span style={{color: 'red'}}>
+                        {calGain().toLocaleString(undefined, { maximumFractionDigits: 2 })}
+                    </span>   
+                }
+                </h5>
                     
-                            </div>: ""
-                            
-                                
+                    {dbData[0].StockHoldings.map((each, index) => {
+                        return(
+                            (each.Shares > 0.000000001)
+                            ? 
+                            <>
+                            <div className="myHoldings">
+                                <div className="myHoldingsHead">
+                                    <Link to={`/portfolio/${each.Symbol}`}>
+                                        <h3 className="symbol">
+                                            {each.Symbol}
+                                        </h3>
+                                    </Link>
+                                    <div className="company">{stockData[index].displayName}</div>
+                                </div>
+                                <div className="myHoldingsContent">
+                                    <div className="holding">Holding: ${(stockData[index].regularMarketPrice * each.Shares).toLocaleString(undefined, { maximumFractionDigits: 2 })}</div>
+                                    <div className="shares">Shares: {each.Shares} </div><br></br>
+                                    <div className="cost">Cost: ${each.Cost.toLocaleString(undefined, { maximumFractionDigits: 2 })} </div>
+                                    {stockData[index].regularMarketChangePercent > 0 
+                                        ? <div className="marketChange" style={{color: 'white', background: 'green'}}>+{stockData[index].regularMarketChangePercent.toFixed(2)}%</div> 
+                                        : <div className="marketChange" style={{color: 'white', background: 'red'}}>{stockData[index].regularMarketChangePercent.toFixed(2)}%</div>
+                                    } 
+                                </div>
+                            </div>
+                            </>
+                            : ""                                
                     )
                 })}
             </div>
