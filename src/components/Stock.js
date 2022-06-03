@@ -26,7 +26,7 @@ function Stock(props) {
 
     const handleChangeNum = event => {
         console.log(event.target.value)
-        let max = editForm.CashBalance / stockAPI.iexRealtimePrice
+        let max = editForm.CashBalance / stockAPI.latestPrice
         setNum(Math.min(event.target.value, max))
     }
 
@@ -38,15 +38,20 @@ function Stock(props) {
 
 //Need to add limit here
 
-    const addToWatchList = event => {
-        event.preventDefault()
-        let copyForm = editForm;
-        let temp = { symbol: stockAPI.symbol}
-        copyForm.Watch.push(temp)
-        setEditForm(copyForm)
+const addToWatchList = event => {
+    event.preventDefault()
+    console.log(userInfo.Watch.filter(stock => stock.Symbol === symbol.toUpperCase()))
+    if (((userInfo.Watch.filter(stock => stock.Symbol === symbol.toUpperCase()).length) === 0)) {
+    let copyForm = editForm;
+        let temp = { Symbol: stockAPI.symbol.toUpperCase() }
+        console.log(temp)
+    copyForm.Watch.push(temp)
+    setEditForm(copyForm)
         props.updateDbData(editForm, userInfo._id)
-
     }
+    else {console.log("not working")}
+
+}
 
     const handleSubmitBuy = event => {
         event.preventDefault()
@@ -121,8 +126,8 @@ function Stock(props) {
                                 name="sell"
                                 placeholder="Amount"
                                 onChange={handleChangeNumSell}
-                            />
-                                        <input type="submit" className="btn btn-danger" value={`Sell ${numSell} of ${stockAPI.symbol} for ${stockAPI.latestPrice * numSell}`} />
+                                        />
+                                <input type="submit" className="btn btn-danger" value={`Sell ${numSell} of ${stockAPI.symbol} for ${stockAPI.latestPrice * numSell}`} />
                                 </form>
                                 </div>}
                         

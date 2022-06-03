@@ -49,14 +49,17 @@ function Portfolio({dbData}) {
     const calGain = () => {
         let gain = 0
         for (let i = 0; i < stockData.length; i++) {
-            gain += (stockData[i].regularMarketPrice - dbData[0].StockHoldings[i].Cost) * dbData[0].StockHoldings[i].Shares
-        }
+            if (dbData[0].StockHoldings[i].Shares !== 0) {
+                gain += (stockData[i].regularMarketPrice - (dbData[0].StockHoldings[i].Cost / dbData[0].StockHoldings[i].Shares)) * dbData[0].StockHoldings[i].Shares
+            console.log(dbData[0].StockHoldings[i].Cost/dbData[0].StockHoldings[i].Shares)}
+}
         return gain
+        
     }
     
     return (
       <div className="main">
-        <h1>Your Holdings</h1>
+            <h3>{dbData[0].Username}'s Holdings</h3><br></br>
         {
             dbData.length <= 0 || !stockData 
             ? <h1>Loading</h1>
@@ -98,9 +101,7 @@ function Portfolio({dbData}) {
                                 </div>
                             </div>
                             </>
-                            : ""
-                            
-                                
+                            : ""                                
                     )
                 })}
             </div>

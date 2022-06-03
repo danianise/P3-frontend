@@ -48,7 +48,7 @@ function App() {
 
   return (
     <>
-      <Header />
+      {window.location.pathname !== "/portfolio/search/:symbol" ? <Header /> : null}
       {dbData.length > 0 && (
         <>
     <UserInfo data={dbData}/>
@@ -67,6 +67,7 @@ function App() {
         deleteDbData = {deleteDbData}/>} />
         <Route path='/portfolio/search/:symbol' element={<SearchStock
         dbData = {dbData}
+        getDbDataUser = {getDbData}
         updateDbData={updateDbData}
         deleteDbData={deleteDbData} />} />
           </Routes>
