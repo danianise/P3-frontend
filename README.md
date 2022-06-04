@@ -24,14 +24,15 @@ An app that will represent the user’s stock portfolio. The user will be able t
 
 [Heroku Deployment, Front-end](https://mockstockp3.herokuapp.com/portfolio)
 ## Screen Captures
-### Portfolio Page
+### Portfolio
 <img width="1440" alt="Screen Shot 2022-06-03 at 11 27 09 PM" src="https://user-images.githubusercontent.com/97096664/171978780-d75e4f60-3341-4681-8622-e5b059556464.png">
 
-### Stock Info Page
+### Stock Info
 <img width="1439" alt="Screen Shot 2022-06-03 at 11 29 20 PM" src="https://user-images.githubusercontent.com/97096664/171979015-934333d6-0f2c-4bcc-9de6-7c21534cd5ee.png">
 
-### Watchlist Page
-<img width="1440" alt="Screen Shot 2022-06-03 at 11 28 11 PM" src="https://user-images.githubusercontent.com/97096664/171978973-b69d57d1-597e-4005-aff8-c8aef88df05c.png">
+### Watchlist
+![Recording 2022-06-04 at 14 42 43](https://user-images.githubusercontent.com/97096664/172021295-14a63925-e59c-4119-a39b-637552edb8a8.gif)
+
 
 ### Search by Stock Symbol
 ![Recording 2022-06-04 at 00 07 30](https://user-images.githubusercontent.com/97096664/171981804-74136122-34f0-431f-b820-0e09065ad41f.gif)
