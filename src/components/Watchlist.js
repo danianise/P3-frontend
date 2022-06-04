@@ -32,7 +32,7 @@ function Watchlist() {
                                         ? <></>
                                         : <div>
                                             <Button variant="secondary" style={{margin: "5px"}}>
-                                                <Link to={`/portfolio/search/${stock.Symbol}`}>
+                                                <Link to={`/portfolio/${stock.Symbol}`}>
                                                     {stock.Symbol}
                                                 </Link>
                                             </Button>
