@@ -16,11 +16,13 @@ An app that will represent the user’s stock portfolio. The user will be able t
 
 
 ## Links
-[GitHub Repository, Front-end](https://https://github.com/coriocharles/P3-frontend)
-[GitHub Repository, Back-end] (https://https://github.com/danianise/p3-backend)
+[GitHub Repository, Front-end](https://github.com/coriocharles/P3-frontend)
 
-[Heroku Deployment, Back-end] (https://https://fathomless-taiga-48002.herokuapp.com/portfolios/)
-[Heroku Deployment, Front-end] (https://mockstockp3.herokuapp.com/portfolio)
+[GitHub Repository, Back-end](https://https://github.com/danianise/p3-backend)
+
+[Heroku Deployment, Back-end](https://https://fathomless-taiga-48002.herokuapp.com/portfolios/)
+
+[Heroku Deployment, Front-end](https://mockstockp3.herokuapp.com/portfolio)
 ## Screen Captures
 ### Portfolio Page
 <img width="1440" alt="Screen Shot 2022-06-03 at 11 27 09 PM" src="https://user-images.githubusercontent.com/97096664/171978780-d75e4f60-3341-4681-8622-e5b059556464.png">
@@ -39,15 +41,15 @@ An app that will represent the user’s stock portfolio. The user will be able t
 
 ## User Stories
 ### MVP Goals
--As a user, I would like to see my stock holdings and portfolio balance.
--As a user, I would like to see information on the daily change in stock price with the option to click for more details on a given stock in my portfolio.
--As a user, I want to be able to search for information on stocks (whether or not they exist in my portfolio).
+- As a user, I would like to see my stock holdings and portfolio balance.
+- As a user, I would like to see information on the daily change in stock price with the option to click for more details on a given stock in my portfolio.
+- As a user, I want to be able to search for information on stocks (whether or not they exist in my portfolio).
 
 ### Stretch Goals
--As a user, I want to be able to track the purchase and sale of stocks in my portfolio and see a cash balance that reflects these purchases/sales.
--As a user I would like to have the option to watch stocks I have saved as favorites.
+- As a user, I want to be able to track the purchase and sale of stocks in my portfolio and see a cash balance that reflects these purchases/sales.
+- As a user I would like to have the option to watch stocks I have saved as favorites.
  
 ## Hurdles
--Asynchronous API data
--Using an API link with dynamic variables
--Bootstrap vs React Bootstrap
+- Asynchronous API data
+- Using an API link with dynamic variables
+- Bootstrap vs React Bootstrap
