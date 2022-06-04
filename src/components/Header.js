@@ -56,14 +56,15 @@ function Header() {
                             onChange={handleChange}
                             value={formState.symbol} 
                         />
-                        <Link to={`/portfolio/search/${formState.symbol}`}>
+                        <Link to={`/portfolio/${formState.symbol.toUpperCase()}`}>
                             <Button 
                                 variant="secondary"
                                 size="sm"
                                 as="input"
                                 type="submit"
                                 value="GO"
-                                style={{marginLeft: "5px"}} 
+                                style={{marginLeft: "5px"}}
+                                onClick={()=>setFormState(initialState)}
                             />
                         </Link>
 

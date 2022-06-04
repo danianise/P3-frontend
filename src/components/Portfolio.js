@@ -102,7 +102,7 @@ function Portfolio({dbData}) {
                                                             </Link>
                                                         </td>
                                                         <td>
-                                                            {stockData[index].displayName}
+                                                            {stockData[index].longName}
                                                         </td>
                                                         <td>
                                                             ${(stockData[index].regularMarketPrice * each.Shares).toLocaleString(undefined, { maximumFractionDigits: 2 })}
