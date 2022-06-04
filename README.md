@@ -32,9 +32,10 @@ An app that will represent the user’s stock portfolio. The user will be able t
 <img width="1440" alt="Screen Shot 2022-06-03 at 11 28 11 PM" src="https://user-images.githubusercontent.com/97096664/171978973-b69d57d1-597e-4005-aff8-c8aef88df05c.png">
 
 ### Search by Stock Symbol
+![Recording 2022-06-04 at 00 07 30](https://user-images.githubusercontent.com/97096664/171981804-74136122-34f0-431f-b820-0e09065ad41f.gif)
 
 ### Buy/Sell Stock
-
+![Recording 2022-06-04 at 00 05 13](https://user-images.githubusercontent.com/97096664/171981764-315380d2-faba-49fe-9901-ebee220844de.gif)
 
 ## User Stories
 ### MVP Goals
