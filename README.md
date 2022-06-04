@@ -18,9 +18,9 @@ An app that will represent the user’s stock portfolio. The user will be able t
 ## Links
 [GitHub Repository, Front-end](https://github.com/coriocharles/P3-frontend)
 
-[GitHub Repository, Back-end](https://https://github.com/danianise/p3-backend)
+[GitHub Repository, Back-end](https://github.com/danianise/p3-backend)
 
-[Heroku Deployment, Back-end](https://https://fathomless-taiga-48002.herokuapp.com/portfolios/)
+[Heroku Deployment, Back-end](https://fathomless-taiga-48002.herokuapp.com/portfolios/)
 
 [Heroku Deployment, Front-end](https://mockstockp3.herokuapp.com/portfolio)
 ## Screen Captures
