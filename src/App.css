@@ -2,6 +2,15 @@
   text-align: center;
 }
 
+.Headercustom {
+  color: black;
+    text-decoration: none;
+    font-size: 2em;
+}
+.Headercustom2 {
+  text-align: center; 
+  padding: 10px; 
+}
 .App-logo {
   height: 40vmin;
   pointer-events: none;
@@ -11,6 +20,54 @@
   .App-logo {
     animation: App-logo-spin infinite 20s linear;
   }
+}
+
+/* the following media query for the table on the portfolio page comes from */
+/* https://css-tricks.com/responsive-data-tables/ */
+@media 
+only screen and (max-width: 760px),
+(min-device-width: 768px) and (max-device-width: 1024px)  {
+
+  .gain {
+    width: fit-content;
+  }
+
+	table, thead, tbody, th, td, tr { 
+		display: block; 
+	}
+	
+	/* Hides the table headers*/
+	thead tr { 
+		position: absolute;
+		top: -9999px;
+		left: -9999px;
+	}
+	
+	tr { border: 1px solid #ccc; }
+	
+	td { 
+		/* Behave  like a "row" */
+		border: none;
+		border-bottom: 1px solid #eee; 
+		position: relative;
+		padding-left: 80%; 
+	}
+	
+	td::before { 
+		top: 6px;
+		left: 6px;
+		width: 45%; 
+		padding-right: 10px; 
+		white-space: nowrap;
+	}
+	
+	/*
+	Label the data
+	*/
+	td:nth-of-type(3)::before { content: "Holding"; }
+	td:nth-of-type(4)::before { content: "Shares"; }
+	td:nth-of-type(5)::before { content: "Cost"; }
+
 }
 
 .App-header {
@@ -36,3 +93,56 @@
     transform: rotate(360deg);
   }
 }
+
+.bold {
+  font-weight: bold;
+}
+
+.main{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.main h1{
+  color: blue;
+}
+
+.userName{
+  color: blue;
+}
+
+.myHoldings{
+  border: 1px solid black;
+  border-radius: 5px;
+  padding-left: 10px;
+  padding-right: 10px;
+  width: 90vw;
+  height: fit-content;
+  display: flex;
+}
+
+
+.marketChange {
+  border-radius: 5px;
+  padding: 4px;
+  height:fit-content;
+  width: fit-content;
+  margin-left: auto;
+  order: 4;
+}
+
+.stock {
+  border: 1px solid black;
+  padding: 50px;
+  width: 40vw;
+  margin: 0 auto
+}
+
+.btn a {
+  color: white !important;
+  text-decoration: none;
+}
+
+
