@@ -3,6 +3,7 @@ import { useParams } from 'react-router-dom'
 import { useEffect, useState } from 'react'
 import axios from 'axios'
 import { useNavigate } from 'react-router-dom'
+
 function SearchStock(props) {
 
     
@@ -10,7 +11,6 @@ function SearchStock(props) {
     const [dbData2, setdbData2] = useState(null)
     const [editForm, setEditForm] = useState(null)
     const [stockAPI, setstockAPI] = useState(null)
-    const [graphData, setgraphData] = useState(null)
     
 
     let navigate = useNavigate();
@@ -121,7 +121,6 @@ function SearchStock(props) {
     const handleSubmitBuy = event => {
         event.preventDefault()
         let copyForm = editForm;
-        //need an if statement here that says basically if the stock exists, do below, if it doesnt, need to do a different updateDBdata PUT
         if (copyForm.CashBalance >= (num * stockAPI.latestPrice)) {
             copyForm.CashBalance -= num * stockAPI.latestPrice
             copyForm.PortfolioBalance += num * stockAPI.latestPrice
