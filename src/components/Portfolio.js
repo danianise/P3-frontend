@@ -101,13 +101,14 @@ function Portfolio({dbData}) {
                                                             </Link>
                                                         </td>
                                                         <td>
-                                                            {stockData[index].displayName}
+                                                            {/* {stockData[index].displayName} */}
+                                                            {stockData[index].shortName}
                                                         </td>
                                                         <td>
                                                             ${(stockData[index].regularMarketPrice * each.Shares).toLocaleString(undefined, { maximumFractionDigits: 2 })}
                                                         </td>
                                                         <td>
-                                                            {each.Shares}
+                                                            {Math.round(each.Shares)}
                                                         </td>
                                                         <td>
                                                             ${each.Cost.toLocaleString(undefined, { maximumFractionDigits: 2 })}
