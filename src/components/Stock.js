@@ -117,7 +117,7 @@ const addToWatchList = event => {
                                             placeholder="Amount"
                                             onChange={handleChangeNum}
                                         />
-                                        <input type="submit" style={{backgroundColor: "#2bc20e"}} className="btn btn-success" value={`Buy ${num} of ${stockAPI.symbol} for ${stockAPI.latestPrice * num}`} />
+                                        <input type="submit" style={{backgroundColor: "#2bc20e"}} className="btn btn-success" value={`Buy ${num} of ${stockAPI.symbol} for $${(stockAPI.latestPrice * num).toLocaleString(undefined, { maximumFractionDigits: 2 })}`} />
                                     </form>
                             <form onSubmit={handleSubmitSell}>
                             <input
@@ -127,7 +127,7 @@ const addToWatchList = event => {
                                 placeholder="Amount"
                                 onChange={handleChangeNumSell}
                                         />
-                                <input type="submit" className="btn btn-danger" value={`Sell ${numSell} of ${stockAPI.symbol} for ${stockAPI.latestPrice * numSell}`} />
+                                <input type="submit" className="btn btn-danger" value={`Sell ${numSell} of ${stockAPI.symbol} for $${(stockAPI.latestPrice * numSell).toLocaleString(undefined, { maximumFractionDigits: 2 })}`} />
                                 </form>
                                 </div>}
                         
