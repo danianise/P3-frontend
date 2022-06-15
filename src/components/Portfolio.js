@@ -20,8 +20,7 @@ function Portfolio({dbData}) {
         method: 'GET',
         url: `https://yfapi.net/v6/finance/quote?region=US&lang=en&symbols=${symbolStrings}`,
         headers: {
-            // 'x-api-key': 'GW8PTGhaii4nWR17s628j9t73Awi1MOpiy7NRyC4',
-            'x-api-key': 'SAt1ZodoG84fd4ZMP1Aq575wHne1e9ts5CUzkfLZ',
+            'x-api-key': 'bJycv9CnlPatYdKxJX3gS4k9mnRslOAL6V6Pp6v8',
             'Content-Type': 'application/json'
         }
     };
@@ -102,13 +101,14 @@ function Portfolio({dbData}) {
                                                             </Link>
                                                         </td>
                                                         <td>
-                                                            {stockData[index].displayName}
+                                                            {/* {stockData[index].displayName} */}
+                                                            {stockData[index].shortName}
                                                         </td>
                                                         <td>
                                                             ${(stockData[index].regularMarketPrice * each.Shares).toLocaleString(undefined, { maximumFractionDigits: 2 })}
                                                         </td>
                                                         <td>
-                                                            {each.Shares}
+                                                            {Math.round(each.Shares)}
                                                         </td>
                                                         <td>
                                                             ${each.Cost.toLocaleString(undefined, { maximumFractionDigits: 2 })}

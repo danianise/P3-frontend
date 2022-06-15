@@ -98,17 +98,17 @@ const addToWatchList = event => {
                             <input type="submit" className="btn btn-primary" value={`Add ${stockAPI.symbol} to WatchList`} />
                         </form>
                         <div className="card-body">
-                        <p>Latest Price: {stockAPI.latestPrice}</p>
-                        <p>Market Open: {stockAPI.open}</p>
-                        <p>Daily High: {stockAPI.high}</p>
-                        <p>Daily Low: {stockAPI.low}</p>
-                        <p>Market Close: {stockAPI.close}</p>
-                        <p>Daily Change: {stockAPI.change}</p>
+                        <p>Latest Price: ${stockAPI.latestPrice.toLocaleString(undefined, { maximumFractionDigits: 2 })}</p>
+                        <p>Market Open: ${stockAPI.open.toLocaleString(undefined, { maximumFractionDigits: 2 })}</p>
+                        <p>Daily High: ${stockAPI.high.toLocaleString(undefined, { maximumFractionDigits: 2 })}</p>
+                        <p>Daily Low: ${stockAPI.low.toLocaleString(undefined, { maximumFractionDigits: 2 })}</p>
+                        <p>Market Close: ${stockAPI.close.toLocaleString(undefined, { maximumFractionDigits: 2 })}</p>
+                        <p>Daily Change: {stockAPI.changePercent.toFixed(2)}%</p>
                         {userStockInfo.length === 0
                             ? null
                             : <div>
-                                <p style={{fontWeight: "bold"}}> Your Share: {userStockInfo[0].Shares}</p>
-                                <p style={{fontWeight: "bold"}}> Your Holding: ${userStockInfo[0].Shares * stockAPI.latestPrice}</p>
+                                <p style={{fontWeight: "bold"}}> Your Share: {Math.round(userStockInfo[0].Shares)}</p>
+                                <p style={{fontWeight: "bold"}}> Your Holding: ${(userStockInfo[0].Shares * stockAPI.latestPrice).toLocaleString(undefined, { maximumFractionDigits: 2 })}</p>
                                     <form onSubmit={handleSubmitBuy}>
                                         <input
                                             type="text"
@@ -117,7 +117,7 @@ const addToWatchList = event => {
                                             placeholder="Amount"
                                             onChange={handleChangeNum}
                                         />
-                                        <input type="submit" style={{backgroundColor: "#2bc20e"}} className="btn btn-success" value={`Buy ${num} of ${stockAPI.symbol} for ${stockAPI.latestPrice * num}`} />
+                                        <input type="submit" style={{backgroundColor: "#2bc20e"}} className="btn btn-success" value={`Buy ${num} of ${stockAPI.symbol} for $${(stockAPI.latestPrice * num).toLocaleString(undefined, { maximumFractionDigits: 2 })}`} />
                                     </form>
                             <form onSubmit={handleSubmitSell}>
                             <input
@@ -127,7 +127,7 @@ const addToWatchList = event => {
                                 placeholder="Amount"
                                 onChange={handleChangeNumSell}
                                         />
-                                <input type="submit" className="btn btn-danger" value={`Sell ${numSell} of ${stockAPI.symbol} for ${stockAPI.latestPrice * numSell}`} />
+                                <input type="submit" className="btn btn-danger" value={`Sell ${numSell} of ${stockAPI.symbol} for $${(stockAPI.latestPrice * numSell).toLocaleString(undefined, { maximumFractionDigits: 2 })}`} />
                                 </form>
                                 </div>}
                         

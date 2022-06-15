@@ -7,7 +7,6 @@ import Stock from './components/Stock';
 import Portfolio from './components/Portfolio';
 import Watchlist from './components/Watchlist'
 import UserInfo from './components/UserInfo';
-import SearchStock from './components/Search';
 
 const key = process.env.STOCK_API_KEY
 const url = `https://cloud.iexapis.com/stable/stock/ibm/quote?token=pk_696f559b3cb64b788e34f7848ef884cb`
@@ -65,12 +64,7 @@ function App() {
         dbData = {dbData}
         updateDbData={updateDbData}
         deleteDbData = {deleteDbData}/>} />
-        <Route path='/portfolio/search/:symbol' element={<SearchStock
-        dbData = {dbData}
-        getDbDataUser = {getDbData}
-        updateDbData={updateDbData}
-        deleteDbData={deleteDbData} />} />
-          </Routes>
+        </Routes>
     </>)}
     </>
   );
