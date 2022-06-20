@@ -6,12 +6,11 @@ import { useNavigate } from 'react-router-dom'
 
 function Stock(props) {
 
-    
     const { symbol } = useParams()
     const [dbData2, setdbData2] = useState(null)
     const [editForm, setEditForm] = useState(null)
     const [stockAPI, setstockAPI] = useState(null)
-    
+    const [message, setMessage] = useState(`Add to WatchList`)
 
     let navigate = useNavigate();
     const routeChange = () => {
@@ -106,6 +105,10 @@ function Stock(props) {
 
     // Need to add limit here
 
+    const handleClick = () => {
+        setMessage(`${stockAPI.symbol} Added to WatchList`)
+    }
+
     const addToWatchList = event => {
         event.preventDefault()
        
@@ -115,7 +118,6 @@ function Stock(props) {
         copyForm.Watch.push(temp)
         setEditForm(copyForm)
         updateDbData2(editForm, dbData2[0]._id)} else {console.log("not working")}
-
     }
 
     const handleSubmitBuy = event => {
@@ -179,8 +181,8 @@ function Stock(props) {
                     : <div>
                         <h1>{stockAPI.companyName} ({stockAPI.symbol})</h1>
                         <h3>Data updated {stockAPI.latestTime} from {stockAPI.primaryExchange}</h3>
-                        <form onSubmit={addToWatchList}>
-                            <input type="submit" className="btn btn-primary" value={`Add ${stockAPI.symbol} to WatchList`} />
+                        <form onSubmit={addToWatchList} onClick={handleClick}>
+                            <input type="submit" className="btn btn-primary" value={message} />
                         </form>
                         <div className="card-body">
                         <p>Latest Price: {stockAPI.latestPrice.toLocaleString(undefined, { style: 'currency', currency: 'USD' })}</p>

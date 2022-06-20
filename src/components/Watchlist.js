@@ -10,6 +10,7 @@ import Button from 'react-bootstrap/Button'
 function Watchlist() {
     const dbURL = 'https://safe-badlands-17521.herokuapp.com/portfolios/watchlist'
     const [dbData, setdbData] = useState(null)
+
     useEffect(() => {
         fetch(dbURL)
             .then(res => res.json())
