@@ -16,13 +16,13 @@ An app that will represent the user’s stock portfolio. The user will be able t
 
 
 ## Links
-[GitHub Repository, Front-end](https://github.com/coriocharles/P3-frontend)
+[GitHub Repository, Front-end](https://github.com/danianise/P3-frontend)
 
 [GitHub Repository, Back-end](https://github.com/danianise/p3-backend)
 
-[Heroku Deployment, Back-end](https://fathomless-taiga-48002.herokuapp.com/portfolios/)
+[Heroku Deployment, Back-end](https://safe-badlands-17521.herokuapp.com/portfolios/)
 
-[Heroku Deployment, Front-end](https://mockstockp3.herokuapp.com/portfolio)
+[Heroku Deployment, Front-end](https://peaceful-tundra-02209.herokuapp.com/portfolio)
 ## Screen Captures
 ### Portfolio
 <img width="1440" alt="Screen Shot 2022-06-03 at 11 27 09 PM" src="https://user-images.githubusercontent.com/97096664/171978780-d75e4f60-3341-4681-8622-e5b059556464.png">
