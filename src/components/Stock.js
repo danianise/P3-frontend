@@ -19,7 +19,7 @@ function Stock(props) {
         navigate(path);
     }
 
-    const dbURL = 'http://localhost:4000/portfolios/'
+    const dbURL = 'https://safe-badlands-17521.herokuapp.com/portfolios/'
     const getDbData2 = () => {
         try {fetch(dbURL)
             .then(res => res.json())
@@ -202,32 +202,40 @@ function Stock(props) {
                                         ((JSON.stringify(dbData2[0].StockHoldings.filter(stock => stock.Symbol === symbol.toUpperCase()).length) > 0) 
                                     ? ((dbData2[0].StockHoldings.filter(stock => stock.Symbol === symbol.toUpperCase())[0].Shares) * stockAPI.latestPrice).toLocaleString(undefined, { style: 'currency', currency: 'USD'  })
                                     : "0")}</p>
-
+                            </div>
+                        }
+                            <div>
                                 <form onSubmit={handleSubmitBuy}>
-                                <input
-                                                    type="text"
-                                                    value={num}
-                                                    name="name"
-                                                    placeholder="Amount"
-                                                    onChange={handleChangeNum}
-                                                />
-                                <input type="submit" className="btn btn-success" style={{backgroundColor: "#2bc20e"}} value={`Buy ${num} of ${stockAPI.symbol} for ${(stockAPI.latestPrice * num).toLocaleString(undefined, { style: 'currency', currency: 'USD' })}`} />         
+                                    <input
+                                        type="text"
+                                        value={num}
+                                        name="name"
+                                        placeholder="Amount"
+                                        onChange={handleChangeNum}
+                                    />
+                                    <input 
+                                        type="submit"
+                                        className="btn btn-success"
+                                        style={{backgroundColor: "#2bc20e"}}
+                                        value={`Buy ${num} of ${stockAPI.symbol} for ${(stockAPI.latestPrice * num).toLocaleString(undefined, { style: 'currency', currency: 'USD' })}`}
+                                    />         
                                 </form>
 
                                 <form onSubmit={handleSubmitSell}>
-                                <input
+                                    <input
                                         type="text"
                                         value={numSell}
                                         name="sell"
                                         placeholder="Amount"
                                         onChange={handleChangeNumSell}
                                     />
-                                <input type="submit" className="btn btn-danger" value={`Sell ${numSell} of ${stockAPI.symbol} for ${(stockAPI.latestPrice * numSell).toLocaleString(undefined, { style: 'currency', currency: 'USD' })}`} />
+                                    <input
+                                        type="submit"
+                                        className="btn btn-danger"
+                                        value={`Sell ${numSell} of ${stockAPI.symbol} for ${(stockAPI.latestPrice * numSell).toLocaleString(undefined, { style: 'currency', currency: 'USD' })}`}
+                                    />
                                 </form>
-                            </div>}
-
-                        
-                        
+                            </div>
                         </div>
                     </div>
             } </div>}

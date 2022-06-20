@@ -10,8 +10,8 @@ import Stock from './components/Stock';
 
 const key = process.env.STOCK_API_KEY
 const url = `https://cloud.iexapis.com/stable/stock/ibm/quote?token=pk_696f559b3cb64b788e34f7848ef884cb`
-// const dbURL = 'https://fathomless-taiga-48002.herokuapp.com/portfolios/'
-const dbURL = 'http://localhost:4000/portfolios'
+const dbURL = 'https://safe-badlands-17521.herokuapp.com/portfolios/'
+// const dbURL = 'http://localhost:4000/portfolios'
 
 function App() {
 
