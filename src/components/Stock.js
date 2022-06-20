@@ -10,7 +10,7 @@ function Stock(props) {
     const [dbData2, setdbData2] = useState(null)
     const [editForm, setEditForm] = useState(null)
     const [stockAPI, setstockAPI] = useState(null)
-    const [message, setMessage] = useState(`Add to WatchList`)
+    const [message, setMessage] = useState(`Add to Watchlist`)
 
     let navigate = useNavigate();
     const routeChange = () => {
