@@ -63,7 +63,8 @@ function Header() {
                                 as="input"
                                 type="submit"
                                 value="GO"
-                                style={{marginLeft: "5px"}} 
+                                style={{marginLeft: "5px"}}
+                                onClick={()=>setFormState(initialState)}
                             />
                         </Link>
 
