@@ -1,5 +1,5 @@
 import React from 'react'
-import { useParams, Link } from 'react-router-dom'
+import {Link} from 'react-router-dom'
 import { useEffect, useState } from 'react'
 import axios from 'axios'
 import Table from 'react-bootstrap/Table'
@@ -14,17 +14,19 @@ function Portfolio({dbData}) {
     })
     // console.log(symbols)
     let symbolStrings = symbols.join("%2C")
-    // console.log(symbolStrings)
+    console.log(symbolStrings)
     
     const options = {
         method: 'GET',
         url: `https://yfapi.net/v6/finance/quote?region=US&lang=en&symbols=${symbolStrings}`,
         headers: {
-            'x-api-key': 'bJycv9CnlPatYdKxJX3gS4k9mnRslOAL6V6Pp6v8',
+            // 'x-api-key': 'bJycv9CnlPatYdKxJX3gS4k9mnRslOAL6V6Pp6v8',
+            'x-api-key': 'clgGSRIChw7cGlN5VFWyJ4bJTQdIDodsad4glnzZ',
+            // 'x-api-key': 'SAt1ZodoG84fd4ZMP1Aq575wHne1e9ts5CUzkfLZ',
             'Content-Type': 'application/json'
         }
     };
-    
+
     useEffect(() => {
         axios.request(options).then(function (response) {
             setStockData(response.data.quoteResponse.result);
@@ -33,7 +35,7 @@ function Portfolio({dbData}) {
         })
     }, [])
 
-    // console.log(stockData)
+    console.log(stockData)
     
     const calPortfolioBalance = () => {
         let portfolioBalance = 0
@@ -63,16 +65,16 @@ function Portfolio({dbData}) {
             ? <h1>Loading</h1>
             : <div>  
                 <h5 style={{fontWeight: "bold"}}>
-                    Portfolio Balance: ${calPortfolioBalance().toLocaleString(undefined, { maximumFractionDigits: 2 })}
+                    Portfolio Balance: {calPortfolioBalance().toLocaleString(undefined, { style: 'currency', currency: 'USD' })}
                 </h5> 
                 <h6>
-                    Total Gain: $
+                    Total Gain: 
                     {calGain() > 0
                     ?   <span style={{color: '#2bc20e'}}>
-                            {calGain().toLocaleString(undefined, { maximumFractionDigits: 2 })}
+                            {calGain().toLocaleString(undefined, { style: 'currency', currency: 'USD' })}
                         </span>
                     :   <span style={{color: 'red'}}>
-                            {calGain().toLocaleString(undefined, { maximumFractionDigits: 2 })}
+                            {calGain().toLocaleString(undefined, { style: 'currency', currency: 'USD' })}
                         </span>   
                     }
                 </h6>
@@ -89,43 +91,43 @@ function Portfolio({dbData}) {
                 </tr>
             </thead>
             <tbody>
-                                {dbData ? 
-                                    dbData[0].StockHoldings.map((each, index) => {
-                                        return (
-                                            (each.Shares > 0.000000001)
-                                                ? <>
-                                                    <tr>
-                                                        <td>
-                                                            <Link to={`/portfolio/${each.Symbol}`}>
-                                                                {each.Symbol}
-                                                            </Link>
-                                                        </td>
-                                                        <td>
-                                                            {stockData[index].displayName}
-                                                        </td>
-                                                        <td>
-                                                            ${(stockData[index].regularMarketPrice * each.Shares).toLocaleString(undefined, { maximumFractionDigits: 2 })}
-                                                        </td>
-                                                        <td>
-                                                            {each.Shares}
-                                                        </td>
-                                                        <td>
-                                                            ${each.Cost.toLocaleString(undefined, { maximumFractionDigits: 2 })}
-                                                        </td>
-                                                        {stockData[index].regularMarketChangePercent > 0
-                                                            ? <td className="gain" style={{ color: 'white', background: '#2bc20e', borderRadius: '10px' }}>
-                                                                +{stockData[index].regularMarketChangePercent.toFixed(2)}%
-                                                            </td>
-                                                            : <td className="gain" style={{ color: 'white', background: 'red', borderRadius: '10px' }}>
-                                                                {stockData[index].regularMarketChangePercent.toFixed(2)}%
-                                                            </td>
-                                                        }
-                                                    </tr>
-                                                </>
-                                                : ""
-                                        )
-                                    })
-                                : ""}
+                {dbData && stockData.length > 0 ? 
+                    dbData[0].StockHoldings.map(function(each, index) {                                      
+                        return (
+                            (each.Shares > 0.000000001)
+                                ? <>
+                                    <tr>
+                                        <td>
+                                            <Link to={`/portfolio/${each.Symbol}`}>
+                                                {each.Symbol}
+                                            </Link>
+                                        </td>
+                                        <td>        
+                                            {stockData[index].shortName}
+                                        </td>
+                                        <td>
+                                            {(stockData[index].regularMarketPrice * each.Shares).toLocaleString(undefined, { style: 'currency', currency: 'USD' })}
+                                        </td>
+                                        <td>
+                                            {Math.floor(each.Shares)}
+                                        </td>
+                                        <td>
+                                            {each.Cost.toLocaleString(undefined, { style: 'currency', currency: 'USD' })}
+                                        </td>
+                                            {stockData[index].regularMarketChangePercent > 0
+                                                ? <td className="gain" style={{ color: 'white', background: '#2bc20e', borderRadius: '10px' }}>
+                                                    +{stockData[index].regularMarketChangePercent.toFixed(2)}%
+                                                </td>
+                                                : <td className="gain" style={{ color: 'white', background: 'red', borderRadius: '10px' }}>
+                                                    {stockData[index].regularMarketChangePercent.toFixed(2)}%
+                                                </td>
+                                            }
+                                    </tr>
+                                </>
+                                : ""
+                                )
+                    })
+                : ""}
                 
             </tbody>
         </Table>

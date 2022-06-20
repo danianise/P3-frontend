@@ -56,7 +56,7 @@ function Header() {
                             onChange={handleChange}
                             value={formState.symbol} 
                         />
-                        <Link to={`/portfolio/search/${formState.symbol}`}>
+                        <Link to={`/portfolio/${formState.symbol.toUpperCase()}`}>
                             <Button 
                                 variant="secondary"
                                 size="sm"
