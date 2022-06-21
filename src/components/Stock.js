@@ -167,7 +167,7 @@ function Stock(props) {
     useEffect(() =>
         componentDidMount(), [])
 
-
+    console.log(stockAPI)
 
     return (
         <>
@@ -185,12 +185,30 @@ function Stock(props) {
                             <input type="submit" className="btn btn-primary" value={message} />
                         </form>
                         <div className="card-body">
-                        <p>Latest Price: {stockAPI.latestPrice.toLocaleString(undefined, { style: 'currency', currency: 'USD' })}</p>
-                        <p>Market Open: {stockAPI.open.toLocaleString(undefined, { style: 'currency', currency: 'USD' })}</p>
-                        <p>Daily High: {stockAPI.high.toLocaleString(undefined, { style: 'currency', currency: 'USD' })}</p>
-                        <p>Daily Low: {stockAPI.low.toLocaleString(undefined, { style: 'currency', currency: 'USD' })}</p>
-                        <p>Market Close: {stockAPI.close.toLocaleString(undefined, { style: 'currency', currency: 'USD' })}</p>
-                        <p>Daily Change: {stockAPI.changePercent.toFixed(2)}%</p>
+                        <p>Latest Price: 
+                            {!stockAPI.latestPrice
+                                ? <i style={{fontSize: "small"}}>  unavailable</i>
+                                : stockAPI.latestPrice?.toLocaleString(undefined, { style: 'currency', currency: 'USD' })}</p>
+                        <p>Market Open: 
+                            {!stockAPI.open 
+                                ? <i style={{fontSize: "small"}}>  unavailable</i>
+                                : stockAPI.open?.toLocaleString(undefined, { style: 'currency', currency: 'USD' })}</p>
+                        <p>Daily High: 
+                            {!stockAPI.high
+                                ? <i style={{fontSize: "small"}}>  unavailable</i>
+                                : stockAPI.high?.toLocaleString(undefined, { style: 'currency', currency: 'USD' })}</p>
+                        <p>Daily Low: 
+                            {!stockAPI.low
+                            ? <i style={{fontSize: "small"}}>  unavailable</i>
+                            : stockAPI.low?.toLocaleString(undefined, { style: 'currency', currency: 'USD' })}</p>
+                        <p>Market Close: 
+                            {!stockAPI.close
+                            ? <i style={{fontSize: "small"}}>  unavailable</i>
+                            : stockAPI.close?.toLocaleString(undefined, { style: 'currency', currency: 'USD' })}</p>
+                        <p>Daily Change: 
+                            {!stockAPI.changePercent
+                                ? <i style={{fontSize: "small"}}>  unavailable</i>
+                                : stockAPI.changePercent?.toFixed(2)}%</p>
                         {!dbData2
                             ? null
                             : <div>
