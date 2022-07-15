@@ -21,8 +21,8 @@ function Portfolio({dbData}) {
         url: `https://yfapi.net/v6/finance/quote?region=US&lang=en&symbols=${symbolStrings}`,
         headers: {
             // 'x-api-key': 'bJycv9CnlPatYdKxJX3gS4k9mnRslOAL6V6Pp6v8',
-            'x-api-key': 'clgGSRIChw7cGlN5VFWyJ4bJTQdIDodsad4glnzZ',
-            // 'x-api-key': 'SAt1ZodoG84fd4ZMP1Aq575wHne1e9ts5CUzkfLZ',
+            // 'x-api-key': 'clgGSRIChw7cGlN5VFWyJ4bJTQdIDodsad4glnzZ',
+            'x-api-key': 'SAt1ZodoG84fd4ZMP1Aq575wHne1e9ts5CUzkfLZ',
             'Content-Type': 'application/json'
         }
     };
