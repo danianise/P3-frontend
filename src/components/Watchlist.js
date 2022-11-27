@@ -8,7 +8,7 @@ import Button from 'react-bootstrap/Button'
 
 
 function Watchlist() {
-    const dbURL = 'https://safe-badlands-17521.herokuapp.com/portfolios/watchlist'
+    const dbURL = 'https://mockstockbackend-production.up.railway.app/portfolios/watchlist'
     const [dbData, setdbData] = useState(null)
 
     useEffect(() => {
