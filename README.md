@@ -22,7 +22,7 @@ An app that will represent the user’s stock portfolio. The user will be able t
 
 [Deployment, Back-end](https://mockstockbackend-production.up.railway.app/portfolios)
 
-[Deployment, Front-end](danianisemockstock.netlify.app/portfolio)
+[Deployment, Front-end](https://danianisemockstock.netlify.app/portfolio)
 ## Screen Captures
 ### Portfolio
 <img width="1440" alt="Screen Shot 2022-06-03 at 11 27 09 PM" src="https://user-images.githubusercontent.com/97096664/171978780-d75e4f60-3341-4681-8622-e5b059556464.png">
