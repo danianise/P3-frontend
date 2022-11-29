@@ -20,9 +20,9 @@ An app that will represent the user’s stock portfolio. The user will be able t
 
 [GitHub Repository, Back-end](https://github.com/danianise/p3-backend)
 
-[Heroku Deployment, Back-end](https://safe-badlands-17521.herokuapp.com/portfolios/)
+[Deployment, Back-end](https://mockstockbackend-production.up.railway.app/portfolios)
 
-[Heroku Deployment, Front-end](https://peaceful-tundra-02209.herokuapp.com/portfolio)
+[Deployment, Front-end](https://danianisemockstock.netlify.app/portfolio)
 ## Screen Captures
 ### Portfolio
 <img width="1440" alt="Screen Shot 2022-06-03 at 11 27 09 PM" src="https://user-images.githubusercontent.com/97096664/171978780-d75e4f60-3341-4681-8622-e5b059556464.png">

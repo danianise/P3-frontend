@@ -18,7 +18,7 @@ function Stock(props) {
         navigate(path);
     }
 
-    const dbURL = 'https://safe-badlands-17521.herokuapp.com/portfolios/'
+    const dbURL = 'https://mockstockbackend-production.up.railway.app/portfolios'
     const getDbData2 = () => {
         try {fetch(dbURL)
             .then(res => res.json())
