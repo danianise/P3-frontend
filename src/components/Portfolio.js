@@ -63,7 +63,7 @@ function Portfolio({dbData}) {
             <h3>{dbData[0].Username}'s Holdings</h3><br></br>
         {
             dbData.length <= 0 || !stockData 
-            ? <h1>Loading</h1>
+            ? <><img src='underConstruction.gif' /></>
             : <div>  
                 <h5 style={{fontWeight: "bold"}}>
                     Portfolio Balance: {calPortfolioBalance().toLocaleString(undefined, { style: 'currency', currency: 'USD' })}
