@@ -23,7 +23,7 @@ function Watchlist() {
             <h3 style={{ textAlign: "center" }}>Your Stock Watchlist:</h3>
             {
                 !dbData
-                    ? <h1>Loading</h1>
+                    ? <div className="ring">Loading<span className="loadingAnimation"></span></div>
                     : <div style={{textAlign:"center"}}>
                         {dbData.map(portfolio => {
                             return (

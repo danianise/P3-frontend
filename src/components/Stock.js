@@ -177,7 +177,7 @@ function Stock(props) {
                 : <div className="card"> 
                     {
                 !(stockAPI || dbData2)
-                    ? <p>loading</p>
+                    ? <div className="ring">Loading<span className="loadingAnimation"></span></div>
                     : <div>
                         <h1>{stockAPI.companyName} ({stockAPI.symbol})</h1>
                         <h3>Data updated {stockAPI.latestTime} from {stockAPI.primaryExchange}</h3>
@@ -185,30 +185,34 @@ function Stock(props) {
                             <input type="submit" className="btn btn-primary" value={message} />
                         </form>
                         <div className="card-body">
-                        <p>Latest Price: 
+                        <p>Latest Price:&nbsp; 
                             {!stockAPI.latestPrice
                                 ? <i style={{fontSize: "small"}}>  unavailable</i>
                                 : stockAPI.latestPrice?.toLocaleString(undefined, { style: 'currency', currency: 'USD' })}</p>
-                        <p>Market Open: 
-                            {!stockAPI.open 
+                        <p>Market Open:&nbsp; 
+                            {!stockAPI.iexOpen 
                                 ? <i style={{fontSize: "small"}}>  unavailable</i>
-                                : stockAPI.open?.toLocaleString(undefined, { style: 'currency', currency: 'USD' })}</p>
-                        <p>Daily High: 
-                            {!stockAPI.high
-                                ? <i style={{fontSize: "small"}}>  unavailable</i>
-                                : stockAPI.high?.toLocaleString(undefined, { style: 'currency', currency: 'USD' })}</p>
-                        <p>Daily Low: 
-                            {!stockAPI.low
+                                : stockAPI.iexOpen?.toLocaleString(undefined, { style: 'currency', currency: 'USD' })}</p>
+                        <p>Market Close:&nbsp; 
+                            {!stockAPI.iexClose
                             ? <i style={{fontSize: "small"}}>  unavailable</i>
-                            : stockAPI.low?.toLocaleString(undefined, { style: 'currency', currency: 'USD' })}</p>
-                        <p>Market Close: 
-                            {!stockAPI.close
-                            ? <i style={{fontSize: "small"}}>  unavailable</i>
-                            : stockAPI.close?.toLocaleString(undefined, { style: 'currency', currency: 'USD' })}</p>
-                        <p>Daily Change: 
+                            : stockAPI.iexClose?.toLocaleString(undefined, { style: 'currency', currency: 'USD' })}</p>
+                        <p>Daily Change:&nbsp; 
                             {!stockAPI.changePercent
                                 ? <i style={{fontSize: "small"}}>  unavailable</i>
                                 : stockAPI.changePercent?.toFixed(2)}%</p>
+                        <p>52 Week High:&nbsp; 
+                            {!stockAPI.week52High
+                                ? <i style={{fontSize: "small"}}>  unavailable</i>
+                                : stockAPI.week52High?.toLocaleString(undefined, { style: 'currency', currency: 'USD' })}</p>
+                        <p>52 Week Low:&nbsp; 
+                            {!stockAPI.week52Low
+                            ? <i style={{fontSize: "small"}}>  unavailable</i>
+                            : stockAPI.week52Low?.toLocaleString(undefined, { style: 'currency', currency: 'USD' })}</p>
+                        <p>Year to Date Change:&nbsp; 
+                        {!stockAPI.ytdChange
+                                ? <i style={{fontSize: "small"}}>  unavailable</i>
+                                : stockAPI.ytdChange?.toFixed(2)}%</p>
                         {!dbData2
                             ? null
                             : <div>

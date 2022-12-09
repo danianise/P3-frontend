@@ -61,7 +61,7 @@ function Portfolio({dbData}) {
         {
             dbData.length <= 0 || !stockData 
             // ? <><img src='underConstruction.gif' /></>
-            ? <div className="ring">Loading<span id="loadingAnimation"></span></div>
+            ? <div className="ring">Loading<span className="loadingAnimation"></span></div>
             : <div>  
                 <h5 style={{fontWeight: "bold"}}>
                     Portfolio Balance: {calPortfolioBalance().toLocaleString(undefined, { style: 'currency', currency: 'USD' })}
