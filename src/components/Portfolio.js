@@ -20,7 +20,8 @@ function Portfolio({dbData}) {
         method: 'GET',
         url: `https://yfapi.net/v6/finance/quote?region=US&lang=en&symbols=${symbolStrings}`,
         headers: {
-            'x-api-key': 'hgDLmEg3Xh11uqVNGzx582yFpxwqMzT2lthQ1Hg0',
+            // 'x-api-key': 'hgDLmEg3Xh11uqVNGzx582yFpxwqMzT2lthQ1Hg0',
+            'x-api-key': 'J7vFmms0xn69mdfGW7sJG19Oumt00iYu6CmjK8PS',
             'Content-Type': 'application/json'
         }
     };
