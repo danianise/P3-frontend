@@ -7,11 +7,11 @@ import Portfolio from './components/Portfolio';
 import Watchlist from './components/Watchlist'
 import UserInfo from './components/UserInfo';
 import Stock from './components/Stock';
+import StockDetail from './components/StockDetail';
+import StockChart from './components/StockChart';
 
 const key = process.env.STOCK_API_KEY
 const url = `https://cloud.iexapis.com/stable/stock/ibm/quote?token=pk_696f559b3cb64b788e34f7848ef884cb`
-// const dbURL = 'https://safe-badlands-17521.herokuapp.com/portfolios/'
-// const dbURL = 'http://localhost:4000/portfolios'
 const dbURL = 'https://mockstockbackend-production.up.railway.app/portfolios'
 
 function App() {
@@ -42,7 +42,7 @@ function App() {
     })
     // Update the list
     getDbData();
-}
+  }
 
   useEffect(() => getDbData(), [])
 
@@ -54,24 +54,36 @@ function App() {
         <>
     <UserInfo data={dbData}/>
     <Routes>
-        {/* <Route path='/portfolio/:symbol' element={<Stock 
-        dbData = {dbData}
-        updateDbData={updateDbData}
-        deleteDbData = {deleteDbData} />} /> */}
-        <Route path='/portfolio' element={<Portfolio
-        dbData = {dbData}
-        updateDbData={updateDbData}
-        deleteDbData = {deleteDbData} />} />
-        <Route path='/portfolio/watchlist' element={<Watchlist
-        dbData = {dbData}
-        updateDbData={updateDbData}
-        deleteDbData = {deleteDbData}/>} />
-        <Route path='/portfolio/:symbol' element={<Stock
-        dbData = {dbData}
-        getDbDataUser = {getDbData}
-        updateDbData={updateDbData}
-        deleteDbData={deleteDbData} />} />
-          </Routes>
+
+      <Route 
+        path='/portfolio' 
+        element={
+          <Portfolio dbData = {dbData} updateDbData={updateDbData} deleteDbData = {deleteDbData} />
+        } 
+      />
+
+      <Route 
+        path='/portfolio/watchlist'
+        element={
+        <Watchlist dbData = {dbData} updateDbData={updateDbData} deleteDbData = {deleteDbData}/>
+        }
+      />
+
+      <Route
+        path='/portfolio/:symbol'
+        element={
+          <Stock dbData = {dbData} getDbDataUser = {getDbData} updateDbData={updateDbData} deleteDbData={deleteDbData} />
+        } 
+      />
+
+      <Route 
+        path='/chart' 
+        element={
+          <StockChart />
+        } 
+      />
+      
+    </Routes>
     </>)}
     </>
   );

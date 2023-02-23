@@ -271,5 +271,3 @@ function Stock(props) {
 }
 
 export default Stock
-
-
