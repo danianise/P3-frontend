@@ -1,11 +1,10 @@
 import React, {useState, useEffect} from 'react'
 import Chart from 'react-apexcharts'
-import axios from 'axios'
 
 function StockChart() {
 
-  // let testDate = new Date(1677076200 * 1000)
-  // console.log(testDate.toDateString())
+  let testDate = new Date(1677076200 * 1000)
+  console.log(testDate.toDateString())
 
   const [stockData, setStockData] = useState(null)
 
@@ -15,48 +14,64 @@ function StockChart() {
       fetch(url, {
         method: 'GET',
         headers: {
+          // 'X-API-KEY': process.env.REACT_APP_YF_X_API_KEY,
           'X-API-KEY': 'J7vFmms0xn69mdfGW7sJG19Oumt00iYu6CmjK8PS',
           'accept': 'application/json'
         }
       })
       .then(res => res.json())
       .then(data => {
-        // localStorage.setItem('stockData', data.chart)
         setStockData(data)
       })
   }, [])
   console.log(stockData)
-  // console.log(localStorage.getItem('stockData'))
-
-  // localStorage.setItem('stockData', stockData)
   
 
+  let data = []
   let categories = []
-  for(let i=0; i<9; i++){
-    let categoryDate = new Date(stockData.chart.result[0].timestamp[i] * 1000)
-    categories.push(categoryDate)
+  if(stockData){
+    for(let i=0; i<stockData.chart.result[0].timestamp.length; i++){
+      let categoryDate = (new Date(stockData.chart.result[0].timestamp[i] * 1000)).toString().substr(3,12)
+      categories.push(categoryDate)
+    
+      let dataObj = {
+        x: (new Date(stockData.chart.result[0].timestamp[i] * 1000)).toString().substr(3,12),
+        y: [
+          stockData.chart.result[0].indicators.quote[0].open[i].toFixed(2),
+          stockData.chart.result[0].indicators.quote[0].high[i].toFixed(2),
+          stockData.chart.result[0].indicators.quote[0].low[i].toFixed(2),
+          stockData.chart.result[0].indicators.quote[0].close[i].toFixed(2)]
+      }
+
+      data.push(dataObj)
+    }
+    console.log(data)
   }
-  console.log(categories)
+
+  console.log({categories})
 
   let chartData = {
     options: {
-      chart: {
-        id: 'basic-bar'
+      plotOptions: {
+        candlestick: {
+          colors: {
+            upward: '#2bc20e'
+          }
+        }
       },
-      xaxis: {
-        // categories: [1991, 1992, 1993, 1994, 1995, 1996, 1997, 1998, 1999]
-        categories: categories
-      }
+      chart: {
+        id: 'candlestick'
+      },
+      // xaxis: {
+      //   categories: categories
+      // }
     },
     series: [
       {
-        name: 'series-1',
-        data: [30, 40, 45, 50, 49, 60, 70, 91]
+        data: data
       }
     ]
   }
-
-  const [state, setState] = useState(chartData)
 
   return (
     <div className='stockChart'>
@@ -64,9 +79,10 @@ function StockChart() {
         <div className='col-4'>
         <Chart
           options={chartData.options}
-          series={state.series}
-          type='line'
-          width='500'
+          series={chartData.series}
+          type='candlestick'
+          // width='500'
+          // height='300'
         />
         </div>
       </div>
