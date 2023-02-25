@@ -3,6 +3,7 @@ import { useParams } from 'react-router-dom'
 import { useEffect, useState } from 'react'
 import axios from 'axios'
 import { useNavigate } from 'react-router-dom'
+import StockChart from './StockChart'
 
 function Stock(props) {
 
@@ -170,102 +171,114 @@ function Stock(props) {
     console.log(stockAPI)
 
     return (
-        <>
+        <div className='stockPage'>
 
             {!stockAPI
                 ? <p>No results found, please double check your Symbol!</p>
                 : <div className="card"> 
                     {
-                !(stockAPI || dbData2)
-                    ? <div className="ring">Loading<span className="loadingAnimation"></span></div>
-                    : <div>
-                        <h1>{stockAPI.companyName} ({stockAPI.symbol})</h1>
-                        <h3>Data updated {stockAPI.latestTime} from {stockAPI.primaryExchange}</h3>
-                        <form onSubmit={addToWatchList} onClick={handleClick}>
-                            <input type="submit" className="btn btn-primary" value={message} />
-                        </form>
-                        <div className="card-body">
-                        <p>Latest Price:&nbsp; 
-                            {!stockAPI.latestPrice
-                                ? <i style={{fontSize: "small"}}>  unavailable</i>
-                                : stockAPI.latestPrice?.toLocaleString(undefined, { style: 'currency', currency: 'USD' })}</p>
-                        <p>Market Open:&nbsp; 
-                            {!stockAPI.iexOpen 
-                                ? <i style={{fontSize: "small"}}>  unavailable</i>
-                                : stockAPI.iexOpen?.toLocaleString(undefined, { style: 'currency', currency: 'USD' })}</p>
-                        <p>Market Close:&nbsp; 
-                            {!stockAPI.iexClose
-                            ? <i style={{fontSize: "small"}}>  unavailable</i>
-                            : stockAPI.iexClose?.toLocaleString(undefined, { style: 'currency', currency: 'USD' })}</p>
-                        <p>Daily Change:&nbsp; 
-                            {!stockAPI.changePercent
-                                ? <i style={{fontSize: "small"}}>  unavailable</i>
-                                : stockAPI.changePercent?.toFixed(2)}%</p>
-                        <p>52 Week High:&nbsp; 
-                            {!stockAPI.week52High
-                                ? <i style={{fontSize: "small"}}>  unavailable</i>
-                                : stockAPI.week52High?.toLocaleString(undefined, { style: 'currency', currency: 'USD' })}</p>
-                        <p>52 Week Low:&nbsp; 
-                            {!stockAPI.week52Low
-                            ? <i style={{fontSize: "small"}}>  unavailable</i>
-                            : stockAPI.week52Low?.toLocaleString(undefined, { style: 'currency', currency: 'USD' })}</p>
-                        <p>Year to Date Change:&nbsp; 
-                        {!stockAPI.ytdChange
-                                ? <i style={{fontSize: "small"}}>  unavailable</i>
-                                : stockAPI.ytdChange?.toFixed(2)}%</p>
-                        {!dbData2
-                            ? null
+                        !(stockAPI || dbData2)
+                            ? <div className="ring">Loading<span className="loadingAnimation"></span></div>
                             : <div>
-                                <p style={{fontWeight: "bold"}}> Your Shares:   
-                                    {
-                                        ((JSON.stringify(dbData2[0].StockHoldings.filter(stock => stock.Symbol === symbol.toUpperCase()).length) > 0)
-                                    ? JSON.stringify(dbData2[0].StockHoldings.filter(stock => stock.Symbol === symbol.toUpperCase())[0].Shares)
-                                    : "0")}</p>
-                                <p style={{fontWeight: "bold"}}> Your holding: 
-                                    {
-                                        ((JSON.stringify(dbData2[0].StockHoldings.filter(stock => stock.Symbol === symbol.toUpperCase()).length) > 0) 
-                                    ? ((dbData2[0].StockHoldings.filter(stock => stock.Symbol === symbol.toUpperCase())[0].Shares) * stockAPI.latestPrice).toLocaleString(undefined, { style: 'currency', currency: 'USD'  })
-                                    : "0")}</p>
-                            </div>
-                        }
-                            <div>
-                                <form onSubmit={handleSubmitBuy}>
-                                    <input
-                                        type="text"
-                                        value={num}
-                                        name="name"
-                                        placeholder="Amount"
-                                        onChange={handleChangeNum}
-                                    />
-                                    <input 
-                                        type="submit"
-                                        className="btn btn-success"
-                                        style={{backgroundColor: "#2bc20e"}}
-                                        value={`Buy ${num} of ${stockAPI.symbol} for ${(stockAPI.latestPrice * num).toLocaleString(undefined, { style: 'currency', currency: 'USD' })}`}
-                                    />         
+                                <h1>{stockAPI.companyName} ({stockAPI.symbol})</h1>
+                                <h3>Data updated {stockAPI.latestTime} from {stockAPI.primaryExchange}</h3>
+                                <form onSubmit={addToWatchList} onClick={handleClick}>
+                                    <input type="submit" className="btn btn-primary" value={message} />
                                 </form>
+                                <StockChart 
+                                    id='chartSm'
+                                    width='400px'
+                                    yLabels={ {show: false} }
+                                    xLabels={ {show: false} }
+                                />
+                                <div className="card-body">
+                                <p>Latest Price:&nbsp; 
+                                    {!stockAPI.latestPrice
+                                        ? <i style={{fontSize: "small"}}>  unavailable</i>
+                                        : stockAPI.latestPrice?.toLocaleString(undefined, { style: 'currency', currency: 'USD' })}</p>
+                                <p>Market Open:&nbsp; 
+                                    {!stockAPI.iexOpen 
+                                        ? <i style={{fontSize: "small"}}>  unavailable</i>
+                                        : stockAPI.iexOpen?.toLocaleString(undefined, { style: 'currency', currency: 'USD' })}</p>
+                                <p>Market Close:&nbsp; 
+                                    {!stockAPI.iexClose
+                                    ? <i style={{fontSize: "small"}}>  unavailable</i>
+                                    : stockAPI.iexClose?.toLocaleString(undefined, { style: 'currency', currency: 'USD' })}</p>
+                                <p>Daily Change:&nbsp; 
+                                    {!stockAPI.changePercent
+                                        ? <i style={{fontSize: "small"}}>  unavailable</i>
+                                        : stockAPI.changePercent?.toFixed(2)}%</p>
+                                <p>52 Week High:&nbsp; 
+                                    {!stockAPI.week52High
+                                        ? <i style={{fontSize: "small"}}>  unavailable</i>
+                                        : stockAPI.week52High?.toLocaleString(undefined, { style: 'currency', currency: 'USD' })}</p>
+                                <p>52 Week Low:&nbsp; 
+                                    {!stockAPI.week52Low
+                                    ? <i style={{fontSize: "small"}}>  unavailable</i>
+                                    : stockAPI.week52Low?.toLocaleString(undefined, { style: 'currency', currency: 'USD' })}</p>
+                                <p>Year to Date Change:&nbsp; 
+                                {!stockAPI.ytdChange
+                                        ? <i style={{fontSize: "small"}}>  unavailable</i>
+                                        : stockAPI.ytdChange?.toFixed(2)}%</p>
+                                {!dbData2
+                                    ? null
+                                    : <div>
+                                        <p style={{fontWeight: "bold"}}> Your Shares:   
+                                            {
+                                                ((JSON.stringify(dbData2[0].StockHoldings.filter(stock => stock.Symbol === symbol.toUpperCase()).length) > 0)
+                                            ? JSON.stringify(dbData2[0].StockHoldings.filter(stock => stock.Symbol === symbol.toUpperCase())[0].Shares)
+                                            : "0")}</p>
+                                        <p style={{fontWeight: "bold"}}> Your holding: 
+                                            {
+                                                ((JSON.stringify(dbData2[0].StockHoldings.filter(stock => stock.Symbol === symbol.toUpperCase()).length) > 0) 
+                                            ? ((dbData2[0].StockHoldings.filter(stock => stock.Symbol === symbol.toUpperCase())[0].Shares) * stockAPI.latestPrice).toLocaleString(undefined, { style: 'currency', currency: 'USD'  })
+                                            : "0")}</p>
+                                    </div>
+                                }
+                                    <div>
+                                        <form onSubmit={handleSubmitBuy}>
+                                            <input
+                                                type="text"
+                                                value={num}
+                                                name="name"
+                                                placeholder="Amount"
+                                                onChange={handleChangeNum}
+                                            />
+                                            <input 
+                                                type="submit"
+                                                className="btn btn-success"
+                                                style={{backgroundColor: "#2bc20e"}}
+                                                value={`Buy ${num} of ${stockAPI.symbol} for ${(stockAPI.latestPrice * num).toLocaleString(undefined, { style: 'currency', currency: 'USD' })}`}
+                                            />         
+                                        </form>
 
-                                <form onSubmit={handleSubmitSell}>
-                                    <input
-                                        type="text"
-                                        value={numSell}
-                                        name="sell"
-                                        placeholder="Amount"
-                                        onChange={handleChangeNumSell}
-                                    />
-                                    <input
-                                        type="submit"
-                                        className="btn btn-danger"
-                                        value={`Sell ${numSell} of ${stockAPI.symbol} for ${(stockAPI.latestPrice * numSell).toLocaleString(undefined, { style: 'currency', currency: 'USD' })}`}
-                                    />
-                                </form>
+                                        <form onSubmit={handleSubmitSell}>
+                                            <input
+                                                type="text"
+                                                value={numSell}
+                                                name="sell"
+                                                placeholder="Amount"
+                                                onChange={handleChangeNumSell}
+                                            />
+                                            <input
+                                                type="submit"
+                                                className="btn btn-danger"
+                                                value={`Sell ${numSell} of ${stockAPI.symbol} for ${(stockAPI.latestPrice * numSell).toLocaleString(undefined, { style: 'currency', currency: 'USD' })}`}
+                                            />
+                                        </form>
+                                    </div>
+                                </div>
                             </div>
-                        </div>
-                    </div>
-            } </div>}
+                    } 
+                        <StockChart
+                            id='chartLg'
+                            width='800%'
+                            yLabels={ {formatter: function(value){return "$" + value}} }
+                            xLabels={ {formatter: function(value){return value}} }
+                        />
+            </div>}
             
-            
-        </>
+        </div>
 
     )
 }

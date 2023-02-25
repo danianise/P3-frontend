@@ -1,5 +1,5 @@
 .App {
-  text-align: center;
+  overflow: scroll !important;
 }
 
 .Headercustom {
@@ -226,4 +226,36 @@ only screen and (max-width: 760px),
   text-decoration: none;
 }
 
+.card-body {
+  width: fit-content;
+}
 
+.card{
+  display: flex !important;
+  flex-direction: row !important;
+  align-items: end !important;
+  overflow: visible !important;
+  width:98%;
+  margin: 10px;
+  padding: 10px;
+}
+
+#chartSm {
+  display: none;
+}
+
+
+@media screen and (max-width:1220px) {
+  .card {
+    flex-direction: column !important;
+    align-items: unset !important;
+  }
+
+  #chartLg {
+    display: none !important;
+  }
+
+  #chartSm {
+    display: block;
+  }
+}

@@ -21,13 +21,10 @@ function Header() {
         console.log(formState);
         // clear the form
         setFormState(initialState);
-        // fetch(`https://cloud.iexapis.com/stable/stock/${formState}/quote?token=pk_696f559b3cb64b788e34f7848ef884cb`)
-        //     .then(res => res.json())
-        //     .then()
     };
 
     return (
-        <div style={{backgroundImage: "url(https://i.imgur.com/MfcSGXF.png)"}}>
+        <div className='header' style={{backgroundImage: "url(https://i.imgur.com/MfcSGXF.png)"}}>
             <Navbar variant="light">
             <Button 
                 href='/portfolio' 

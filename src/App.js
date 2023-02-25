@@ -10,7 +10,7 @@ import Stock from './components/Stock';
 import StockDetail from './components/StockDetail';
 import StockChart from './components/StockChart';
 
-const key = process.env.STOCK_API_KEY
+const key = process.env.REACT_APP_YF_X_API_KEY
 const url = `https://cloud.iexapis.com/stable/stock/ibm/quote?token=pk_696f559b3cb64b788e34f7848ef884cb`
 const dbURL = 'https://mockstockbackend-production.up.railway.app/portfolios'
 
@@ -48,7 +48,7 @@ function App() {
 
 
   return (
-    <>
+    <div className='App'>
       {window.location.pathname !== "/portfolio/search/:symbol" ? <Header /> : null}
       {dbData.length > 0 && (
         <>
@@ -85,7 +85,7 @@ function App() {
       
     </Routes>
     </>)}
-    </>
+    </div>
   );
 }
 
