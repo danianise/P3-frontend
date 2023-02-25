@@ -200,6 +200,7 @@ function StockChart(props) {
       .then(data => {
         setStockData(data)
       })
+      
       // setStockData(hardcodeStockData)
   }, [])
   
