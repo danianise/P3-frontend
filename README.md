@@ -1,5 +1,5 @@
 # Mock Stock
-## Overview
+
 A representation of the user’s stock portfolio. The user will be able to see stock holdings, portfolio balance, stock-specific information, and be able to search for current stock data. The app will have full CRUD capabilities in that the user can add new stocks upon purchase, see their portfolio information, update their portfolio upon change to holdings (buy/sell in part), and delete stocks upon sale. 
 
 ## Technologies used:
