@@ -3,6 +3,8 @@ import {Link} from 'react-router-dom'
 import { useEffect, useState } from 'react'
 import axios from 'axios'
 import Table from 'react-bootstrap/Table'
+import StockChart from './StockChart';
+import Stock from './Stock'
 
 function Portfolio({dbData}) {
     // console.log({ dbData })
@@ -20,7 +22,8 @@ function Portfolio({dbData}) {
         method: 'GET',
         url: `https://yfapi.net/v6/finance/quote?region=US&lang=en&symbols=${symbolStrings}`,
         headers: {
-            'x-api-key': process.env.REACT_APP_YF_X_API_KEY,
+            // 'x-api-key': process.env.REACT_APP_YF_X_API_KEY,
+            'x-api-key': process.env.REACT_APP_YF_BACKUP_KEY2,
             'Content-Type': 'application/json'
         }
     };
@@ -78,7 +81,7 @@ function Portfolio({dbData}) {
                     }
                 </h6>
                     
-        <Table striped bordered hover responsive>
+        <Table striped hover bordered responsive id='portfolioTable'>
             <thead>
                 <tr>
                     <th></th>
@@ -87,6 +90,7 @@ function Portfolio({dbData}) {
                     <th>Shares</th>
                     <th>Cost</th>
                     <th></th>
+                    {/* <th></th> */}
                 </tr>
             </thead>
             <tbody>
@@ -121,6 +125,22 @@ function Portfolio({dbData}) {
                                                     {stockData[index].regularMarketChangePercent.toFixed(2)}%
                                                 </td>
                                             }
+                                        {/* <td>
+                                        <StockChart
+                                            id='chartThumbnail'
+                                            type='line'
+                                            plotOptions={{
+                                                fill:{
+                                                    colors: ['#2bc20e']
+                                                } 
+                                            }}
+                                            symbol='aapl'
+                                            width='200%'
+                                            yLabels={ {show: false} }
+                                            xLabels={ {show: false} }
+                                            showAxis='false'
+                                        /> 
+                                        </td> */}
                                     </tr>
                                 </>
                                 : ""

@@ -16,14 +16,48 @@ function StockDetail({dbData, getDbDataUser, updateDbData, deleteDbData}) {
     const apiURL = `https://cloud.iexapis.com/stable/stock/${symbol}/quote?token=pk_d9852d149e8045839e4b9a57c023b057`
     const mongoURL = 'https://mockstockbackend-production.up.railway.app/portfolios'
 
-    const getDbDataEdit = () => {
-            fetch(mongoURL)
-            .then(res => res.json())
-            .then(data => setEditForm(data[0]))
+    const initialState = {
+        "buy": 0,
+        "sell": 0
+    }
+    const [formState, setFormState] = useState(initialState)
+
+    const handleChange = event => {
+        setFormState({...formState, [event.target.id]: event.target.value})
+    }
+    
+    const handleSubmitBuy = event => {
+        event.preventDefault()
+
+        const options= {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(formState)
+        }
+
+        fetch(mongoURL, options)
+            .then(res=>res.json())
+            .then(data=>console.log({data}))
+
+        setFormState(initialState)
     }
 
+    const handleSubmitSell = event => {
+        event.preventDefault()
+
+        setFormState(initialState)
+    }
+
+    // const getDbDataEdit = () => {
+    //         fetch(mongoURL)
+    //         .then(res => res.json())
+    //         .then(data => setEditForm(data[0]))
+    // }
+
     useEffect(() => {
-        getDbDataEdit()
+        // getDbDataEdit()
 
         fetch(mongoURL)
         .then(res => res.json())
@@ -36,22 +70,22 @@ function StockDetail({dbData, getDbDataUser, updateDbData, deleteDbData}) {
         fetch(apiURL)
         .then(res => res.json())
         .then(data => setApiData(data))
-    }, [editForm])
+    }, [mongoDbData])
 
-    const handleChangeNum = event => {
-        console.log(event.target.value)
-        let max = editForm.CashBalance / apiData.latestPrice
-        setNum(Math.min(event.target.value, max))
-    }
+    // const handleChangeNum = event => {
+    //     console.log(event.target.value)
+    //     let max = editForm.CashBalance / apiData.latestPrice
+    //     setNum(Math.min(event.target.value, max))
+    // }
 
-    const handleChangeNumSell = event => {
-        console.log(event.target.value)
-        if ((JSON.stringify(mongoDbData[0].StockHoldings.filter(stock => stock.Symbol === symbol.toUpperCase()).length) > 0)) {
-        let max = editForm.StockHoldings.filter(x => x.Symbol === symbol.toUpperCase())[0].Shares
-        setNumSell(Math.min(event.target.value, max))} else {
-            setNumSell(0)
-        }
-    }
+    // const handleChangeNumSell = event => {
+    //     console.log(event.target.value)
+    //     if ((JSON.stringify(mongoDbData[0].StockHoldings.filter(stock => stock.Symbol === symbol.toUpperCase()).length) > 0)) {
+    //     let max = editForm.StockHoldings.filter(x => x.Symbol === symbol.toUpperCase())[0].Shares
+    //     setNumSell(Math.min(event.target.value, max))} else {
+    //         setNumSell(0)
+    //     }
+    // }
 
     const handleClick = () => {
         setMessage(`${apiData.symbol} Added to WatchList`)
@@ -68,51 +102,51 @@ function StockDetail({dbData, getDbDataUser, updateDbData, deleteDbData}) {
         updateDbData(editForm, mongoDbData[0]._id)} else {console.log("not working")}
     }
 
-    const handleSubmitBuy = event => {
-        event.preventDefault()
-        let copyForm = editForm;
-        if (copyForm.CashBalance >= (num * apiData.latestPrice)) {
-            copyForm.CashBalance -= num * apiData.latestPrice
-            copyForm.PortfolioBalance += num * apiData.latestPrice
-            if ((JSON.stringify(mongoDbData[0].StockHoldings.filter(stock => stock.Symbol === symbol.toUpperCase()).length) > 0)) {
-            copyForm.StockHoldings.filter(x => x.Symbol === symbol.toUpperCase())[0].Shares += num
-            copyForm.StockHoldings.filter(x => x.Symbol === symbol.toUpperCase())[0].Cost += num * apiData.latestPrice
-            setEditForm(copyForm)
-            updateDbData(editForm, mongoDbData[0]._id)
-            setNum(0)
-                getDbDataUser()
-                getDbDataEdit()
-            } else {
-                let temp = {Symbol: symbol.toUpperCase(), Shares: num, Cost: num * apiData.latestPrice }
-                copyForm.StockHoldings.push(temp)
-                setEditForm(copyForm)
-                updateDbData(editForm, mongoDbData[0]._id)
-                setNum(0)
-                getDbDataUser()
+    // const handleSubmitBuy = event => {
+    //     event.preventDefault()
+    //     let copyForm = editForm;
+    //     if (copyForm.CashBalance >= (num * apiData.latestPrice)) {
+    //         copyForm.CashBalance -= num * apiData.latestPrice
+    //         copyForm.PortfolioBalance += num * apiData.latestPrice
+    //         if ((JSON.stringify(mongoDbData[0].StockHoldings.filter(stock => stock.Symbol === symbol.toUpperCase()).length) > 0)) {
+    //         copyForm.StockHoldings.filter(x => x.Symbol === symbol.toUpperCase())[0].Shares += num
+    //         copyForm.StockHoldings.filter(x => x.Symbol === symbol.toUpperCase())[0].Cost += num * apiData.latestPrice
+    //         setEditForm(copyForm)
+    //         updateDbData(editForm, mongoDbData[0]._id)
+    //         setNum(0)
+    //             getDbDataUser()
+    //             getDbDataEdit()
+    //         } else {
+    //             let temp = {Symbol: symbol.toUpperCase(), Shares: num, Cost: num * apiData.latestPrice }
+    //             copyForm.StockHoldings.push(temp)
+    //             setEditForm(copyForm)
+    //             updateDbData(editForm, mongoDbData[0]._id)
+    //             setNum(0)
+    //             getDbDataUser()
 
-                getDbDataEdit()
-            }
-        } else { console.log("not enough cash") }
-    }
+    //             getDbDataEdit()
+    //         }
+    //     } else { console.log("not enough cash") }
+    // }
 
-    const handleSubmitSell = event => {
-        event.preventDefault()
-        let copyForm = editForm;
-        if (copyForm.StockHoldings.filter(x => x.Symbol === symbol.toUpperCase())[0].Shares >= (num)) {
-            copyForm.CashBalance += numSell * apiData.latestPrice
-            copyForm.StockHoldings.filter(x => x.Symbol === symbol.toUpperCase())[0].Shares -= numSell
-            copyForm.StockHoldings.filter(x => x.Symbol === symbol.toUpperCase())[0].Cost -= numSell * apiData.latestPrice
-            setEditForm(copyForm)
-            updateDbData(editForm, mongoDbData[0]._id)
-            setNumSell(0)
-            fetch(mongoURL)
-            .then(res => res.json)
-            .then(data => setMongoDbData(data))
+    // const handleSubmitSell = event => {
+    //     event.preventDefault()
+    //     let copyForm = editForm;
+    //     if (copyForm.StockHoldings.filter(x => x.Symbol === symbol.toUpperCase())[0].Shares >= (num)) {
+    //         copyForm.CashBalance += numSell * apiData.latestPrice
+    //         copyForm.StockHoldings.filter(x => x.Symbol === symbol.toUpperCase())[0].Shares -= numSell
+    //         copyForm.StockHoldings.filter(x => x.Symbol === symbol.toUpperCase())[0].Cost -= numSell * apiData.latestPrice
+    //         setEditForm(copyForm)
+    //         updateDbData(editForm, mongoDbData[0]._id)
+    //         setNumSell(0)
+    //         fetch(mongoURL)
+    //         .then(res => res.json)
+    //         .then(data => setMongoDbData(data))
 
-            getDbDataEdit()
-            getDbDataUser()
-        } else { console.log("not enough stock") }
-    }
+    //         getDbDataEdit()
+    //         getDbDataUser()
+    //     } else { console.log("not enough stock") }
+    // }
 
     return (
         <>
@@ -188,32 +222,30 @@ function StockDetail({dbData, getDbDataUser, updateDbData, deleteDbData}) {
                         }
                             <div>
                                 <form 
-                                    onSubmit={handleSubmitBuy}
+                                    // onSubmit={handleSubmitBuy}
                                 >
                                     <input
+                                        id="buy"
                                         type="text"
-                                        value={num}
-                                        name="name"
-                                        placeholder="Amount"
-                                        onChange={handleChangeNum}
+                                        value={formState.buy}
+                                        onChange={handleChange}
                                     />
                                     <input 
                                         type="submit"
                                         className="btn btn-success"
                                         style={{backgroundColor: "#2bc20e"}}
-                                        value={`Buy ${num} of ${apiData.symbol} for ${(apiData.latestPrice * num).toLocaleString(undefined, { style: 'currency', currency: 'USD' })}`}
+                                        value={`Buy ${formState.buy} of ${apiData.symbol} for ${(apiData.latestPrice * num).toLocaleString(undefined, { style: 'currency', currency: 'USD' })}`}
                                     />         
                                 </form>
 
                                 <form 
-                                    onSubmit={handleSubmitSell}
+                                    // onSubmit={handleSubmitSell}
                                 >
                                     <input
+                                        id="sell"
                                         type="text"
-                                        value={numSell}
-                                        name="sell"
-                                        placeholder="Amount"
-                                        onChange={handleChangeNumSell}
+                                        value={formState.sell}
+                                        // onChange={handleChangeNumSell}
                                     />
                                     <input
                                         type="submit"

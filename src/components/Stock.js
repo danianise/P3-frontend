@@ -187,6 +187,14 @@ function Stock(props) {
                                 </form>
                                 <StockChart 
                                     id='chartSm'
+                                    type='candlestick'
+                                    plotOptions={{
+                                        candlestick: {
+                                        colors: {
+                                            upward: '#2bc20e'
+                                        }
+                                        }
+                                    }}
                                     width='400px'
                                     yLabels={ {show: false} }
                                     xLabels={ {show: false} }
@@ -272,6 +280,14 @@ function Stock(props) {
                     } 
                         <StockChart
                             id='chartLg'
+                            type='candlestick'
+                            plotOptions={{
+                                candlestick: {
+                                  colors: {
+                                    upward: '#2bc20e'
+                                  }
+                                }
+                              }}
                             width='800%'
                             yLabels={ {formatter: function(value){return "$" + value}} }
                             xLabels={ {formatter: function(value){return value}} }

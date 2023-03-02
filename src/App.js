@@ -79,8 +79,26 @@ function App() {
       <Route 
         path='/chart' 
         element={
-          <StockChart />
+          <StockChart
+            id='chartThumbnail'
+            type='line'
+            plotOptions={{
+                line: {
+                  colors: ['#2bc20e'],
+                }
+            }}
+            symbol='aapl'
+            width='50%'
+            yLabels={ {show: false} }
+            xLabels={ {show: false} }
+            showAxis='false'
+          /> 
         } 
+      />
+
+      <Route 
+        path='/stock/:symbol'
+        element={<StockDetail/>}
       />
       
     </Routes>

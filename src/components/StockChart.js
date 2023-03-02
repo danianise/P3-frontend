@@ -179,20 +179,24 @@ function StockChart(props) {
   }
 
   let params = useParams()
-  console.log(params.symbol)
+  console.log({props})
+  let symbol = ""
+  !params.symbol ? symbol=props.symbol : symbol=params.symbol
+  console.log({symbol})
 
   // let testDate = new Date(1677076200 * 1000)
   // console.log(testDate.toDateString())
 
   const [stockData, setStockData] = useState(null)
 
-  let url = `https://yfapi.net/v8/finance/chart/${params.symbol}?range=1y&region=US&interval=1mo&lang=en`
+  let url = `https://yfapi.net/v8/finance/chart/${symbol}?range=1y&region=US&interval=1mo&lang=en`
    
   useEffect(() => {
       fetch(url, {
         method: 'GET',
         headers: {
-          'X-API-KEY': process.env.REACT_APP_YF_X_API_KEY,
+          // 'X-API-KEY': process.env.REACT_APP_YF_X_API_KEY,
+          'X-API-KEY': process.env.REACT_APP_YF_BACKUP_KEY2,
           'accept': 'application/json'
         }
       })
@@ -232,20 +236,23 @@ function StockChart(props) {
 
   let chartData = {
     options: {
-      plotOptions: {
-        candlestick: {
-          colors: {
-            upward: '#2bc20e'
-          }
-        }
-      },
+      plotOptions: props.plotOptions,
+      // {  
+        // candlestick: {
+        //   colors: {
+        //     upward: '#2bc20e'
+        //   }
+        // }
+      // },
       chart: {
         id: 'candlestick'
       },
       yaxis: {
+        // show: props.showAxis,
         labels: props.yLabels,
       },
       xaxis: {
+        // show: props.showAxis,
         labels: props.xLabels
       }
     },
@@ -280,7 +287,7 @@ function StockChart(props) {
         <Chart
           options={chartData.options}
           series={chartData.series}
-          type='candlestick'
+          type={props.type}
           width={props.width}
           // height='300'
         />
