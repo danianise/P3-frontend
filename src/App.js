@@ -9,6 +9,7 @@ import UserInfo from './components/UserInfo';
 import Stock from './components/Stock';
 import StockDetail from './components/StockDetail';
 import StockChart from './components/StockChart';
+import Ticker from './components/Ticker';
 
 const key = process.env.REACT_APP_YF_X_API_KEY
 const url = `https://cloud.iexapis.com/stable/stock/ibm/quote?token=pk_696f559b3cb64b788e34f7848ef884cb`
@@ -76,7 +77,7 @@ function App() {
         } 
       />
 
-      <Route 
+      {/* <Route 
         path='/chart' 
         element={
           <StockChart
@@ -94,11 +95,16 @@ function App() {
             showAxis='false'
           /> 
         } 
-      />
+      /> */}
 
       <Route 
         path='/stock/:symbol'
         element={<StockDetail/>}
+      />
+
+      <Route
+        path='/ticker'
+        element={<Ticker mongoData={dbData}/>}
       />
       
     </Routes>
