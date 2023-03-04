@@ -5,8 +5,9 @@ import Navbar from 'react-bootstrap/Navbar'
 import Nav from 'react-bootstrap/Nav'
 import Button from 'react-bootstrap/Button'
 import Form from 'react-bootstrap/Form'
+import Ticker from './Ticker'
 
-function Header() {
+function Header(props) {
     const initialState = { symbol: ''};
     const [formState, setFormState] = useState(initialState);
     const [resultData, setResultData] = useState(null)
@@ -74,6 +75,7 @@ function Header() {
                 </Form>
             </Nav>
         </Navbar>
+        
         </div>
     )
 }

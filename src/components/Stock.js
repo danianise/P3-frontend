@@ -174,7 +174,6 @@ function Stock(props) {
 
     return (
         <div className='stockPage'>
-            <Ticker mongoData={props.dbData}/>
             <UserInfo data={props.dbData}/>
 
             {!stockAPI

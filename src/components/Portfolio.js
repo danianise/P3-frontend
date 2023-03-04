@@ -61,8 +61,6 @@ function Portfolio({dbData}) {
     
     return (
       <div className="main">
-            {/* <h3>{dbData[0].Username}'s Holdings</h3> */}
-            <Ticker mongoData={dbData}/>
             <br></br>
         {
             dbData.length <= 0 || !stockData 
@@ -143,6 +141,9 @@ function Portfolio({dbData}) {
                                             xLabels={ {show: false} }
                                             showAxis='false'
                                         /> 
+                                        </td> */}
+                                        {/* <td>
+                                            <canvas role='img' height='34' width='140' style='display: block; box-sizing: border-box; height: 34px; width: 140px;'></canvas>
                                         </td> */}
                                     </tr>
                                 </>

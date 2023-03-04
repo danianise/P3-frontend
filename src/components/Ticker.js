@@ -40,6 +40,7 @@ function Ticker(props) {
 
   return (
     <div className='ticker'>
+        
             <marquee>
                 {/* {tickerDataCondensed} */}
                 {tickerDataCondensed.map((each) => {
@@ -64,6 +65,7 @@ function Ticker(props) {
                             </>
                         )
                 })}
+                
             </marquee>
     </div>
   )
