@@ -3,11 +3,12 @@ import {Link} from 'react-router-dom'
 import { useEffect, useState } from 'react'
 import axios from 'axios'
 import Table from 'react-bootstrap/Table'
+import Ticker from './Ticker'
 import StockChart from './StockChart';
 import Stock from './Stock'
 
 function Portfolio({dbData}) {
-    // console.log({ dbData })
+    console.log({ dbData })
     const [stockData, setStockData] = useState(null)
     
     let symbols = []
@@ -61,6 +62,7 @@ function Portfolio({dbData}) {
     return (
       <div className="main">
             {/* <h3>{dbData[0].Username}'s Holdings</h3> */}
+            <Ticker mongoData={dbData}/>
             <br></br>
         {
             dbData.length <= 0 || !stockData 

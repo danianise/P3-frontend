@@ -5,6 +5,7 @@ import axios from 'axios'
 import { useNavigate } from 'react-router-dom'
 import StockChart from './StockChart'
 import UserInfo from './UserInfo'
+import Ticker from './Ticker'
 
 function Stock(props) {
 
@@ -173,6 +174,7 @@ function Stock(props) {
 
     return (
         <div className='stockPage'>
+            <Ticker mongoData={props.dbData}/>
             <UserInfo data={props.dbData}/>
 
             {!stockAPI

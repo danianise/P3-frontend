@@ -53,8 +53,6 @@ function App() {
       {window.location.pathname !== "/portfolio/search/:symbol" ? <Header /> : null}
       {dbData.length > 0 && (
         <>
-    
-    <Ticker mongoData={dbData}/>
     <Routes>
 
       <Route 
