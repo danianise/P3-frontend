@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react'
 import axios from 'axios'
 import { useNavigate } from 'react-router-dom'
 import StockChart from './StockChart'
+import UserInfo from './UserInfo'
 
 function Stock(props) {
 
@@ -172,6 +173,7 @@ function Stock(props) {
 
     return (
         <div className='stockPage'>
+            <UserInfo data={props.dbData}/>
 
             {!stockAPI
                 ? <p>No results found, please double check your Symbol!</p>

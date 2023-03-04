@@ -1,4 +1,5 @@
 import React, {useState, useEffect} from 'react'
+import {BiDownArrow, BiUpArrow} from 'react-icons/bi'
 
 function Ticker(props) {
     const [tickerData, setTickerData] = useState([])
@@ -25,15 +26,44 @@ function Ticker(props) {
     let tickerDataCondensed = []
 
     tickerData && tickerData.map((each)=>{
-        tickerDataCondensed.push(`${each.symbol}: ${each.iexVolume} @ $${each.latestPrice.toFixed(2)} ^ ${each.change}`)
-        console.log(tickerDataCondensed.toString())
+        // tickerDataCondensed.push(`${each.symbol}: ${each.iexVolume} @ $${each.latestPrice.toFixed(2)} ^ ${each.change}`)
+        // console.log(tickerDataCondensed.toString())
+        tickerDataCondensed.push(
+        {
+            symbol: each.symbol,
+            volume: each.iexVolume,
+            latestPrice: each.latestPrice.toFixed(2),
+            change: each.change
+        }
+      )
     })
 
   return (
-    <div>
-        <h1>Ticker Component</h1>
+    <div className='ticker'>
             <marquee>
-                {tickerDataCondensed.toString()}
+                {/* {tickerDataCondensed} */}
+                {tickerDataCondensed.map((each) => {
+                        return(
+                            <>
+                            {each.change < 0
+                            ? <span className='negative'>
+                                    <span id='tickerSymbol'>{each.symbol} </span>
+                                    <span id='tickerVolume'>{each.volume} </span>@
+                                    <span id='tickerPrice'> ${each.latestPrice} </span>
+                                    <span id='tickerDownArrow'><BiDownArrow/></span>
+                                    <span id='tickerChange'>{each.change}  </span>
+                                </span>
+                            : <span className={each.change < 0 ? 'negative' : 'positive'}>
+                                <span id='tickerSymbol'>{each.symbol} </span>
+                                <span id='tickerVolume'>{each.volume} </span>@
+                                <span id='tickerPrice'> ${each.latestPrice} </span>
+                                <span id='tickerUpArrow'><BiUpArrow/> </span>
+                                <span id='tickerChange'>{each.change}  </span>
+                            </span>
+                            }
+                            </>
+                        )
+                })}
             </marquee>
     </div>
   )

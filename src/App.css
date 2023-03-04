@@ -259,3 +259,20 @@ only screen and (max-width: 760px),
     display: block;
   }
 }
+
+.ticker {
+  font-family: 'DotGothic16', sans-serif;
+}
+
+#tickerSymbol {
+  font-size:large;
+  font-weight: bold;
+}
+
+.negative{
+  color: red;
+}
+
+.positive{
+  color: #2bc20e;
+}

@@ -53,7 +53,8 @@ function App() {
       {window.location.pathname !== "/portfolio/search/:symbol" ? <Header /> : null}
       {dbData.length > 0 && (
         <>
-    <UserInfo data={dbData}/>
+    
+    <Ticker mongoData={dbData}/>
     <Routes>
 
       <Route 
@@ -102,10 +103,10 @@ function App() {
         element={<StockDetail/>}
       />
 
-      <Route
+      {/* <Route
         path='/ticker'
         element={<Ticker mongoData={dbData}/>}
-      />
+      /> */}
       
     </Routes>
     </>)}
