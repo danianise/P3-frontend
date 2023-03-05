@@ -24,7 +24,7 @@ function Portfolio({dbData}) {
         url: `https://yfapi.net/v6/finance/quote?region=US&lang=en&symbols=${symbolStrings}`,
         headers: {
             // 'x-api-key': process.env.REACT_APP_YF_X_API_KEY,
-            'x-api-key': process.env.REACT_APP_YF_BACKUP_KEY2,
+            'x-api-key': process.env.REACT_APP_YF_BACKUP_KEY,
             'Content-Type': 'application/json'
         }
     };

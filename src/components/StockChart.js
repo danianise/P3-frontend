@@ -196,7 +196,7 @@ function StockChart(props) {
         method: 'GET',
         headers: {
           // 'X-API-KEY': process.env.REACT_APP_YF_X_API_KEY,
-          'X-API-KEY': process.env.REACT_APP_YF_BACKUP_KEY2,
+          'X-API-KEY': process.env.REACT_APP_YF_BACKUP_KEY,
           'accept': 'application/json'
         }
       })
