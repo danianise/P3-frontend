@@ -1012,17 +1012,17 @@ function News() {
         ]
         }
 
-    // useEffect(()=>{
-    //     fetch(
-    //         `https://api.marketaux.com/v1/news/all?exchanges=NYSE&filter_entities=true&limit=10&published_after=2023-03-06T14:44&api_token=36PQEqiPTidPV5uxhLInxBVnfVCCCFM8nOf6DyYQ`
-    //     )
-    //     .then(res=>res.json())
-    //     .then(data=>{
-    //         console.log(data)
-    //         setNewsData(data)
-    //     })
-    //     console.log({newsData})
-    // }, [])
+    useEffect(()=>{
+        fetch(
+            `https://api.marketaux.com/v1/news/all?exchanges=NYSE&filter_entities=true&limit=10&published_after=2023-03-06T14:44&api_token=36PQEqiPTidPV5uxhLInxBVnfVCCCFM8nOf6DyYQ`
+        )
+        .then(res=>res.json())
+        .then(data=>{
+            console.log(data)
+            setNewsData(data)
+        })
+        console.log({newsData})
+    }, [])
 
   return (
     <div className='news'>
@@ -1036,13 +1036,13 @@ function News() {
         </Card> */}
         <Card className='newsCard'>
             <Card.Body>
-                <p style={{fontSize: 'small'}}>{hardCodeNews.data[0].source}</p>
-                <Card.Img src={hardCodeNews.data[0].image_url} />
-                <Card.Title>{hardCodeNews.data[0].title}</Card.Title>
+                <p style={{fontSize: 'small'}}>{newsData.data[0].source}</p>
+                <Card.Img src={newsData.data[0].image_url} />
+                <Card.Title>{newsData.data[0].title}</Card.Title>
                 <Card.Text>
-                    {hardCodeNews.data[0].snippet}
+                    {newsData.data[0].snippet}
                 </Card.Text>
-                <Button href={hardCodeNews.data[0].url} variant="secondary">Read More</Button>
+                <Button href={newsData.data[0].url} variant="secondary">Read More</Button>
             </Card.Body>
         </Card>
     </div>
