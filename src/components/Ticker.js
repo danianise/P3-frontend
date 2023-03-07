@@ -4,10 +4,11 @@ import {BiDownArrow, BiUpArrow} from 'react-icons/bi'
 function Ticker(props) {
     const [tickerData, setTickerData] = useState([])
 
+    // fetch stock symbols from portfolio, make array
+
     console.log(props)
     console.log(props.mongoData)
-
-    // fetch stock symbols from portfolio, make array
+    
     let symbols = []
     props.mongoData[0].StockHoldings.map(stock => {
         symbols.push(stock.Symbol)
@@ -45,11 +46,10 @@ function Ticker(props) {
       )
     })
 
-  return (
-    <div className='ticker'>
-        
+  if(props.mongoData){
+    return (
+        <div className='ticker'>
             <marquee>
-                {/* {tickerDataCondensed} */}
                 {tickerDataCondensed.map((each) => {
                         return(
                             <>
@@ -75,7 +75,8 @@ function Ticker(props) {
                 
             </marquee>
     </div>
-  )
+    )
+  }
 }
 
 export default Ticker

@@ -4,12 +4,34 @@ import { useState, useEffect } from 'react';
 import {Routes, Route} from 'react-router-dom'
 import Header from './components/Header';
 import Ticker from './components/Ticker';
+import UserInfo from './components/UserInfo';
 import Portfolio from './components/Portfolio';
 import Watchlist from './components/Watchlist';
+import Stock from './components/Stock';
 
 
 function App() {
+
+  const key = process.env.REACT_APP_YF_X_API_KEY
+  const url = `https://cloud.iexapis.com/stable/stock/ibm/quote?token=pk_696f559b3cb64b788e34f7848ef884cb`
+  const dbURL = 'https://mockstockbackend-production.up.railway.app/portfolios'
   const [mongoData, setMongoData] = useState(null)
+
+  const updateDbData = async (data, id) => {
+    await fetch(dbURL + id, {
+        method: 'put',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(data)
+    })
+  }
+
+  const deleteDbData = async id => {
+    await fetch(dbURL + id, {
+        method: 'delete',
+    })
+  }
 
   useEffect(()=>{
     fetch('https://mockstockbackend-production.up.railway.app/portfolios/')
@@ -19,11 +41,13 @@ function App() {
             setMongoData(data)
         })
   }, [])
+  console.log(mongoData)
 
   return (
     <div className='App'>
       <Header/>
-      <Ticker mongoData={mongoData}/>
+      {mongoData && <Ticker mongoData={mongoData}/>}
+      <UserInfo data={mongoData}/>
         <Routes>
 
           <Route 
@@ -40,12 +64,16 @@ function App() {
             }
           />
 
-          {/* <Route
+          <Route
             path='/portfolio/:symbol'
             element={
-              <StockDetail/>
+              <Stock
+                dbData={mongoData}
+                updateDbData={updateDbData}
+                deleteDbData={deleteDbData}
+              />
             } 
-          /> */}
+          />
 
           {/* <Route 
             path='/chart' 
