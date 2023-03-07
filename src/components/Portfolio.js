@@ -2,7 +2,7 @@ import React from 'react'
 import {Link} from 'react-router-dom'
 import { useEffect, useState, useContext } from 'react'
 import Table from 'react-bootstrap/Table'
-import Ticker from './Ticker'
+import News from './News'
 
 function Portfolio(props) {
     const [stockData, setStockData] = useState(null)
@@ -27,7 +27,7 @@ function Portfolio(props) {
                 method: 'GET',
                 headers: {
                     'Content-Type': 'application/json',
-                    'x-api-key': process.env.REACT_APP_YF_BACKUP_KEY2,
+                    'x-api-key': '035rMsHHng85urOT3x4jQE9t22lhUCS70WkpePP7',
                 }
                 }
             )
@@ -155,6 +155,7 @@ function Portfolio(props) {
                         </tbody>
                     </Table>
                 </div>
+                <News/>
             </div>
         </>)}
 }

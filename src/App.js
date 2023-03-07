@@ -8,6 +8,7 @@ import UserInfo from './components/UserInfo';
 import Portfolio from './components/Portfolio';
 import Watchlist from './components/Watchlist';
 import Stock from './components/Stock';
+import News from './components/News';
 
 
 function App() {
@@ -43,72 +44,77 @@ function App() {
   }, [])
   console.log(mongoData)
 
-  return (
-    <div className='App'>
-      <Header/>
-      {mongoData && <Ticker mongoData={mongoData}/>}
-      <UserInfo data={mongoData}/>
-        <Routes>
+  if(mongoData){
+    return (
+      <div className='App'>
+        <Header/>
+        <Ticker mongoData={mongoData}/>
+        <UserInfo data={mongoData}/>
+          <Routes>
 
-          <Route 
-            path='/portfolio' 
-            element={
-              <Portfolio dbData={mongoData}/>
-            } 
-          />
+            <Route 
+              path='/portfolio' 
+              element={
+                <Portfolio dbData={mongoData}/>
+              } 
+            />
 
-          <Route 
-            path='/portfolio/watchlist'
-            element={
-            <Watchlist dbData={mongoData}/>
-            }
-          />
+            <Route 
+              path='/portfolio/watchlist'
+              element={
+              <Watchlist dbData={mongoData}/>
+              }
+            />
 
-          <Route
-            path='/portfolio/:symbol'
-            element={
-              <Stock
-                dbData={mongoData}
-                updateDbData={updateDbData}
-                deleteDbData={deleteDbData}
-              />
-            } 
-          />
+            <Route
+              path='/portfolio/:symbol'
+              element={
+                <Stock
+                  dbData={mongoData}
+                  updateDbData={updateDbData}
+                  deleteDbData={deleteDbData}
+                />
+              } 
+            />
 
-          {/* <Route 
-            path='/chart' 
-            element={
-              <StockChart
-                id='chartThumbnail'
-                type='line'
-                plotOptions={{
-                    line: {
-                      colors: ['#2bc20e'],
-                    }
-                }}
-                symbol='aapl'
-                width='50%'
-                yLabels={ {show: false} }
-                xLabels={ {show: false} }
-                showAxis='false'
-              /> 
-            } 
-          /> */}
+            {/* <Route 
+              path='/chart' 
+              element={
+                <StockChart
+                  id='chartThumbnail'
+                  type='line'
+                  plotOptions={{
+                      line: {
+                        colors: ['#2bc20e'],
+                      }
+                  }}
+                  symbol='aapl'
+                  width='50%'
+                  yLabels={ {show: false} }
+                  xLabels={ {show: false} }
+                  showAxis='false'
+                /> 
+              } 
+            /> */}
 
-          {/* <Route 
-            path='/stock/:symbol'
-            element={<StockDetail/>}
-          /> */}
+            {/* <Route 
+              path='/stock/:symbol'
+              element={<StockDetail/>}
+            /> */}
 
-          {/* <Route
-            path='/ticker'
-            element={<Ticker mongoData={dbData}/>}
-          /> */}
-    
-        </Routes>
-        {/* )} */}
-    </div>
-  );
+            <Route
+              path='/news'
+              element={<News/>}
+            />
+
+          </Routes>
+      </div>
+    );
+  } else {
+    return(
+      <div className="ring">Loading<span className="loadingAnimation"></span></div>
+    )
+  }
 }
 
 export default App;
