@@ -5,8 +5,16 @@ function Ticker(props) {
     const [tickerData, setTickerData] = useState([])
 
     // fetch stock symbols from portfolio, make array
+
+    console.log(props)
+    console.log(props.mongoData)
+    
     let symbols = []
     props.mongoData[0].StockHoldings.map(stock => {
+        symbols.push(stock.Symbol)
+    })
+
+    props.mongoData[0].Watch.map(stock => {
         symbols.push(stock.Symbol)
     })
     console.log({symbols})
@@ -38,22 +46,21 @@ function Ticker(props) {
       )
     })
 
-  return (
-    <div className='ticker'>
-        
+  if(props.mongoData){
+    return (
+        <div className='ticker'>
             <marquee>
-                {/* {tickerDataCondensed} */}
                 {tickerDataCondensed.map((each) => {
                         return(
                             <>
                             {each.change < 0
                             ? <span className='negative'>
-                                    <span id='tickerSymbol'>{each.symbol} </span>
-                                    <span id='tickerVolume'>{each.volume} </span>@
-                                    <span id='tickerPrice'> ${each.latestPrice} </span>
-                                    <span id='tickerDownArrow'><BiDownArrow/></span>
-                                    <span id='tickerChange'>{each.change}  </span>
-                                </span>
+                                <span id='tickerSymbol'>{each.symbol} </span>
+                                <span id='tickerVolume'>{each.volume} </span>@
+                                <span id='tickerPrice'> ${each.latestPrice} </span>
+                                <span id='tickerDownArrow'><BiDownArrow/> </span>
+                                <span id='tickerChange'>{each.change}  </span>
+                            </span>
                             : <span className={each.change < 0 ? 'negative' : 'positive'}>
                                 <span id='tickerSymbol'>{each.symbol} </span>
                                 <span id='tickerVolume'>{each.volume} </span>@
@@ -68,7 +75,8 @@ function Ticker(props) {
                 
             </marquee>
     </div>
-  )
+    )
+  }
 }
 
 export default Ticker

@@ -196,12 +196,13 @@ function StockChart(props) {
         method: 'GET',
         headers: {
           // 'X-API-KEY': process.env.REACT_APP_YF_X_API_KEY,
-          'X-API-KEY': process.env.REACT_APP_YF_BACKUP_KEY,
+          'X-API-KEY': process.env.REACT_APP_YF_BACKUP_KEY2,
           'accept': 'application/json'
         }
       })
       .then(res => res.json())
       .then(data => {
+        console.log(data)
         setStockData(data)
       })
       

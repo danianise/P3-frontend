@@ -2,7 +2,7 @@ import React, {useEffect, useState} from 'react'
 import { useParams } from 'react-router-dom'
 import { useNavigate } from 'react-router-dom'
 
-function StockDetail({dbData, getDbDataUser, updateDbData, deleteDbData}) {
+function StockDetail(props) {
 
     const [mongoDbData, setMongoDbData] = useState(null)
     const [apiData, setApiData] = useState(null)
@@ -59,9 +59,10 @@ function StockDetail({dbData, getDbDataUser, updateDbData, deleteDbData}) {
     useEffect(() => {
         // getDbDataEdit()
 
-        fetch(mongoURL)
-        .then(res => res.json())
-        .then(data => setMongoDbData(data))
+        // fetch(mongoURL)
+        // .then(res => res.json())
+        // .then(data => setMongoDbData(data))
+        setMongoDbData(props.dbData)
 
         if (mongoDbData) {
             setEditForm(mongoDbData)
@@ -99,7 +100,8 @@ function StockDetail({dbData, getDbDataUser, updateDbData, deleteDbData}) {
         let temp = { Symbol: apiData.symbol.toUpperCase() }
         copyForm.Watch.push(temp)
         setEditForm(copyForm)
-        updateDbData(editForm, mongoDbData[0]._id)} else {console.log("not working")}
+        // updateDbData(editForm, mongoDbData[0]._id)} else {console.log("not working")
+        }
     }
 
     // const handleSubmitBuy = event => {

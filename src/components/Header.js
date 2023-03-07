@@ -66,7 +66,7 @@ function Header(props) {
                             />
                         </Link>
 
-          {console.log(formState.symbol)}
+          {/* {console.log(formState.symbol)} */}
 
                         {/* <Form.Text className="text-muted">
                             Enter a symbol to search for stock information.
