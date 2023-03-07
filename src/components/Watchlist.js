@@ -2,28 +2,19 @@ import React from 'react'
 import { useParams, Link } from 'react-router-dom'
 import { useEffect, useState } from 'react'
 import Button from 'react-bootstrap/Button'
+import Ticker from './Ticker'
 
 
 
-function Watchlist() {
-    const dbURL = 'https://mockstockbackend-production.up.railway.app/portfolios/watchlist'
-    const [dbData, setdbData] = useState(null)
-
-    useEffect(() => {
-        fetch(dbURL)
-            .then(res => res.json())
-            .then(data => setdbData(data))
-    }, [])
-
+function Watchlist(props) {
     return (
         <>
-            {console.log(dbData)}
-            <h3 style={{ textAlign: "center" }}>Your Stock Watchlist:</h3>
+            <h3 style={{ textAlign: "center" }}>Your Watchlist:</h3>
             {
-                !dbData
+                !props.dbData
                     ? <div className="ring">Loading<span className="loadingAnimation"></span></div>
                     : <div style={{textAlign:"center"}}>
-                        {dbData.map(portfolio => {
+                        {props.dbData.map(portfolio => {
                             return (
                                 portfolio.Watch.map(stock => {
                                     return (

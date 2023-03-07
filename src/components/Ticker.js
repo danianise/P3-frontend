@@ -4,9 +4,16 @@ import {BiDownArrow, BiUpArrow} from 'react-icons/bi'
 function Ticker(props) {
     const [tickerData, setTickerData] = useState([])
 
+    console.log(props)
+    console.log(props.mongoData)
+
     // fetch stock symbols from portfolio, make array
     let symbols = []
     props.mongoData[0].StockHoldings.map(stock => {
+        symbols.push(stock.Symbol)
+    })
+
+    props.mongoData[0].Watch.map(stock => {
         symbols.push(stock.Symbol)
     })
     console.log({symbols})
@@ -48,12 +55,12 @@ function Ticker(props) {
                             <>
                             {each.change < 0
                             ? <span className='negative'>
-                                    <span id='tickerSymbol'>{each.symbol} </span>
-                                    <span id='tickerVolume'>{each.volume} </span>@
-                                    <span id='tickerPrice'> ${each.latestPrice} </span>
-                                    <span id='tickerDownArrow'><BiDownArrow/></span>
-                                    <span id='tickerChange'>{each.change}  </span>
-                                </span>
+                                <span id='tickerSymbol'>{each.symbol} </span>
+                                <span id='tickerVolume'>{each.volume} </span>@
+                                <span id='tickerPrice'> ${each.latestPrice} </span>
+                                <span id='tickerDownArrow'><BiDownArrow/> </span>
+                                <span id='tickerChange'>{each.change}  </span>
+                            </span>
                             : <span className={each.change < 0 ? 'negative' : 'positive'}>
                                 <span id='tickerSymbol'>{each.symbol} </span>
                                 <span id='tickerVolume'>{each.volume} </span>@
