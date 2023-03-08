@@ -119,10 +119,10 @@ function Portfolio(props) {
                                                         {each.Cost.toLocaleString(undefined, { style: 'currency', currency: 'USD' })}
                                                     </td>
                                                         {stockData[index].regularMarketChangePercent > 0
-                                                            ? <td className="gain" style={{ color: 'white', background: '#2bc20e', borderRadius: '10px' }}>
+                                                            ? <td className="gain" style={{ color: '#2bc20e' }}>
                                                                 +{stockData[index].regularMarketChangePercent.toFixed(2)}%
                                                             </td>
-                                                            : <td className="gain" style={{ color: 'white', background: 'red', borderRadius: '10px' }}>
+                                                            : <td className="gain" style={{ color: 'red' }}>
                                                                 {stockData[index].regularMarketChangePercent.toFixed(2)}%
                                                             </td>
                                                         }
