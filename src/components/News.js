@@ -1024,29 +1024,31 @@ function News() {
         console.log({newsData})
     }, [])
 
-  return (
-    <div className='news'>
-        {/* <Card style={{width: '25vw'}}>
-            <Card.Title>{newsData.data[0].title}</Card.Title>
-            <Card.Body>
-                <Card.Img src={newsData.data[0].image_url}/>
-                <Card.Text>{newsData.data[0].snippet}</Card.Text>
-                <Button href={newsData.data[0].url} variant='secondary'></Button>
-            </Card.Body>
-        </Card> */}
-        <Card className='newsCard'>
-            <Card.Body>
-                <p style={{fontSize: 'small'}}>{newsData.data[0].source}</p>
-                <Card.Img src={newsData.data[0].image_url} />
-                <Card.Title>{newsData.data[0].title}</Card.Title>
-                <Card.Text>
-                    {newsData.data[0].snippet}
-                </Card.Text>
-                <Button href={newsData.data[0].url} variant="secondary">Read More</Button>
-            </Card.Body>
-        </Card>
-    </div>
-  )
+    if(newsData){
+        return (
+            <div className='news'>
+                {/* <Card style={{width: '25vw'}}>
+                    <Card.Title>{newsData.data[0].title}</Card.Title>
+                    <Card.Body>
+                        <Card.Img src={newsData.data[0].image_url}/>
+                        <Card.Text>{newsData.data[0].snippet}</Card.Text>
+                        <Button href={newsData.data[0].url} variant='secondary'></Button>
+                    </Card.Body>
+                </Card> */}
+                <Card className='newsCard'>
+                    <Card.Body>
+                        <p style={{fontSize: 'small'}}>{newsData.data[0].source}</p>
+                        <Card.Img src={newsData.data[0].image_url} />
+                        <Card.Title>{newsData.data[0].title}</Card.Title>
+                        <Card.Text>
+                            {newsData.data[0].snippet}
+                        </Card.Text>
+                        <Button href={newsData.data[0].url} variant="secondary">Read More</Button>
+                    </Card.Body>
+                </Card>
+            </div>
+        )
+    }
 }
 
 export default News
