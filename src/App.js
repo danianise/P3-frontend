@@ -46,10 +46,11 @@ function App() {
 
   if(mongoData){
     return (
-      <div className='App'>
+      <div>
         <Header/>
         <Ticker mongoData={mongoData}/>
         <UserInfo data={mongoData}/>
+          <div className='App'>
           <Routes>
 
             <Route 
@@ -108,6 +109,7 @@ function App() {
             />
 
           </Routes>
+        </div>
       </div>
     );
   } else {
