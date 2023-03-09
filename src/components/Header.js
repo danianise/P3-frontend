@@ -56,7 +56,6 @@ function Header(props) {
                                 aria-label="Search"
                                 onChange={handleChange}
                                 value={formState.symbol}
-                                style={{width:'75vw'}} 
                             />
                             <Link to={`/portfolio/${formState.symbol.toUpperCase()}`}>
                                 <Button 

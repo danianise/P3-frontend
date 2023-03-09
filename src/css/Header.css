@@ -2,6 +2,10 @@
     background-image: url('https://i.imgur.com/MfcSGXF.png')
 }
 
+.navBarSearch{
+    display: inline;
+}
+
 @media 
 only screen and (max-width: 760px),
 (min-device-width: 768px) and (max-device-width: 1024px)  {
@@ -12,5 +16,8 @@ only screen and (max-width: 760px),
 
     .navBarSearch{
         width: 90vw !important;
+    }
+    #symbol{
+        width: 75vw;
     }
 }

@@ -5,6 +5,7 @@ import Table from 'react-bootstrap/Table'
 import News from './News'
 import UserInfo from './UserInfo'
 import '../css/Portfolio.css'
+import {BiDownArrow, BiUpArrow} from 'react-icons/bi'
 
 function Portfolio(props) {
     const [stockData, setStockData] = useState(null)
@@ -76,14 +77,14 @@ function Portfolio(props) {
                         ?   <h6>
                                 Total Gain:&nbsp;
                                 <span style={{color: '#2bc20e'}}>
-                                    {calGain().toLocaleString(undefined, { style: 'currency', currency: 'USD' })}
+                                <BiUpArrow/> {calGain().toLocaleString(undefined, { style: 'currency', currency: 'USD' })}
                                     {/* {typeof(calGain())} */}
                                 </span>
                             </h6>
                         :   <h6>
                                 Total Loss:&nbsp;
                                 <span style={{color: 'red'}}>
-                                    {calGain().toLocaleString(undefined, { style: 'currency', currency: 'USD' })}
+                                <BiDownArrow/> {calGain().toLocaleString(undefined, { style: 'currency', currency: 'USD' })}
                                 </span>
                             </h6>  
                         }
@@ -126,18 +127,18 @@ function Portfolio(props) {
                                                     </td>
                                                         {stockData[index].regularMarketChangePercent > 0
                                                             ? <td className="gain percentChange" style={{ color: '#2bc20e' }}>
-                                                                +{stockData[index].regularMarketChangePercent.toFixed(2)}%
+                                                                <BiUpArrow/> {stockData[index].regularMarketChangePercent.toFixed(2)}%
                                                             </td>
                                                             : <td className="gain percentChange" style={{ color: 'red' }}>
-                                                                {stockData[index].regularMarketChangePercent.toFixed(2)}%
+                                                                <BiDownArrow/> {stockData[index].regularMarketChangePercent.toFixed(2)}% 
                                                             </td>
                                                         }
                                                         {stockData[index].regularMarketChangePercent > 0
                                                             ? <td className="gain percentChangeMedia" style={{ color: 'white', backgroundColor: '#2bc20e', borderRadius: '10px' }}>
-                                                                +{stockData[index].regularMarketChangePercent.toFixed(2)}%
+                                                                <BiUpArrow/> {stockData[index].regularMarketChangePercent.toFixed(2)}%
                                                             </td>
                                                             : <td className="gain percentChangeMedia" style={{ color: 'white', backgroundColor: 'red', borderRadius: '10px'}}>
-                                                                {stockData[index].regularMarketChangePercent.toFixed(2)}%
+                                                                <BiDownArrow /> {stockData[index].regularMarketChangePercent.toFixed(2)}%
                                                             </td>
                                                         }
                                                     {/* <td>
