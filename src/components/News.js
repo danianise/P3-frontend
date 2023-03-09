@@ -1020,10 +1020,10 @@ function News(props) {
         )
         .then(res=>res.json())
         .then(data=>{
-            console.log(data)
+            // console.log(data)
             setNewsData(data)
         })
-        console.log({newsData})
+        // console.log({newsData})
     }, [])
 
     if(newsData){

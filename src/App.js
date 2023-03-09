@@ -52,7 +52,7 @@ function App() {
       fetch(`https://cloud.iexapis.com/stable/stock/${eachSymbol}/quote?token=pk_696f559b3cb64b788e34f7848ef884cb`)
       .then (res => res.json())
       .then (data => {
-          console.log(data)
+          // console.log(data)
           tickerData.push(data)
       })
     })
