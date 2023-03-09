@@ -136,6 +136,10 @@
   display: none;
 }
 
+#chartLg{
+  margin-right: 10px;
+}
+
 
 @media screen and (max-width:1220px) {
   .card {
