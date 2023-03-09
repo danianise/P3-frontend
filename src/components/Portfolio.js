@@ -3,6 +3,7 @@ import {Link} from 'react-router-dom'
 import { useEffect, useState, useContext } from 'react'
 import Table from 'react-bootstrap/Table'
 import News from './News'
+import UserInfo from './UserInfo'
 import '../css/Portfolio.css'
 
 function Portfolio(props) {
@@ -62,6 +63,7 @@ function Portfolio(props) {
     
     if(dbData && stockData){
         return (<>
+            <UserInfo data={dbData}/>
             <div className="main">
                 <br></br>
                 <div id='newsLg'>

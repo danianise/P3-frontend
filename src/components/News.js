@@ -4,7 +4,7 @@ import Button from 'react-bootstrap/Button'
 
 function News(props) {
 
-    console.log(props.width)
+    // console.log(props.width)
 
     const [newsData, setNewsData] = useState(null)
     let hardCodeNews = {
@@ -1046,7 +1046,7 @@ function News(props) {
         } else if (props.amount === 3){
             return (<>
                 <div className='news'>
-                    <Card className='newsCard' style={{width:props.width}}>
+                    <Card className='newsCard' style={{width:props.width, height:props.width, overflowY:'scroll'}}>
                         <Card.Body>
                             <p style={{fontSize: 'small'}}>{newsData.data[0].source}</p>
                             <Card.Img src={newsData.data[0].image_url} />
@@ -1059,7 +1059,7 @@ function News(props) {
                     </Card>
                 </div>
                 <div className='news'>
-                    <Card className='newsCard' style={{width:props.width}}>
+                    <Card className='newsCard' style={{width:props.width, height:props.width, overflowY:'scroll'}}>
                         <Card.Body>
                             <p style={{fontSize: 'small'}}>{newsData.data[1].source}</p>
                             <Card.Img src={newsData.data[1].image_url} />
@@ -1072,7 +1072,7 @@ function News(props) {
                     </Card>
                 </div>
                 <div className='news'>
-                    <Card className='newsCard' style={{width:props.width}}>
+                    <Card className='newsCard' style={{width:props.width, height:props.width, overflowY:'scroll'}}>
                         <Card.Body>
                             <p style={{fontSize: 'small'}}>{newsData.data[2].source}</p>
                             <Card.Img src={newsData.data[2].image_url} />

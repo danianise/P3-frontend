@@ -74,9 +74,9 @@ function App() {
     return (
       <div>
         <Header/>
-        <Ticker tickerData={tickerData}/>
+        {tickerData && <Ticker tickerData={tickerData}/>}
         <div className='App'>
-          <UserInfo data={mongoData}/>
+          {/* <UserInfo data={mongoData}/> */}
           <Routes>
 
             <Route 
@@ -129,10 +129,10 @@ function App() {
               element={<StockDetail/>}
             /> */}
 
-            <Route
+            {/* <Route
               path='/news'
               element={<News/>}
-            />
+            /> */}
 
           </Routes>
         </div>
