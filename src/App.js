@@ -13,10 +13,12 @@ import News from './components/News';
 
 function App() {
 
-  const key = process.env.REACT_APP_YF_X_API_KEY
-  const url = `https://cloud.iexapis.com/stable/stock/ibm/quote?token=pk_696f559b3cb64b788e34f7848ef884cb`
+  // const key = process.env.REACT_APP_YF_X_API_KEY
+  // const url = `https://cloud.iexapis.com/stable/stock/ibm/quote?token=pk_696f559b3cb64b788e34f7848ef884cb`
   const dbURL = 'https://mockstockbackend-production.up.railway.app/portfolios'
   const [mongoData, setMongoData] = useState(null)
+  // let mongoData
+  const [tickerData, setTickerData] = useState([])
 
   const updateDbData = async (data, id) => {
     await fetch(dbURL + id, {
@@ -34,21 +36,45 @@ function App() {
     })
   }
 
+  const setTicker = (mongoData) => {
+
+    let symbols = []
+
+    mongoData[0].StockHoldings.map(stock => {
+      symbols.push(stock.Symbol)
+    })
+
+    mongoData[0].Watch.map(stock => {
+        symbols.push(stock.Symbol)
+    })
+
+    symbols.map((eachSymbol) => {
+      fetch(`https://cloud.iexapis.com/stable/stock/${eachSymbol}/quote?token=pk_696f559b3cb64b788e34f7848ef884cb`)
+      .then (res => res.json())
+      .then (data => {
+          console.log(data)
+          tickerData.push(data)
+      })
+    })
+  }
+
   useEffect(()=>{
     fetch('https://mockstockbackend-production.up.railway.app/portfolios/')
-        .then(res=>res.json())
-        .then(data=>{
-            console.log(data)
-            setMongoData(data)
-        })
-  }, [])
-  console.log(mongoData)
+      .then(res=>res.json())
+      .then(data=>{
+          console.log(data)
+          setMongoData(data)
+          setTicker(data)
+      })
+
+      console.log({tickerData})
+  },[])
 
   if(mongoData){
     return (
       <div>
         <Header/>
-        <Ticker mongoData={mongoData}/>
+        <Ticker tickerData={tickerData}/>
         <div className='App'>
           <UserInfo data={mongoData}/>
           <Routes>
@@ -112,10 +138,10 @@ function App() {
         </div>
       </div>
     );
-  } else {
-    return(
-      <div className="ring">Loading<span className="loadingAnimation"></span></div>
-    )
+   } else {
+     return(
+       <div className="ring">Loading<span className="loadingAnimation"></span></div>
+     )
   }
 }
 

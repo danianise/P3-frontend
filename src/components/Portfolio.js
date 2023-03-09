@@ -3,6 +3,7 @@ import {Link} from 'react-router-dom'
 import { useEffect, useState, useContext } from 'react'
 import Table from 'react-bootstrap/Table'
 import News from './News'
+import '../css/Portfolio.css'
 
 function Portfolio(props) {
     const [stockData, setStockData] = useState(null)
@@ -119,10 +120,18 @@ function Portfolio(props) {
                                                         {each.Cost.toLocaleString(undefined, { style: 'currency', currency: 'USD' })}
                                                     </td>
                                                         {stockData[index].regularMarketChangePercent > 0
-                                                            ? <td className="gain" style={{ color: '#2bc20e' }}>
+                                                            ? <td className="gain percentChange" style={{ color: '#2bc20e' }}>
                                                                 +{stockData[index].regularMarketChangePercent.toFixed(2)}%
                                                             </td>
-                                                            : <td className="gain" style={{ color: 'red' }}>
+                                                            : <td className="gain percentChange" style={{ color: 'red' }}>
+                                                                {stockData[index].regularMarketChangePercent.toFixed(2)}%
+                                                            </td>
+                                                        }
+                                                        {stockData[index].regularMarketChangePercent > 0
+                                                            ? <td className="gain percentChangeMedia" style={{ color: 'white', backgroundColor: '#2bc20e', borderRadius: '10px' }}>
+                                                                +{stockData[index].regularMarketChangePercent.toFixed(2)}%
+                                                            </td>
+                                                            : <td className="gain percentChangeMedia" style={{ color: 'white', backgroundColor: 'red', borderRadius: '10px'}}>
                                                                 {stockData[index].regularMarketChangePercent.toFixed(2)}%
                                                             </td>
                                                         }
