@@ -28,7 +28,8 @@ function Portfolio(props) {
                 method: 'GET',
                 headers: {
                     'Content-Type': 'application/json',
-                    'x-api-key': process.env.REACT_APP_YF_BACKUP_KEY2,
+                    // 'x-api-key': process.env.REACT_APP_YF_BACKUP_KEY2,
+                    'x-api-key': '8FKbB7AKgDgkk8X7mO5l5a95fAE9Cox4wmSRXPai'
                 }
                 }
             )
@@ -63,6 +64,9 @@ function Portfolio(props) {
         return (<>
             <div className="main">
                 <br></br>
+                <div id='newsLg'>
+                    <News width={'25rem'} amount={3}/>
+                </div>
                 <div>  
                     <h5 style={{fontWeight: "bold"}}>
                         Portfolio Balance: {calPortfolioBalance().toLocaleString(undefined, { style: 'currency', currency: 'USD' })}
@@ -165,10 +169,7 @@ function Portfolio(props) {
                     </Table>
                 </div>
                 <div id='newsMedia'>
-                    <News/>
-                </div>
-                <div id='newsLg'>
-                    <News width={'45rem'}/>
+                    <News amount={1}/>
                 </div>
             </div>
         </>)}

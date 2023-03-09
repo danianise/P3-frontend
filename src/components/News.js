@@ -2,9 +2,9 @@ import React, {useState, useEffect} from 'react'
 import Card from 'react-bootstrap/Card'
 import Button from 'react-bootstrap/Button'
 
-function News({width}) {
+function News(props) {
 
-    console.log(width)
+    console.log(props.width)
 
     const [newsData, setNewsData] = useState(null)
     let hardCodeNews = {
@@ -1027,29 +1027,65 @@ function News({width}) {
     }, [])
 
     if(newsData){
-        return (
-            <div className='news'>
-                {/* <Card style={{width: '25vw'}}>
-                    <Card.Title>{newsData.data[0].title}</Card.Title>
-                    <Card.Body>
-                        <Card.Img src={newsData.data[0].image_url}/>
-                        <Card.Text>{newsData.data[0].snippet}</Card.Text>
-                        <Button href={newsData.data[0].url} variant='secondary'></Button>
-                    </Card.Body>
-                </Card> */}
-                <Card className='newsCard' style={{width:width}}>
-                    <Card.Body>
-                        <p style={{fontSize: 'small'}}>{newsData.data[0].source}</p>
-                        <Card.Img src={newsData.data[0].image_url} />
-                        <Card.Title>{newsData.data[0].title}</Card.Title>
-                        <Card.Text>
-                            {newsData.data[0].snippet}
-                        </Card.Text>
-                        <Button href={newsData.data[0].url} variant="secondary">Read More</Button>
-                    </Card.Body>
-                </Card>
-            </div>
-        )
+        if(props.amount === 1){
+            return (
+                <div className='news'>
+                    <Card className='newsCard' style={{width:props.width}}>
+                        <Card.Body>
+                            <p style={{fontSize: 'small'}}>{newsData.data[0].source}</p>
+                            <Card.Img src={newsData.data[0].image_url} />
+                            <Card.Title>{newsData.data[0].title}</Card.Title>
+                            <Card.Text>
+                                {newsData.data[0].snippet}
+                            </Card.Text>
+                            <Button href={newsData.data[0].url} variant="secondary">Read More</Button>
+                        </Card.Body>
+                    </Card>
+                </div>
+            )
+        } else if (props.amount === 3){
+            return (<>
+                <div className='news'>
+                    <Card className='newsCard' style={{width:props.width}}>
+                        <Card.Body>
+                            <p style={{fontSize: 'small'}}>{newsData.data[0].source}</p>
+                            <Card.Img src={newsData.data[0].image_url} />
+                            <Card.Title>{newsData.data[0].title}</Card.Title>
+                            <Card.Text>
+                                {newsData.data[0].snippet}
+                            </Card.Text>
+                            <Button href={newsData.data[0].url} variant="secondary">Read More</Button>
+                        </Card.Body>
+                    </Card>
+                </div>
+                <div className='news'>
+                    <Card className='newsCard' style={{width:props.width}}>
+                        <Card.Body>
+                            <p style={{fontSize: 'small'}}>{newsData.data[1].source}</p>
+                            <Card.Img src={newsData.data[1].image_url} />
+                            <Card.Title>{newsData.data[1].title}</Card.Title>
+                            <Card.Text>
+                                {newsData.data[1].snippet}
+                            </Card.Text>
+                            <Button href={newsData.data[1].url} variant="secondary">Read More</Button>
+                        </Card.Body>
+                    </Card>
+                </div>
+                <div className='news'>
+                    <Card className='newsCard' style={{width:props.width}}>
+                        <Card.Body>
+                            <p style={{fontSize: 'small'}}>{newsData.data[2].source}</p>
+                            <Card.Img src={newsData.data[2].image_url} />
+                            <Card.Title>{newsData.data[2].title}</Card.Title>
+                            <Card.Text>
+                                {newsData.data[2].snippet}
+                            </Card.Text>
+                            <Button href={newsData.data[2].url} variant="secondary">Read More</Button>
+                        </Card.Body>
+                    </Card>
+                </div>
+            </>)
+        }
     }
 }
 
