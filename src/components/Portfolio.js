@@ -164,7 +164,12 @@ function Portfolio(props) {
                         </tbody>
                     </Table>
                 </div>
-                <News/>
+                <div id='newsMedia'>
+                    <News width={'50vw'}/>
+                </div>
+                <div id='newsLg'>
+                    <News width={'unset'}/>
+                </div>
             </div>
         </>)}
 }

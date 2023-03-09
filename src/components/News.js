@@ -1035,7 +1035,7 @@ function News() {
                         <Button href={newsData.data[0].url} variant='secondary'></Button>
                     </Card.Body>
                 </Card> */}
-                <Card className='newsCard'>
+                <Card className='newsCard' width={width}>
                     <Card.Body>
                         <p style={{fontSize: 'small'}}>{newsData.data[0].source}</p>
                         <Card.Img src={newsData.data[0].image_url} />

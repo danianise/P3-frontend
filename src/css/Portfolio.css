@@ -9,6 +9,10 @@
     display: none;
 }
 
+#newsMedia{
+    display: none;
+}
+
 /* media query for the table on the portfolio page*/
 @media 
 only screen and (max-width: 760px),
@@ -22,6 +26,14 @@ only screen and (max-width: 760px),
   #portfolioTable{
     width: 90vw;
   }
+
+  #newsMedia{
+    display: block;
+  }
+
+  #newsLg{
+    display: none;
+}
 
   .gain {
     width: fit-content;
