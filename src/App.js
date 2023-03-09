@@ -36,17 +36,20 @@ function App() {
     })
   }
 
-  const setTicker = (mongoData) => {
+  const setTicker = () => {
 
-    let symbols = []
+    // let symbols = []
 
-    mongoData[0].StockHoldings.map(stock => {
-      symbols.push(stock.Symbol)
-    })
+    // mongoData[0].StockHoldings.map(stock => {
+    //   symbols.push(stock.Symbol)
+    // })
 
-    mongoData[0].Watch.map(stock => {
-        symbols.push(stock.Symbol)
-    })
+    // mongoData[0].Watch.map(stock => {
+    //     symbols.push(stock.Symbol)
+    // })
+    let symbols = [
+      'AAPL', 'MSFT', 'GOOG', 'AMZN', 'NVDA', 'TSLA', 'META', 'XOM', 'JPM', 'WMT', 'KO', 'BAC', 'PFE', 'CSCO', 'MCD', 'DIS', 'AMD', 'NFLX', 'T', 'BA', 'INTC', 'GE', 'F'
+    ]
 
     symbols.map((eachSymbol) => {
       fetch(`https://cloud.iexapis.com/stable/stock/${eachSymbol}/quote?token=pk_696f559b3cb64b788e34f7848ef884cb`)
@@ -64,19 +67,17 @@ function App() {
       .then(data=>{
           // console.log(data)
           setMongoData(data)
-          setTicker(data)
       })
-
-      // console.log({tickerData})
+      setTicker()
   },[])
 
-  if(mongoData && tickerData.length>0){
+  console.log({tickerData})
+
+  if(mongoData){
     return (
       <div>
         <Header/>
-        <span className='tickerSpan'>
-          <Ticker tickerData={tickerData}/>
-        </span>
+        {tickerData.length > 0 && <Ticker tickerData={tickerData}/>}
         <div className='App'>
           {/* <UserInfo data={mongoData}/> */}
           <Routes>
