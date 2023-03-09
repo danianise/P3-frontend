@@ -49,8 +49,8 @@ function App() {
       <div>
         <Header/>
         <Ticker mongoData={mongoData}/>
-        <UserInfo data={mongoData}/>
         <div className='App'>
+          <UserInfo data={mongoData}/>
           <Routes>
 
             <Route 
