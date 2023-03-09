@@ -2,7 +2,7 @@ import React, {useState, useEffect} from 'react'
 import Card from 'react-bootstrap/Card'
 import Button from 'react-bootstrap/Button'
 
-function News() {
+function News({width}) {
 
     const [newsData, setNewsData] = useState(null)
     let hardCodeNews = {
