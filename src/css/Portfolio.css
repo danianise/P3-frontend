@@ -17,6 +17,9 @@ only screen and (max-width: 760px),
   .main{
     flex-direction: column-reverse !important;
     justify-content: center !important;
+  }
+
+  #portfolioTable{
     width: 90vw;
   }
 
