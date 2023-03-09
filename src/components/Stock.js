@@ -194,7 +194,7 @@ function Stock(props) {
                                         }
                                         }
                                     }}
-                                    width='60rem'
+                                    width='400px'
                                     yLabels={ {show: false} }
                                     xLabels={ {show: false} }
                                 />
