@@ -165,10 +165,10 @@ function Portfolio(props) {
                     </Table>
                 </div>
                 <div id='newsMedia'>
-                    <News width={'50vw'}/>
+                    <News/>
                 </div>
                 <div id='newsLg'>
-                    <News width={'unset'}/>
+                    <News width={'45rem'}/>
                 </div>
             </div>
         </>)}

@@ -4,6 +4,8 @@ import Button from 'react-bootstrap/Button'
 
 function News({width}) {
 
+    console.log(width)
+
     const [newsData, setNewsData] = useState(null)
     let hardCodeNews = {
         "warnings": [
@@ -1035,7 +1037,7 @@ function News({width}) {
                         <Button href={newsData.data[0].url} variant='secondary'></Button>
                     </Card.Body>
                 </Card> */}
-                <Card className='newsCard' width={width}>
+                <Card className='newsCard' style={{width:width}}>
                     <Card.Body>
                         <p style={{fontSize: 'small'}}>{newsData.data[0].source}</p>
                         <Card.Img src={newsData.data[0].image_url} />
