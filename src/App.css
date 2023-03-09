@@ -136,11 +136,6 @@
   display: none;
 }
 
-#chartLg{
-  margin-right: 10px;
-}
-
-
 @media screen and (max-width:1220px) {
   .card {
     flex-direction: column !important;
@@ -153,6 +148,7 @@
 
   #chartSm {
     display: block;
+    margin-right: 10px;
   }
 }
 
