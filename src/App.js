@@ -70,11 +70,11 @@ function App() {
       // console.log({tickerData})
   },[])
 
-  if(mongoData){
+  if(mongoData && tickerData){
     return (
       <div>
         <Header/>
-        {tickerData && <Ticker tickerData={tickerData}/>}
+        <Ticker tickerData={tickerData}/>
         <div className='App'>
           {/* <UserInfo data={mongoData}/> */}
           <Routes>

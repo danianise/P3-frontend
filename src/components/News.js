@@ -1031,12 +1031,23 @@ function News(props) {
         if(props.amount === 1){
             return (
                 <div className='news'>
-                    <Card className='newsCard' style={{width:props.width}}>
+                    {/* <Card className='newsCard' style={{width:props.width}}>
                         <Card.Body>
                             <p style={{fontSize: 'small'}}>{newsData.data[0].source}</p>
                             <Card.Img src={newsData.data[0].image_url} />
                             <Card.Title>{newsData.data[0].title}</Card.Title>
                             <Card.Text>
+                                {newsData.data[0].snippet}
+                            </Card.Text>
+                            <Button href={newsData.data[0].url} variant="secondary">Read More</Button>
+                        </Card.Body>
+                    </Card> */}
+                    <Card className='newsCard' style={{width:props.width}}>
+                        <Card.Body style={{marginTop:-18}}>
+                            <Card.Title style={{fontSize:'smaller'}}>{newsData.data[0].title}</Card.Title>
+                            <Card.Img src={newsData.data[0].image_url} />
+                            <p style={{fontSize: 'xx-small'}}>{newsData.data[0].source}</p>
+                            <Card.Text style={{fontSize:'small'}}>
                                 {newsData.data[0].snippet}
                             </Card.Text>
                             <Button href={newsData.data[0].url} variant="secondary">Read More</Button>
@@ -1060,7 +1071,7 @@ function News(props) {
                     </Card>
                 </div>
                 <div className='news'>
-                <Card className='newsCard' style={{width:props.width, height:props.height, overflowY:'scroll'}}>
+                    <Card className='newsCard' style={{width:props.width, height:props.height, overflowY:'scroll'}}>
                         <Card.Body style={{marginTop:-18}}>
                             <Card.Title style={{fontSize:'smaller'}}>{newsData.data[1].title}</Card.Title>
                             <Card.Img src={newsData.data[1].image_url} />
@@ -1073,7 +1084,7 @@ function News(props) {
                     </Card>
                 </div>
                 <div className='news'>
-                <Card className='newsCard' style={{width:props.width, height:props.height, overflowY:'scroll'}}>
+                    <Card className='newsCard' style={{width:props.width, height:props.height, overflowY:'scroll'}}>
                         <Card.Body style={{marginTop:-18}}>
                             <Card.Title style={{fontSize:'smaller'}}>{newsData.data[2].title}</Card.Title>
                             <Card.Img src={newsData.data[2].image_url} />

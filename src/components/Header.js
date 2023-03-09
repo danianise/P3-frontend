@@ -5,7 +5,7 @@ import Navbar from 'react-bootstrap/Navbar'
 import Nav from 'react-bootstrap/Nav'
 import Button from 'react-bootstrap/Button'
 import Form from 'react-bootstrap/Form'
-import Ticker from './Ticker'
+import '../css/Header.css'
 
 function Header(props) {
     const initialState = { symbol: ''};
@@ -25,54 +25,53 @@ function Header(props) {
     };
 
     return (
-        <div className='header' style={{backgroundImage: "url(https://i.imgur.com/MfcSGXF.png)"}}>
-            <Navbar variant="light">
-            <Button 
-                href='/portfolio' 
-                variant="secondary"
-                className="portfolioButton"
-            >
-            Portfolio
-            </Button>
-            <Button 
-                href='/portfolio/watchlist'
-                style={{marginLeft: "5px"}}
-                variant="secondary"
-            >
-            Watchlist
-            </Button>
-            <Nav className="ml-auto">
-                <Form>
-                    <Form.Group 
-                        className="form-inline my-2 my-lg-0"  
+        <div className='header'>
+            <Navbar id='navBar' variant="light">
+                <div className='navBarButtons'>
+                    <Button 
+                        href='/portfolio' 
+                        variant="secondary"
+                        className="portfolioButton"
                     >
-                        <Form.Control
-                            type="text"
-                            placeholder="Search by Stock Symbol"
-                            id="symbol"
-                            aria-label="Search"
-                            onChange={handleChange}
-                            value={formState.symbol} 
-                        />
-                        <Link to={`/portfolio/${formState.symbol.toUpperCase()}`}>
-                            <Button 
-                                variant="secondary"
-                                size="sm"
-                                as="input"
-                                type="submit"
-                                value="GO"
-                                style={{marginLeft: "5px"}}
-                                onClick={()=>setFormState(initialState)}
+                    Portfolio
+                    </Button>
+                    <Button 
+                        href='/portfolio/watchlist'
+                        style={{marginLeft: "5px"}}
+                        variant="secondary"
+                    >
+                    Watchlist
+                    </Button>
+                </div>
+            <Nav className="ml-auto">
+                <div className='navBarSearch'>
+                    <Form>
+                        <Form.Group 
+                            className="form-inline my-2 my-lg-0"  
+                        >
+                            <Form.Control
+                                type="text"
+                                placeholder="Search by Symbol"
+                                id="symbol"
+                                aria-label="Search"
+                                onChange={handleChange}
+                                value={formState.symbol}
+                                style={{width:'75vw'}} 
                             />
-                        </Link>
-
-          {/* {console.log(formState.symbol)} */}
-
-                        {/* <Form.Text className="text-muted">
-                            Enter a symbol to search for stock information.
-                        </Form.Text> */}
-                    </Form.Group>
-                </Form>
+                            <Link to={`/portfolio/${formState.symbol.toUpperCase()}`}>
+                                <Button 
+                                    variant="secondary"
+                                    size="sm"
+                                    as="input"
+                                    type="submit"
+                                    value="GO"
+                                    style={{marginLeft: "5px"}}
+                                    onClick={()=>setFormState(initialState)}
+                                />
+                            </Link>
+                        </Form.Group>
+                    </Form>
+                </div>
             </Nav>
         </Navbar>
         
