@@ -18,6 +18,10 @@
     display: none;
 }
 
+#portfolioTable{
+	width: 90vw;
+}
+
 /* media query for the table on the portfolio page*/
 @media 
 only screen and (max-width: 760px),

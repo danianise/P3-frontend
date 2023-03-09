@@ -62,12 +62,12 @@ function App() {
     fetch('https://mockstockbackend-production.up.railway.app/portfolios/')
       .then(res=>res.json())
       .then(data=>{
-          console.log(data)
+          // console.log(data)
           setMongoData(data)
           setTicker(data)
       })
 
-      console.log({tickerData})
+      // console.log({tickerData})
   },[])
 
   if(mongoData){

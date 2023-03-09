@@ -18,10 +18,10 @@ function Portfolio(props) {
             dbData[0].StockHoldings.map(stock => {
                 portfolioSymbols.push(stock.Symbol)
             })
-            console.log({portfolioSymbols})
+            // console.log({portfolioSymbols})
 
             let portfolioSymbolStrings = portfolioSymbols.join("%2C")
-            console.log({portfolioSymbolStrings})
+            // console.log({portfolioSymbolStrings})
 
             fetch(
                 `https://yfapi.net/v6/finance/quote?region=US&lang=en&symbols=${portfolioSymbolStrings}`,
@@ -36,7 +36,7 @@ function Portfolio(props) {
             )
             .then(res => res.json())
             .then(data => {
-                console.log(data.quoteResponse.result)
+                // console.log(data.quoteResponse.result)
                 setStockData(data.quoteResponse.result)
             })
         }
@@ -65,9 +65,8 @@ function Portfolio(props) {
         return (<>
             <UserInfo data={dbData}/>
             <div className="main">
-                <br></br>
                 <div id='newsLg'>
-                    <News width={'25rem'} amount={3}/>
+                    <News width={'29vw'} height={'25vh'} amount={3}/>
                 </div>
                 <div>  
                     <h5 style={{fontWeight: "bold"}}>
