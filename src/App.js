@@ -46,7 +46,7 @@ function App() {
 
   if(mongoData){
     return (
-      <div className='App'>
+      <div>
         <Header/>
         <Ticker mongoData={mongoData}/>
         <UserInfo data={mongoData}/>
