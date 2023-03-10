@@ -6,6 +6,13 @@
     align-items: center;
 }
 
+.watchlist{
+	/* text-align: center; */
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+}
+
 .percentChangeMedia{
     display: none;
 }
@@ -19,6 +26,10 @@
 }
 
 #portfolioTable{
+	width: 90vw;
+}
+
+.watchlistTable{
 	width: 90vw;
 }
 

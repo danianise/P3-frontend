@@ -4,8 +4,6 @@ import Button from 'react-bootstrap/Button'
 
 function News(props) {
 
-    // console.log(props.width)
-
     const [newsData, setNewsData] = useState(null)
     let hardCodeNews = {
         "warnings": [
@@ -1016,8 +1014,8 @@ function News(props) {
 
     useEffect(()=>{
         fetch(
-            // `https://api.marketaux.com/v1/news/all?exchanges=NYSE&filter_entities=true&limit=10&published_after=2023-03-06T14:44&api_token=36PQEqiPTidPV5uxhLInxBVnfVCCCFM8nOf6DyYQ`
-            `https://api.marketaux.com/v1/news/all?exchanges=NYSE&filter_entities=true&limit=10&published_after=2023-03-06T14:44&api_token=2SByJiG7goHjjAkCClP6txIpIATuK9rvG9wjlQAO`
+            // `https://api.marketaux.com/v1/news/all?exchanges=NYSE&filter_entities=true&limit=10&api_token=36PQEqiPTidPV5uxhLInxBVnfVCCCFM8nOf6DyYQ`
+            `https://api.marketaux.com/v1/news/all?exchanges=NYSE&filter_entities=true&limit=3&api_token=2SByJiG7goHjjAkCClP6txIpIATuK9rvG9wjlQAO`
         )
         .then(res=>res.json())
         .then(data=>{
@@ -1026,6 +1024,8 @@ function News(props) {
         })
         // console.log({newsData})
     }, [])
+
+    console.log({newsData})
 
     if(newsData){
         if(props.amount === 1){

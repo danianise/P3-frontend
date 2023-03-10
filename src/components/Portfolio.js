@@ -6,6 +6,7 @@ import News from './News'
 import UserInfo from './UserInfo'
 import '../css/Portfolio.css'
 import {BiDownArrow, BiUpArrow} from 'react-icons/bi'
+import StockChart from './StockChart'
 
 function Portfolio(props) {
     const [stockData, setStockData] = useState(null)
@@ -30,7 +31,7 @@ function Portfolio(props) {
                 method: 'GET',
                 headers: {
                     'Content-Type': 'application/json',
-                    'x-api-key': process.env.REACT_APP_YF_BACKUP_KEY,
+                    'x-api-key': process.env.REACT_APP_YF_BACKUP_KEY2,
                 }
                 }
             )
@@ -66,7 +67,11 @@ function Portfolio(props) {
             <UserInfo data={dbData}/>
             <div className="main">
                 <div id='newsLg'>
-                    <News width={'29vw'} height={'25vh'} amount={3}/>
+                    <News 
+                        width={'29vw'} 
+                        height={'25vh'}
+                        amount={3}
+                    />
                 </div>
                 <div>  
                     <h5 style={{fontWeight: "bold"}}>
@@ -141,23 +146,23 @@ function Portfolio(props) {
                                                             </td>
                                                         }
                                                     {/* <td>
-                                                    <StockChart
-                                                        id='chartThumbnail'
-                                                        type='line'
-                                                        plotOptions={{
-                                                            fill:{
-                                                                colors: ['#2bc20e']
-                                                            } 
-                                                        }}
-                                                        symbol='aapl'
-                                                        width='200%'
-                                                        yLabels={ {show: false} }
-                                                        xLabels={ {show: false} }
-                                                        showAxis='false'
-                                                    /> 
-                                                    </td> */}
-                                                    {/* <td>
-                                                        <canvas role='img' height='34' width='140' style='display: block; box-sizing: border-box; height: 34px; width: 140px;'></canvas>
+                                                        <div id='portfolioChart'>
+                                                            <StockChart
+                                                                id='chartThumbnail'
+                                                                type='line'
+                                                                plotOptions={{
+                                                                    line:{
+                                                                        color: ['#2bc20e']
+                                                                    } 
+                                                                }}
+                                                                symbol={each.Symbol}
+
+                                                                yAxis={{show: false}}
+                                                                yLabels={ {show: false} }
+                                                                xLabels={ {show: false} }
+                                                                showAxis='false'
+                                                            /> 
+                                                        </div>
                                                     </td> */}
                                                 </tr>
                                             </>
