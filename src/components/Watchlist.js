@@ -9,7 +9,6 @@ import '../css/Portfolio.css'
 
 function Watchlist(props) {
     const [stockData, setStockData]=useState(null)
-    const [watchListSymbolStrings, setWatchListSymbolStrings] = useState(null)
     useEffect(() => {
         if(props.dbData){
             let watchListSymbols = []
@@ -17,7 +16,7 @@ function Watchlist(props) {
                 watchListSymbols.push(stock.Symbol)
             })
 
-            setWatchListSymbolStrings(watchListSymbols.join("%2C"))
+            let watchListSymbolStrings = watchListSymbols.join("%2C")
             // console.log({watchListSymbolStrings})
 
             fetch(
