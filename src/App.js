@@ -9,6 +9,7 @@ import Portfolio from './components/Portfolio';
 import Watchlist from './components/Watchlist';
 import Stock from './components/Stock';
 import News from './components/News';
+import LineChart from './components/LineChart';
 
 
 function App() {
@@ -79,7 +80,7 @@ function App() {
         <Header/>
         {tickerData.length > 0 && <Ticker tickerData={tickerData}/>}
         <div className='App'>
-          {/* <UserInfo data={mongoData}/> */}
+          <UserInfo data={mongoData}/>
           <Routes>
 
             <Route 
@@ -110,20 +111,7 @@ function App() {
             {/* <Route 
               path='/chart' 
               element={
-                <StockChart
-                  id='chartThumbnail'
-                  type='line'
-                  plotOptions={{
-                      line: {
-                        colors: ['#2bc20e'],
-                      }
-                  }}
-                  symbol='aapl'
-                  width='50%'
-                  yLabels={ {show: false} }
-                  xLabels={ {show: false} }
-                  showAxis='false'
-                /> 
+                <LineChart dbData={mongoData}/>
               } 
             /> */}
 

@@ -29,6 +29,10 @@
 	width: 90vw;
 }
 
+#portfolioTable th{
+	border: none;
+}
+
 .watchlistTable{
 	width: 90vw;
 }

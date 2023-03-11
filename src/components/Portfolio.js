@@ -6,7 +6,7 @@ import News from './News'
 import UserInfo from './UserInfo'
 import '../css/Portfolio.css'
 import {BiDownArrow, BiUpArrow} from 'react-icons/bi'
-import StockChart from './StockChart'
+import LineChart from './LineChart'
 
 function Portfolio(props) {
     const [stockData, setStockData] = useState(null)
@@ -32,6 +32,7 @@ function Portfolio(props) {
                 headers: {
                     'Content-Type': 'application/json',
                     'x-api-key': process.env.REACT_APP_YF_X_API_KEY,
+                    // 'x-api-key': '035rMsHHng85urOT3x4jQE9t22lhUCS70WkpePP7'
                 }
                 }
             )
@@ -64,7 +65,7 @@ function Portfolio(props) {
     
     if(dbData && stockData){
         return (<>
-            <UserInfo data={dbData}/>
+            {/* <UserInfo data={dbData}/> */}
             <div className="main">
                 <div id='newsLg'>
                     <News 
@@ -93,8 +94,8 @@ function Portfolio(props) {
                             </h6>  
                         }
                         
-                    <Table striped hover bordered responsive id='portfolioTable'>
-                        <thead>
+                    <Table hover striped responsive id='portfolioTable'>
+                        <thead style={{border: 'none'}}>
                             <tr>
                                 <th></th>
                                 <th></th>
@@ -145,25 +146,12 @@ function Portfolio(props) {
                                                                 <BiDownArrow /> {stockData[index].regularMarketChangePercent.toFixed(2)}%
                                                             </td>
                                                         }
-                                                    {/* <td>
-                                                        <div id='portfolioChart'>
-                                                            <StockChart
-                                                                id='chartThumbnail'
-                                                                type='line'
-                                                                plotOptions={{
-                                                                    line:{
-                                                                        color: ['#2bc20e']
-                                                                    } 
-                                                                }}
-                                                                symbol={each.Symbol}
-
-                                                                yAxis={{show: false}}
-                                                                yLabels={ {show: false} }
-                                                                xLabels={ {show: false} }
-                                                                showAxis='false'
-                                                            /> 
-                                                        </div>
-                                                    </td> */}
+                                                    <td style={{width: '20vw'}}>
+                                                        <LineChart
+                                                            symbol={each.Symbol}
+                                                            changePercent={stockData[index].regularMarketChangePercent} 
+                                                        />
+                                                    </td>
                                                 </tr>
                                             </>
                                             : <div className="ring">Loading<span className="loadingAnimation"></span></div>

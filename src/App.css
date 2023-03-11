@@ -2,6 +2,13 @@
   margin: 10px;
 }
 
+#chartjs{
+  position: relative;
+  height: 10vh;
+  width: 20vw;
+  border: none;
+}
+
 .ring {
   position:absolute;
   top:35%;
