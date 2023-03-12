@@ -3,6 +3,7 @@ import { useParams, Link } from 'react-router-dom'
 import { useEffect, useState } from 'react'
 import Table from 'react-bootstrap/Table'
 import News from './News'
+import LineChart from './LineChart'
 import {BiDownArrow, BiUpArrow} from 'react-icons/bi'
 import '../css/Portfolio.css'
 
