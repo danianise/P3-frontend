@@ -63,7 +63,6 @@ function Watchlist(props) {
                                 <td>
                                     {each.shortName}
                                 </td>
-                                <td>
                                     {stockData[index].regularMarketChangePercent > 0
                                         ? <td className="gain percentChange" style={{ color: '#2bc20e', border: 'none' }}>
                                             <BiUpArrow/> {stockData[index].regularMarketChangePercent.toFixed(2)}%
@@ -80,7 +79,6 @@ function Watchlist(props) {
                                             <BiDownArrow /> {stockData[index].regularMarketChangePercent.toFixed(2)}%
                                         </td>
                                     }
-                                </td>
                                 <td id='lineChartTd'>
                                     <LineChart
                                         id='lineChart'
