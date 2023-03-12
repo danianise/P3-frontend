@@ -26,7 +26,7 @@ function Watchlist(props) {
                 method: 'GET',
                 headers: {
                     'Content-Type': 'application/json',
-                    'x-api-key': process.env.REACT_APP_YF_X_API_KEY,
+                    'x-api-key': process.env.REACT_APP_YF_BACKUP_KEY3,
                 }
                 }
             )
