@@ -64,10 +64,10 @@ function Watchlist(props) {
                                     {each.shortName}
                                 </td>
                                     {stockData[index].regularMarketChangePercent > 0
-                                        ? <td className="gain percentChange" style={{ color: '#2bc20e', border: 'none' }}>
+                                        ? <td className="gain percentChange" style={{ color: '#2bc20e' }}>
                                             <BiUpArrow/> {stockData[index].regularMarketChangePercent.toFixed(2)}%
                                         </td>
-                                        : <td className="gain percentChange" style={{ color: 'red', border: 'none' }}>
+                                        : <td className="gain percentChange" style={{ color: 'red' }}>
                                             <BiDownArrow/> {stockData[index].regularMarketChangePercent.toFixed(2)}% 
                                         </td>
                                     }
