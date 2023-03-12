@@ -5,7 +5,7 @@ import Table from 'react-bootstrap/Table'
 import News from './News'
 import LineChart from './LineChart'
 import {BiDownArrow, BiUpArrow} from 'react-icons/bi'
-import '../css/Portfolio.css'
+import '../css/Watchlist.css'
 
 
 function Watchlist(props) {
@@ -50,7 +50,7 @@ function Watchlist(props) {
                         amount={3}
                     />
             </div>
-            {stockData && <Table striped hover bordered responsive>
+            {stockData && <Table hover striped responsive className='watchlistTable'>
                 <tbody>
                     {stockData.map((each, index)=>{
                         return(<>

@@ -25,11 +25,11 @@
     display: none;
 }
 
-.portfolioTable{
+.watchlistTable{
 	width: 90vw;
 }
 
-.portfolioTable th{
+.watchlistTable th{
 	border: none;
 }
 
@@ -51,7 +51,7 @@ only screen and (max-width: 760px),
     justify-content: center !important;
   }
 
-  .portfolioTable{
+  .watchlistTable{
     width: 90vw;
   }
 
@@ -65,7 +65,7 @@ only screen and (max-width: 760px),
   }
 
   #chartjs{
-	width: 100vw;
+	width: 100vw !important;
   }
 
   #newsLg{
@@ -109,9 +109,9 @@ only screen and (max-width: 760px),
 	/*
 	Label the data
 	*/
-	.portfolioTable td:nth-of-type(3)::before { content: "Holding:"; }
-	.portfolioTable td:nth-of-type(4)::before { content: "Shares:"; }
-	.portfolioTable td:nth-of-type(5)::before { content: "Cost:"; }
+	/* td:nth-of-type(3)::before { content: ""; }
+	td:nth-of-type(4)::before { content: ""; }
+	td:nth-of-type(5)::before { content: ""; } */
 
     .percentChange{
         display: none;

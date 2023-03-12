@@ -93,7 +93,7 @@ function Portfolio(props) {
                             </h6>  
                         }
                         
-                    <Table hover striped responsive id='portfolioTable'>
+                    <Table hover striped responsive className='portfolioTable'>
                         <thead style={{border: 'none'}}>
                             <tr>
                                 <th></th>
