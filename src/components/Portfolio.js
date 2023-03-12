@@ -32,7 +32,6 @@ function Portfolio(props) {
                 headers: {
                     'Content-Type': 'application/json',
                     'x-api-key': process.env.REACT_APP_YF_X_API_KEY,
-                    // 'x-api-key': '035rMsHHng85urOT3x4jQE9t22lhUCS70WkpePP7'
                 }
                 }
             )
@@ -143,11 +142,12 @@ function Portfolio(props) {
                                                                 <BiUpArrow/> {stockData[index].regularMarketChangePercent.toFixed(2)}%
                                                             </td>
                                                             : <td className="gain percentChangeMedia" style={{ color: 'white', backgroundColor: 'red', borderRadius: '10px'}}>
-                                                                <BiDownArrow /> {stockData[index].regularMarketChangePercent.toFixed(2)}%
+                                                                    <BiDownArrow /> {stockData[index].regularMarketChangePercent.toFixed(2)}%
                                                             </td>
                                                         }
-                                                    <td style={{width: '20vw'}}>
+                                                    <td id='lineChartTd'>
                                                         <LineChart
+                                                            id='lineChart'
                                                             symbol={each.Symbol}
                                                             changePercent={stockData[index].regularMarketChangePercent} 
                                                         />

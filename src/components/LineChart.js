@@ -6,13 +6,15 @@ Chart.register(...registerables);
 
 function LineChart(props) {
 
-    let color
+    let backgroundColor
+    let borderColor
     if(props.dailyPercent >= 0){
-        color = 'rgba(43,194,14)'
+        borderColor = 'rgba(43,194,14)'
+        backgroundColor='rgba(43, 194, 14, 0.2)'
     } else {
-        color = 'rgb(255, 0, 0)'
+        borderColor = 'rgb(255, 0, 0)'
+        backgroundColor = 'rgba(255, 0, 0, 0.2)'
     }
-    console.log({color})
 
     const [stockData, setStockData] = useState(null)
 
@@ -23,7 +25,6 @@ function LineChart(props) {
             method: 'GET',
             headers: {
             'X-API-KEY': process.env.REACT_APP_YF_X_API_KEY,
-            // 'X-API-KEY': '035rMsHHng85urOT3x4jQE9t22lhUCS70WkpePP7',
             'accept': 'application/json'
             }
         })
@@ -71,9 +72,10 @@ function LineChart(props) {
         datasets: [
             {
                 data: adjClose,
+                fill: true,
                 // data: [12, 19, 3, 5, 2, 3],
-                backgroundColor: color,
-                borderColor: color
+                backgroundColor: backgroundColor,
+                borderColor: borderColor
             }
         ]
     }

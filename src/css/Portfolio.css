@@ -33,6 +33,10 @@
 	border: none;
 }
 
+#lineChartTd{
+	width: 20vw
+}
+
 .watchlistTable{
 	width: 90vw;
 }
@@ -51,8 +55,17 @@ only screen and (max-width: 760px),
     width: 90vw;
   }
 
+  #lineChartTd{
+	width: unset;
+	display: flex;
+	justify-content:center;
+}
   #newsMedia{
     display: block;
+  }
+
+  #chartjs{
+	width: 100vw;
   }
 
   #newsLg{
