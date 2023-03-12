@@ -41,28 +41,6 @@ function Watchlist(props) {
     return (
         <div className='watchlist'>
             <h3>Your Watchlist:</h3>
-            {/* {
-                !props.dbData
-                    ? <div className="ring">Loading<span className="loadingAnimation"></span></div>
-                    : <div style={{textAlign:"center"}}>
-                        {props.dbData.map(portfolio => {
-                            return (
-                                portfolio.Watch.map(stock => {
-                                    return (
-                                        !stock.Symbol
-                                        ? <></>
-                                        : <div>
-                                            <Button variant="secondary" style={{margin: "5px"}}>
-                                                <Link to={`/portfolio/${stock.Symbol}`}>
-                                                    {stock.Symbol}
-                                                </Link>
-                                            </Button>
-                                        </div>
-                                    )
-                                }))
-                        })}
-                    </div>
-            } */}
             <div className='main watchlistTable'>
             <div id='newsLg'>
                     <News 
@@ -101,6 +79,13 @@ function Watchlist(props) {
                                             <BiDownArrow /> {stockData[index].regularMarketChangePercent.toFixed(2)}%
                                         </td>
                                     }
+                                </td>
+                                <td id='lineChartTd'>
+                                    <LineChart
+                                        id='lineChart'
+                                        symbol={each.symbol}
+                                        changePercent={stockData[index].regularMarketChangePercent} 
+                                    />
                                 </td>
                             </tr>
                         </>)
