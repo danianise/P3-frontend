@@ -8,7 +8,7 @@ function LineChart(props) {
 
     let backgroundColor
     let borderColor
-    if(props.dailyPercent >= 0){
+    if(props.changePercent >= 0){
         borderColor = 'rgba(43,194,14)'
         backgroundColor='rgba(43, 194, 14, 0.2)'
     } else {
