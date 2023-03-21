@@ -4,11 +4,12 @@ import { useEffect, useState } from 'react'
 import axios from 'axios'
 import { useNavigate } from 'react-router-dom'
 import StockChart from './StockChart'
+import EditPortfolioForm from './EditPortfolioForm'
 
 function Stock(props) {
 
     const { symbol } = useParams()
-    const [dbData2, setdbData2] = useState(null)
+    // const [dbData2, setdbData2] = useState(null)
     const [editForm, setEditForm] = useState(null)
     const [stockAPI, setstockAPI] = useState(null)
     const [message, setMessage] = useState(`Add to Watchlist`)
@@ -19,54 +20,54 @@ function Stock(props) {
         navigate(path);
     }
 
-    const dbURL = 'https://mockstockbackend-production.up.railway.app/portfolios'
-    const getDbData2 = () => {
-        try {fetch(dbURL)
-            .then(res => res.json())
-            .then(data => setdbData2(data))
+    // const dbURL = 'https://mockstockbackend-production.up.railway.app/portfolios'
+    // const getDbData2 = () => {
+    //     try {fetch(dbURL)
+    //         .then(res => res.json())
+    //         .then(data => setdbData2(data))
 
-        if (dbData2) {
-            setEditForm(dbData2)
-        }}
+    //     if (dbData2) {
+    //         setEditForm(dbData2)
+    //     }}
 
-        catch (error) {
-            console.log(error)
-        }
-        finally {
-        }
-    }
+    //     catch (error) {
+    //         console.log(error)
+    //     }
+    //     finally {
+    //     }
+    // }
 
-    const getDbDataEdit = () => {
-        try {
-            fetch(dbURL)
-            .then(res => res.json())
-            .then(data => setEditForm(data[0]))
-        }
+    // const getDbDataEdit = () => {
+    //     try {
+    //         fetch(dbURL)
+    //         .then(res => res.json())
+    //         .then(data => setEditForm(data[0]))
+    //     }
 
-        catch (error) {
-            console.log(error)
-        }
-        finally {
-            console.log("pulling from mongo")
-        }
-    }
-    useEffect(() =>
-        getDbDataEdit(), [])
+    //     catch (error) {
+    //         console.log(error)
+    //     }
+    //     finally {
+    //         console.log("pulling from mongo")
+    //     }
+    // }
+    // useEffect(() =>
+    //     getDbDataEdit(), [])
 
-    useEffect(() => 
-        getDbData2(), [])
+    // useEffect(() => 
+    //     getDbData2(), [])
 
-    const updateDbData2 = async (data, id) => {
-        await fetch(dbURL + id, {
-            method: 'put',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(data)
-        })
-        getDbData2();
-        props.getDbDataUser()
-    }
+    // const updateDbData2 = async (data, id) => {
+    //     await fetch(dbURL + id, {
+    //         method: 'put',
+    //         headers: {
+    //             'Content-Type': 'application/json',
+    //         },
+    //         body: JSON.stringify(data)
+    //     })
+    //     getDbData2();
+    //     props.getDbDataUser()
+    // }
     
     
     
@@ -77,7 +78,7 @@ function Stock(props) {
 
     function componentDidMount() {
         setstockAPI(null)
-        console.log("pulling from API")
+        // console.log("pulling from API")
         axios.get(url)
             .then(res => {
 
@@ -88,20 +89,20 @@ function Stock(props) {
 
    
 
-    const handleChangeNum = event => {
-        console.log(event.target.value)
-        let max = editForm.CashBalance / stockAPI.latestPrice
-        setNum(Math.min(event.target.value, max))
-    }
+    // const handleChangeNum = event => {
+    //     console.log(event.target.value)
+    //     let max = editForm.CashBalance / stockAPI.latestPrice
+    //     setNum(Math.min(event.target.value, max))
+    // }
 
-    const handleChangeNumSell = event => {
-        console.log(event.target.value)
-        if ((JSON.stringify(dbData2[0].StockHoldings.filter(stock => stock.Symbol === symbol.toUpperCase()).length) > 0)) {
-        let max = editForm.StockHoldings.filter(x => x.Symbol === symbol.toUpperCase())[0].Shares
-        setNumSell(Math.min(event.target.value, max))} else {
-            setNumSell(0)
-        }
-    }
+    // const handleChangeNumSell = event => {
+    //     console.log(event.target.value)
+    //     if ((JSON.stringify(dbData2[0].StockHoldings.filter(stock => stock.Symbol === symbol.toUpperCase()).length) > 0)) {
+    //     let max = editForm.StockHoldings.filter(x => x.Symbol === symbol.toUpperCase())[0].Shares
+    //     setNumSell(Math.min(event.target.value, max))} else {
+    //         setNumSell(0)
+    //     }
+    // }
 
     // Need to add limit here
 
@@ -109,65 +110,65 @@ function Stock(props) {
         setMessage(`${stockAPI.symbol} Added to WatchList`)
     }
 
-    const addToWatchList = event => {
-        event.preventDefault()
+    // const addToWatchList = event => {
+    //     event.preventDefault()
        
-        if ((JSON.stringify(dbData2[0].Watch.filter(stock => stock.Symbol === symbol.toUpperCase()).length) === "0")) {
-        let copyForm = editForm;
-        let temp = { Symbol: stockAPI.symbol.toUpperCase() }
-        copyForm.Watch.push(temp)
-        setEditForm(copyForm)
-        updateDbData2(editForm, dbData2[0]._id)} else {console.log("not working")}
-    }
+    //     if ((JSON.stringify(dbData2[0].Watch.filter(stock => stock.Symbol === symbol.toUpperCase()).length) === "0")) {
+    //     let copyForm = editForm;
+    //     let temp = { Symbol: stockAPI.symbol.toUpperCase() }
+    //     copyForm.Watch.push(temp)
+    //     setEditForm(copyForm)
+    //     updateDbData2(editForm, dbData2[0]._id)} else {console.log("not working")}
+    // }
 
-    const handleSubmitBuy = event => {
-        event.preventDefault()
-        let copyForm = editForm;
-        if (copyForm.CashBalance >= (num * stockAPI.latestPrice)) {
-            copyForm.CashBalance -= num * stockAPI.latestPrice
-            copyForm.PortfolioBalance += num * stockAPI.latestPrice
-            if ((JSON.stringify(dbData2[0].StockHoldings.filter(stock => stock.Symbol === symbol.toUpperCase()).length) > 0)) {
-            copyForm.StockHoldings.filter(x => x.Symbol === symbol.toUpperCase())[0].Shares += num
-            copyForm.StockHoldings.filter(x => x.Symbol === symbol.toUpperCase())[0].Cost += num * stockAPI.latestPrice
-            setEditForm(copyForm)
-            updateDbData2(editForm, dbData2[0]._id)
-            setNum(0)
-            props.getDbDataUser()
-                getDbDataEdit()
-            } else {
-                let temp = {Symbol: symbol.toUpperCase(), Shares: num, Cost: num * stockAPI.latestPrice }
-                copyForm.StockHoldings.push(temp)
-                setEditForm(copyForm)
-                updateDbData2(editForm, dbData2[0]._id)
-                setNum(0)
-                props.getDbDataUser()
+    // const handleSubmitBuy = event => {
+    //     event.preventDefault()
+    //     let copyForm = editForm;
+    //     if (copyForm.CashBalance >= (num * stockAPI.latestPrice)) {
+    //         copyForm.CashBalance -= num * stockAPI.latestPrice
+    //         copyForm.PortfolioBalance += num * stockAPI.latestPrice
+    //         if ((JSON.stringify(dbData2[0].StockHoldings.filter(stock => stock.Symbol === symbol.toUpperCase()).length) > 0)) {
+    //         copyForm.StockHoldings.filter(x => x.Symbol === symbol.toUpperCase())[0].Shares += num
+    //         copyForm.StockHoldings.filter(x => x.Symbol === symbol.toUpperCase())[0].Cost += num * stockAPI.latestPrice
+    //         setEditForm(copyForm)
+    //         updateDbData2(editForm, dbData2[0]._id)
+    //         setNum(0)
+    //         props.getDbDataUser()
+    //             getDbDataEdit()
+    //         } else {
+    //             let temp = {Symbol: symbol.toUpperCase(), Shares: num, Cost: num * stockAPI.latestPrice }
+    //             copyForm.StockHoldings.push(temp)
+    //             setEditForm(copyForm)
+    //             updateDbData2(editForm, dbData2[0]._id)
+    //             setNum(0)
+    //             props.getDbDataUser()
 
-                getDbDataEdit()
-            }
-        } else { console.log("not enough cash") }
-    }
+    //             getDbDataEdit()
+    //         }
+    //     } else { console.log("not enough cash") }
+    // }
 
-    const handleSubmitSell = event => {
-        event.preventDefault()
-        let copyForm = editForm;
-        if (copyForm.StockHoldings.filter(x => x.Symbol === symbol.toUpperCase())[0].Shares >= (num)) {
-            copyForm.CashBalance += numSell * stockAPI.latestPrice
-            copyForm.StockHoldings.filter(x => x.Symbol === symbol.toUpperCase())[0].Shares -= numSell
-            copyForm.StockHoldings.filter(x => x.Symbol === symbol.toUpperCase())[0].Cost -= numSell * stockAPI.latestPrice
-            setEditForm(copyForm)
-            updateDbData2(editForm, dbData2[0]._id)
-            setNumSell(0)
-            getDbData2()
+    // const handleSubmitSell = event => {
+    //     event.preventDefault()
+    //     let copyForm = editForm;
+    //     if (copyForm.StockHoldings.filter(x => x.Symbol === symbol.toUpperCase())[0].Shares >= (num)) {
+    //         copyForm.CashBalance += numSell * stockAPI.latestPrice
+    //         copyForm.StockHoldings.filter(x => x.Symbol === symbol.toUpperCase())[0].Shares -= numSell
+    //         copyForm.StockHoldings.filter(x => x.Symbol === symbol.toUpperCase())[0].Cost -= numSell * stockAPI.latestPrice
+    //         setEditForm(copyForm)
+    //         updateDbData2(editForm, dbData2[0]._id)
+    //         setNumSell(0)
+    //         getDbData2()
 
-            getDbDataEdit()
-            props.getDbDataUser()
-        } else { console.log("not enough stock") }
-    }
+    //         getDbDataEdit()
+    //         props.getDbDataUser()
+    //     } else { console.log("not enough stock") }
+    // }
 
     useEffect(() =>
         componentDidMount(), [])
 
-    console.log(stockAPI)
+    // console.log(stockAPI)
 
     return (
         <div className='stockPage'>
@@ -176,12 +177,14 @@ function Stock(props) {
                 ? <p>No results found, please double check your Symbol!</p>
                 : <div className="card"> 
                     {
-                        !(stockAPI || dbData2)
+                        !(stockAPI || props.dbData)
                             ? <div className="ring">Loading<span className="loadingAnimation"></span></div>
                             : <div>
                                 <h1>{stockAPI.companyName} ({stockAPI.symbol})</h1>
                                 <h3>Data updated {stockAPI.latestTime} from {stockAPI.primaryExchange}</h3>
-                                <form onSubmit={addToWatchList} onClick={handleClick}>
+                                <form 
+                                    // onSubmit={addToWatchList}
+                                    onClick={handleClick}>
                                     <input type="submit" className="btn btn-primary" value={message} />
                                 </form>
                                 <StockChart 
@@ -227,23 +230,24 @@ function Stock(props) {
                                 {!stockAPI.ytdChange
                                         ? <i style={{fontSize: "small"}}>  unavailable</i>
                                         : stockAPI.ytdChange?.toFixed(2)}%</p>
-                                {!dbData2
+                                {!props.dbData
                                     ? null
                                     : <div>
-                                        <p style={{fontWeight: "bold"}}> Your Shares:   
+                                        <p style={{fontWeight: "bold"}}> Your Shares:&nbsp;   
                                             {
-                                                ((JSON.stringify(dbData2[0].StockHoldings.filter(stock => stock.Symbol === symbol.toUpperCase()).length) > 0)
-                                            ? JSON.stringify(dbData2[0].StockHoldings.filter(stock => stock.Symbol === symbol.toUpperCase())[0].Shares)
+                                                ((JSON.stringify(props.dbData[0].StockHoldings.filter(stock => stock.Symbol === symbol.toUpperCase()).length) > 0)
+                                            ? JSON.stringify(props.dbData[0].StockHoldings.filter(stock => stock.Symbol === symbol.toUpperCase())[0].Shares)
                                             : "0")}</p>
-                                        <p style={{fontWeight: "bold"}}> Your holding: 
+                                        <p style={{fontWeight: "bold"}}> Your holding:&nbsp; 
                                             {
-                                                ((JSON.stringify(dbData2[0].StockHoldings.filter(stock => stock.Symbol === symbol.toUpperCase()).length) > 0) 
-                                            ? ((dbData2[0].StockHoldings.filter(stock => stock.Symbol === symbol.toUpperCase())[0].Shares) * stockAPI.latestPrice).toLocaleString(undefined, { style: 'currency', currency: 'USD'  })
+                                                ((JSON.stringify(props.dbData[0].StockHoldings.filter(stock => stock.Symbol === symbol.toUpperCase()).length) > 0) 
+                                            ? ((props.dbData[0].StockHoldings.filter(stock => stock.Symbol === symbol.toUpperCase())[0].Shares) * stockAPI.latestPrice).toLocaleString(undefined, { style: 'currency', currency: 'USD'  })
                                             : "0")}</p>
                                     </div>
                                 }
                                     <div>
-                                        <form onSubmit={handleSubmitBuy}>
+                                        <EditPortfolioForm dbData={props.dbData} stockData={stockAPI}/>
+                                        {/* <form onSubmit={handleSubmitBuy}>
                                             <input
                                                 type="text"
                                                 value={num}
@@ -272,7 +276,7 @@ function Stock(props) {
                                                 className="btn btn-danger"
                                                 value={`Sell ${numSell} of ${stockAPI.symbol} for ${(stockAPI.latestPrice * numSell).toLocaleString(undefined, { style: 'currency', currency: 'USD' })}`}
                                             />
-                                        </form>
+                                        </form> */}
                                     </div>
                                 </div>
                             </div>

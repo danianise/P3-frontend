@@ -16,26 +16,26 @@ function App() {
 
   // const key = process.env.REACT_APP_YF_X_API_KEY
   // const url = `https://cloud.iexapis.com/stable/stock/ibm/quote?token=pk_696f559b3cb64b788e34f7848ef884cb`
-  const dbURL = 'https://mockstockbackend-production.up.railway.app/portfolios'
+  // const dbURL = 'https://mockstockbackend-production.up.railway.app/portfolios'
   const [mongoData, setMongoData] = useState(null)
   // let mongoData
   const [tickerData, setTickerData] = useState([])
 
-  const updateDbData = async (data, id) => {
-    await fetch(dbURL + id, {
-        method: 'put',
-        headers: {
-            'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(data)
-    })
-  }
+  // const updateDbData = async (data, id) => {
+  //   await fetch(dbURL + id, {
+  //       method: 'put',
+  //       headers: {
+  //           'Content-Type': 'application/json',
+  //       },
+  //       body: JSON.stringify(data)
+  //   })
+  // }
 
-  const deleteDbData = async id => {
-    await fetch(dbURL + id, {
-        method: 'delete',
-    })
-  }
+  // const deleteDbData = async id => {
+  //   await fetch(dbURL + id, {
+  //       method: 'delete',
+  //   })
+  // }
 
   const setTicker = () => {
 
@@ -71,8 +71,9 @@ function App() {
       })
       setTicker()
   },[])
+  // console.log({mongoData})
 
-  console.log({tickerData})
+  // console.log({tickerData})
 
   if(mongoData){
     return (
@@ -102,8 +103,8 @@ function App() {
               element={
                 <Stock
                   dbData={mongoData}
-                  updateDbData={updateDbData}
-                  deleteDbData={deleteDbData}
+                  // updateDbData={updateDbData}
+                  // deleteDbData={deleteDbData}
                 />
               } 
             />

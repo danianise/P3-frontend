@@ -31,7 +31,8 @@ function Portfolio(props) {
                 method: 'GET',
                 headers: {
                     'Content-Type': 'application/json',
-                    'x-api-key': process.env.REACT_APP_YF_BACKUP_KEY3,
+                    // 'x-api-key': process.env.REACT_APP_YF_BACKUP_KEY3,
+                    'x-api-key': '035rMsHHng85urOT3x4jQE9t22lhUCS70WkpePP7',
                 }
                 }
             )

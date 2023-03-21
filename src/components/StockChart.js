@@ -179,10 +179,10 @@ function StockChart(props) {
   }
 
   let params = useParams()
-  console.log({props})
+  // console.log({props})
   let symbol = ""
   !params.symbol ? symbol=props.symbol : symbol=params.symbol
-  console.log({symbol})
+  // console.log({symbol})
 
   // let testDate = new Date(1677076200 * 1000)
   // console.log(testDate.toDateString())
@@ -195,20 +195,21 @@ function StockChart(props) {
       fetch(url, {
         method: 'GET',
         headers: {
-          'X-API-KEY': process.env.REACT_APP_YF_BACKUP_KEY3,
+          // 'X-API-KEY': process.env.REACT_APP_YF_BACKUP_KEY3,
+          'X-API-KEY': '035rMsHHng85urOT3x4jQE9t22lhUCS70WkpePP7',
           'accept': 'application/json'
         }
       })
       .then(res => res.json())
       .then(data => {
-        console.log(data)
+        // console.log(data)
         setStockData(data)
       })
       
       // setStockData(hardcodeStockData)
   }, [])
   
-  console.log(stockData)
+  // console.log(stockData)
   
 
   let data = []
@@ -229,10 +230,10 @@ function StockChart(props) {
 
       data.push(dataObj)
     }
-    console.log(data)
+    // console.log(data)
   }
 
-  console.log({categories})
+  // console.log({categories})
 
   let chartData = {
     options: {
