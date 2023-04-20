@@ -24,14 +24,13 @@ function LineChart(props) {
         fetch(url, {
             method: 'GET',
             headers: {
-            // 'X-API-KEY': process.env.REACT_APP_YF_BACKUP_KEY3,
-            'X-API-KEY': '035rMsHHng85urOT3x4jQE9t22lhUCS70WkpePP7',
+            'X-API-KEY': process.env.REACT_APP_YF_BACKUP_KEY3,
             'accept': 'application/json'
             }
         })
         .then(res => res.json())
         .then(data => {
-            console.log(data)
+            // console.log(data)
             setStockData(data)
         })
     }, [])
@@ -40,7 +39,7 @@ function LineChart(props) {
     let adjClose = null
     if(stockData){
         adjClose = stockData.chart.result[0].indicators.adjclose[0].adjclose
-        console.log({adjClose})
+        // console.log({adjClose})
 }
 
     const options = {

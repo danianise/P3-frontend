@@ -1,125 +1,126 @@
+//NEXT UP, FIGURE OUT WHY NEWSTOCKHOLDINGS IS NOT CALCULATING AS EXPECTED
 import React, {useState, useEffect} from 'react'
 
 function EditPortfolioForm(props) {
 
-  const [thisStockDbData, setThisStockDbData] = useState(null)
-  useEffect(()=> {
-    props.dbData[0].StockHoldings.map((each, index)=>{
-        if(props.stockData.symbol === each.Symbol){
-            setThisStockDbData(props.dbData[0].StockHoldings[index])
-        }
-    })
-    console.log({thisStockDbData})
-  }, [])
-
+  let thisStockDbData = null
   const [numBuy, setNumBuy] = useState(0)
   const [numSell, setNumSell] = useState(0)
+  // const [newCashBalance, setNewCashBalance] = useState(props.dbData[0].CashBalance)
+  // const [formState, setFormState] = useState(null)
+  // const [newStockHoldings, setNewStockHoldings] = useState(props.dbData[0].StockHoldings)
+  let holdingsArray = props.dbData[0].StockHoldings
+  let stockHoldings = [...holdingsArray]
+  let buyMessage
+  let sellMessage
+  // let display
+  const [display, setDisplay] = useState('none')
+
+  useEffect(() =>{
+    props.dbData[0].StockHoldings.map((each, index)=>{
+      if(props.stockData.symbol === each.Symbol){
+        thisStockDbData = props.dbData[0].StockHoldings[index]
+        setDisplay('block')
+      }
+    })
+    console.log({thisStockDbData})
+
+  }, [holdingsArray])
+  console.log({display})
 
   const handleChangeNumBuy = event => {
     setNumBuy(parseInt(event.target.value))
   }
+  console.log({numBuy})
+
   const handleChangeNumSell = event => {
     setNumSell(parseInt(event.target.value))
   }
-  console.log({numBuy})
+  console.log({numSell})
 
-  const [newCashBalance, setNewCashBalance] = useState(props.dbData[0].CashBalance)
-  function calculateNewCashBalanceBuy(numBuy){
-    setNewCashBalance(props.dbData[0].CashBalance - (props.stockData.latestPrice * numBuy))
-  }
-  function calculateNewCashBalanceSell(numSell){
-    setNewCashBalance(props.dbData[0].CashBalance + (props.stockData.latestPrice * numSell))
-  }
-
-  let initialState = {
-    Username: props.dbData[0].Username,
-    CashBalance: props.dbData[0].CashBalance,
-    StockHoldings: props.dbData[0].StockHoldings,
-    Watch: props.dbData[0].Watch
-  }
-
-  const [formState, setFormState] = useState(initialState)
-//   console.log({formState})
-
-  let buyMessage
   if(numBuy > 0){
     buyMessage = `Buy ${numBuy} shares of ${props.stockData.symbol} for ${(props.stockData.latestPrice * numBuy).toLocaleString(undefined, { style: 'currency', currency: 'USD' })}`
   }else{
     buyMessage = `Buy Shares of ${props.stockData.symbol} for ${props.stockData.latestPrice.toLocaleString(undefined, { style: 'currency', currency: 'USD' })}`
   }
-
-  let sellMessage
   if(numSell > 0){
     sellMessage = `Sell ${numSell} shares of ${props.stockData.symbol} for ${(props.stockData.latestPrice * numSell).toLocaleString(undefined, { style: 'currency', currency: 'USD' })}`
   }else{
     sellMessage = `Sell Shares of ${props.stockData.symbol} for ${props.stockData.latestPrice.toLocaleString(undefined, { style: 'currency', currency: 'USD' })}`
   }
 
-  console.log('Stock Holdings:', props.dbData[0].StockHoldings)
-
-  const [newStockHoldings, setNewStockHoldings] = useState(props.dbData[0].StockHoldings)
-  function calculateNewDataBuy(){
-    let holdingsArray = [...newStockHoldings]
-    if(thisStockDbData){
-        props.dbData[0].StockHoldings.map((each, index) => {
-            if (each.Symbol === props.stockData.symbol){
-                holdingsArray.splice(index, 1)
-                holdingsArray.push({
-                    Symbol: props.stockData.symbol,
-                    Shares: thisStockDbData.Shares + parseInt(numBuy),
-                    Cost: thisStockDbData.Cost + (props.stockData.latestPrice * numBuy)
-                })
-                console.log({holdingsArray})
-                setNewStockHoldings(holdingsArray)
-            }
-        })
-    } else if(thisStockDbData===null) {
-        holdingsArray.push({
-            Symbol: props.stockData.symbol,
-            Shares: parseInt(numBuy),
-            Cost: props.stockData.latestPrice * numBuy
-        })
-        setNewStockHoldings(holdingsArray)
-    }
-  }
-  function calculateNewDataSell(){
-    if(thisStockDbData){
-        props.dbData[0].StockHoldings.map((each, index) => {
-            if (each.Symbol === props.stockData.symbol){
-                newStockHoldings.splice(index, 1)
-                newStockHoldings.push({
-                    Symbol: props.stockData.symbol,
-                    Shares: thisStockDbData.Shares - parseInt(numSell),
-                    Cost: thisStockDbData.Cost - (props.stockData.latestPrice * numSell)
-                })
-                console.log({newStockHoldings})
-            }
-        })
-    }
-  }
-
-  const handleSubmit = event => {
+function handleSubmitBuy(event){
     event.preventDefault()
-    if(numBuy){
-        calculateNewCashBalanceBuy(numBuy)
-        calculateNewDataBuy()
-    }
-    if(numSell){
-        calculateNewCashBalanceSell(numSell)
-        calculateNewDataSell()
+
+    let cost = numBuy * props.stockData.latestPrice
+    let cashBalance = props.dbData[0].CashBalance - cost
+    // let stockHoldings = props.dbData[0].StockHoldings
+    console.log({stockHoldings})
+    let alertMessage
+
+    if (numBuy > 0 && props.dbData[0].CashBalance > cost){
+      // cost = props.stockData.latestPrice * numBuy
+      // cashBalance = props.dbData[0].CashBalance - cost
+      alertMessage = `Successfully bought ${numBuy} shares for ${cost.toLocaleString(undefined, { style: 'currency', currency: 'USD' })}`
+
+      if(thisStockDbData){
+        stockHoldings.map((eachStock, index) => {
+          if(eachStock.Symbol === thisStockDbData.Symbol){
+            // stockHoldings.splice(index, 1)
+            // stockHoldings.push({
+            //   Symbol: props.stockData.symbol,
+            //   Shares: thisStockDbData.Shares + numBuy,
+            //   Cost: thisStockDbData.Cost + cost
+            // })
+            stockHoldings[index].Shares = thisStockDbData.Shares + numBuy
+            stockHoldings[index].Cost = thisStockDbData.Cost + cost
+          }
+        })
+      }else if(!thisStockDbData){
+        stockHoldings.push({
+          Symbol: props.stockData.symbol,
+          Shares: numBuy,
+          Cost: cost
+        })
+      }
+
+    } else if(numBuy > 0 && cost > props.dbData[0].CashBalance){
+      alertMessage = "Insufficient Funds"
     }
 
-    setFormState({
+    let formState = {
         Username: props.dbData[0].Username,
-        CashBalance: newCashBalance,
-        StockHoldings: newStockHoldings,
+        CashBalance: cashBalance,
+        // CashBalance: 123456.78,
+        StockHoldings: stockHoldings,
+        // StockHoldings: [
+        //   {
+        //     Symbol: "AAPL",
+        //     Shares: 40,
+        //     Cost: 40 * 167.63
+        //   },
+        //   {
+        //     Symbol: "GOOG",
+        //     Shares: 20,
+        //     Cost: 20 * 105.00
+        //   },
+        //   {
+        //     Symbol: "NFLX",
+        //     Shares: 35,
+        //     Cost: 323.16 * 35
+        //   },
+        //   {
+        //     Symbol: "MSFT",
+        //     Shares: 10,
+        //     Cost: 288.45 * 10
+        //   }
+        // ],
         Watch: props.dbData[0].Watch
-      })
+    }
+    console.log({alertMessage})
 
-      console.log({formState})
-    
-    // const url = process.env.REACT_APP_MONGO_URL
     const url = `https://mockstockbackend-production.up.railway.app/portfolios/${props.dbData[0]._id}`
+    console.log({formState})
     const options = {
         method: 'PATCH',
         headers: {
@@ -135,51 +136,104 @@ function EditPortfolioForm(props) {
         }
         res.json()
     })
-    .then(data=>{
-        console.log({data})
-    })
+    // .then(data=>{
+    //     console.log({data})
+    // })
     .catch(err=>{
         console.log(err)
     })
+}
+function handleSubmitSell(event){
+  event.preventDefault()
 
-    setFormState(initialState)
+  let cost = numSell * props.stockData.latestPrice
+  let cashBalance = props.dbData[0].CashBalance + cost
+  console.log({stockHoldings})
+  let alertMessage = "Original Alert Message"
+
+  if(numSell > 0){
+    // cost = props.stockData.latestPrice * numSell
+    // cashBalance = props.dbData[0].CashBalance + cost
+    if(thisStockDbData && thisStockDbData.Shares >= numSell){
+      alertMessage = `Successfully sold ${numSell} shares for ${cost.toLocaleString(undefined, { style: 'currency', currency: 'USD' })}`
+    } else if(thisStockDbData && thisStockDbData.Shares < numSell || !thisStockDbData){
+      alertMessage = "Insufficient Shares"
+    }
+
+    if(thisStockDbData && thisStockDbData.Shares === numSell){
+      stockHoldings.map((eachStock, index) => {
+        if(eachStock.Symbol === thisStockDbData.Symbol){
+          stockHoldings.splice(index, 1)
+        }
+      })
+    }else if(thisStockDbData && thisStockDbData.Shares > numSell){
+      stockHoldings.map((eachStock, index) => {
+        if(eachStock.Symbol === props.stockData.symbol){
+          stockHoldings[index].Shares = thisStockDbData.Shares - numSell
+          stockHoldings[index].Cost = thisStockDbData.Cost - cost
+        }
+      })
+    }
+
   }
+
+  let formState = {
+      Username: props.dbData[0].Username,
+      CashBalance: cashBalance,
+      StockHoldings: stockHoldings,
+      Watch: props.dbData[0].Watch
+  }
+  console.log({alertMessage})
+
+  const url = `https://mockstockbackend-production.up.railway.app/portfolios/${props.dbData[0]._id}`
+  console.log({formState})
+  const options = {
+      method: 'PATCH',
+      headers: {
+          'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(formState)
+  }
+
+  fetch(url, options)
+  .then(res=>{
+      if(!res.ok){
+          throw Error(res.status)
+      }
+      res.json()
+  })
+  // .then(data=>{
+  //     console.log({data})
+  // })
+  .catch(err=>{
+      console.log(err)
+  })
+}
 
   return (
     <div className='editPortfolio'>
-        <form onSubmit={handleSubmit}>
-            {/* <input
-                id='CashBalance'
-                type='hidden'
-                value={newCashBalance}
-            /> */}
+        <form onSubmit={handleSubmitBuy}>
             <input
                 type='text'
-                // value={calculateNewDataBuy()}
                 onChange={handleChangeNumBuy}
             />
             <input 
                 type="submit"
                 className="btn btn-success"
                 style={{backgroundColor: "#2bc20e"}}
-                // value={valueBuy}
                 value='Confirm'
             /> 
             <p style={{fontSize: 'small'}}>{buyMessage}</p>        
         </form>
 
-        <form onSubmit={handleSubmit}>
+        <form 
+          onSubmit={handleSubmitSell}
+          style={{display: `${display}`}}
+        >
             <input
-                id='Shares'
                 type='text'
-                // value={calculateNewDataSell()}
                 onChange={handleChangeNumSell}
             />
-            {/* <input
-                id='CashBalance'
-                type='hidden'
-                value={newCashBalance}
-            /> */}
             <input
                 type="submit"
                 className="btn btn-danger"
