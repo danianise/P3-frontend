@@ -52,14 +52,30 @@ function App() {
       'AAPL', 'MSFT', 'GOOG', 'AMZN', 'NVDA', 'TSLA', 'META', 'XOM', 'JPM', 'WMT', 'KO', 'BAC', 'PFE', 'CSCO', 'MCD', 'DIS', 'AMD', 'NFLX', 'T', 'BA', 'INTC', 'GE', 'F'
     ]
 
-    symbols.map((eachSymbol) => {
-      fetch(`https://cloud.iexapis.com/stable/stock/${eachSymbol}/quote?token=pk_696f559b3cb64b788e34f7848ef884cb`)
-      .then (res => res.json())
-      .then (data => {
-          // console.log(data)
-          tickerData.push(data)
+    // symbols.map((eachSymbol) => {
+    //   fetch(`https://cloud.iexapis.com/stable/stock/${eachSymbol}/quote?token=pk_696f559b3cb64b788e34f7848ef884cb`)
+    //   .then (res => res.json())
+    //   .then (data => {
+    //       // console.log(data)
+    //       tickerData.push(data)
+    //   })
+    // })
+      symbols.map((eachSymbol) => {
+        fetch(
+                `https://yfapi.net/v7/finance/options/${eachSymbol}`,
+                {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'x-api-key': process.env.REACT_APP_YF_BACKUP_KEY,
+                }
+                }
+            )
+            .then(res => res.json())
+            .then(data => {
+                // console.log(data.quoteResponse.result)
+                tickerData.push(data)
       })
-    })
   }
 
   useEffect(()=>{
