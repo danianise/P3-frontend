@@ -20,61 +20,11 @@ function Stock(props) {
         navigate(path);
     }
 
-    // const dbURL = 'https://mockstockbackend-production.up.railway.app/portfolios'
-    // const getDbData2 = () => {
-    //     try {fetch(dbURL)
-    //         .then(res => res.json())
-    //         .then(data => setdbData2(data))
-
-    //     if (dbData2) {
-    //         setEditForm(dbData2)
-    //     }}
-
-    //     catch (error) {
-    //         console.log(error)
-    //     }
-    //     finally {
-    //     }
-    // }
-
-    // const getDbDataEdit = () => {
-    //     try {
-    //         fetch(dbURL)
-    //         .then(res => res.json())
-    //         .then(data => setEditForm(data[0]))
-    //     }
-
-    //     catch (error) {
-    //         console.log(error)
-    //     }
-    //     finally {
-    //         console.log("pulling from mongo")
-    //     }
-    // }
-    // useEffect(() =>
-    //     getDbDataEdit(), [])
-
-    // useEffect(() => 
-    //     getDbData2(), [])
-
-    // const updateDbData2 = async (data, id) => {
-    //     await fetch(dbURL + id, {
-    //         method: 'put',
-    //         headers: {
-    //             'Content-Type': 'application/json',
-    //         },
-    //         body: JSON.stringify(data)
-    //     })
-    //     getDbData2();
-    //     props.getDbDataUser()
-    // }
-    
-    
     
     const [num, setNum] = useState(0)
     const [numSell, setNumSell] = useState(0)
 
-    const url = `https://cloud.iexapis.com/stable/stock/${symbol}/quote?token=pk_d9852d149e8045839e4b9a57c023b057`
+    const url = `https://cloud.iexapis.com/stable/stock/${symbol}/quote?token=pk_11e3512e43084ecd8d4f93af4a2755ca`
 
     function componentDidMount() {
         setstockAPI(null)
@@ -87,83 +37,13 @@ function Stock(props) {
             })
     }
 
-   
-
-    // const handleChangeNum = event => {
-    //     console.log(event.target.value)
-    //     let max = editForm.CashBalance / stockAPI.latestPrice
-    //     setNum(Math.min(event.target.value, max))
-    // }
-
-    // const handleChangeNumSell = event => {
-    //     console.log(event.target.value)
-    //     if ((JSON.stringify(dbData2[0].StockHoldings.filter(stock => stock.Symbol === symbol.toUpperCase()).length) > 0)) {
-    //     let max = editForm.StockHoldings.filter(x => x.Symbol === symbol.toUpperCase())[0].Shares
-    //     setNumSell(Math.min(event.target.value, max))} else {
-    //         setNumSell(0)
-    //     }
-    // }
-
-    // Need to add limit here
-
-    const handleClick = () => {
+    const handleClick = (event) => {
+        event.preventDefault()
         setMessage(`${stockAPI.symbol} Added to WatchList`)
+        //add stock to watchlist if not already there
+        
     }
 
-    // const addToWatchList = event => {
-    //     event.preventDefault()
-       
-    //     if ((JSON.stringify(dbData2[0].Watch.filter(stock => stock.Symbol === symbol.toUpperCase()).length) === "0")) {
-    //     let copyForm = editForm;
-    //     let temp = { Symbol: stockAPI.symbol.toUpperCase() }
-    //     copyForm.Watch.push(temp)
-    //     setEditForm(copyForm)
-    //     updateDbData2(editForm, dbData2[0]._id)} else {console.log("not working")}
-    // }
-
-    // const handleSubmitBuy = event => {
-    //     event.preventDefault()
-    //     let copyForm = editForm;
-    //     if (copyForm.CashBalance >= (num * stockAPI.latestPrice)) {
-    //         copyForm.CashBalance -= num * stockAPI.latestPrice
-    //         copyForm.PortfolioBalance += num * stockAPI.latestPrice
-    //         if ((JSON.stringify(dbData2[0].StockHoldings.filter(stock => stock.Symbol === symbol.toUpperCase()).length) > 0)) {
-    //         copyForm.StockHoldings.filter(x => x.Symbol === symbol.toUpperCase())[0].Shares += num
-    //         copyForm.StockHoldings.filter(x => x.Symbol === symbol.toUpperCase())[0].Cost += num * stockAPI.latestPrice
-    //         setEditForm(copyForm)
-    //         updateDbData2(editForm, dbData2[0]._id)
-    //         setNum(0)
-    //         props.getDbDataUser()
-    //             getDbDataEdit()
-    //         } else {
-    //             let temp = {Symbol: symbol.toUpperCase(), Shares: num, Cost: num * stockAPI.latestPrice }
-    //             copyForm.StockHoldings.push(temp)
-    //             setEditForm(copyForm)
-    //             updateDbData2(editForm, dbData2[0]._id)
-    //             setNum(0)
-    //             props.getDbDataUser()
-
-    //             getDbDataEdit()
-    //         }
-    //     } else { console.log("not enough cash") }
-    // }
-
-    // const handleSubmitSell = event => {
-    //     event.preventDefault()
-    //     let copyForm = editForm;
-    //     if (copyForm.StockHoldings.filter(x => x.Symbol === symbol.toUpperCase())[0].Shares >= (num)) {
-    //         copyForm.CashBalance += numSell * stockAPI.latestPrice
-    //         copyForm.StockHoldings.filter(x => x.Symbol === symbol.toUpperCase())[0].Shares -= numSell
-    //         copyForm.StockHoldings.filter(x => x.Symbol === symbol.toUpperCase())[0].Cost -= numSell * stockAPI.latestPrice
-    //         setEditForm(copyForm)
-    //         updateDbData2(editForm, dbData2[0]._id)
-    //         setNumSell(0)
-    //         getDbData2()
-
-    //         getDbDataEdit()
-    //         props.getDbDataUser()
-    //     } else { console.log("not enough stock") }
-    // }
 
     useEffect(() =>
         componentDidMount(), [])
@@ -235,13 +115,13 @@ function Stock(props) {
                                     : <div>
                                         <p style={{fontWeight: "bold"}}> Your Shares:&nbsp;   
                                             {
-                                                ((JSON.stringify(props.dbData[0].StockHoldings.filter(stock => stock.Symbol === symbol.toUpperCase()).length) > 0)
-                                            ? JSON.stringify(props.dbData[0].StockHoldings.filter(stock => stock.Symbol === symbol.toUpperCase())[0].Shares)
+                                                ((JSON.stringify(props.dbData.StockHoldings.filter(stock => stock.Symbol === symbol.toUpperCase()).length) > 0)
+                                            ? JSON.stringify(props.dbData.StockHoldings.filter(stock => stock.Symbol === symbol.toUpperCase())[0].Shares)
                                             : "0")}</p>
                                         <p style={{fontWeight: "bold"}}> Your holding:&nbsp; 
                                             {
-                                                ((JSON.stringify(props.dbData[0].StockHoldings.filter(stock => stock.Symbol === symbol.toUpperCase()).length) > 0) 
-                                            ? ((props.dbData[0].StockHoldings.filter(stock => stock.Symbol === symbol.toUpperCase())[0].Shares) * stockAPI.latestPrice).toLocaleString(undefined, { style: 'currency', currency: 'USD'  })
+                                                ((JSON.stringify(props.dbData.StockHoldings.filter(stock => stock.Symbol === symbol.toUpperCase()).length) > 0) 
+                                            ? ((props.dbData.StockHoldings.filter(stock => stock.Symbol === symbol.toUpperCase())[0].Shares) * stockAPI.latestPrice).toLocaleString(undefined, { style: 'currency', currency: 'USD'  })
                                             : "0")}</p>
                                     </div>
                                 }

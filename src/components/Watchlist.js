@@ -13,7 +13,7 @@ function Watchlist(props) {
     useEffect(() => {
         if(props.dbData){
             let watchListSymbols = []
-            props.dbData[0].Watch.map(stock => {
+            props.dbData.Watch.map(stock => {
                 watchListSymbols.push(stock.Symbol)
             })
 
@@ -26,7 +26,8 @@ function Watchlist(props) {
                 method: 'GET',
                 headers: {
                     'Content-Type': 'application/json',
-                    'x-api-key': process.env.REACT_APP_YF_BACKUP_KEY,
+                    // 'x-api-key': process.env.REACT_APP_YF_BACKUP_KEY,
+                    'x-api-key': '035rMsHHng85urOT3x4jQE9t22lhUCS70WkpePP7',
                 }
                 }
             )

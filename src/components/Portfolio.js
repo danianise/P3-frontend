@@ -17,7 +17,7 @@ function Portfolio(props) {
     useEffect(() => {
         if(props.dbData){
             let portfolioSymbols = []
-            dbData[0].StockHoldings.map(stock => {
+            dbData.StockHoldings.map(stock => {
                 portfolioSymbols.push(stock.Symbol)
             })
             // console.log({portfolioSymbols})
@@ -31,7 +31,8 @@ function Portfolio(props) {
                 method: 'GET',
                 headers: {
                     'Content-Type': 'application/json',
-                    'x-api-key': process.env.REACT_APP_YF_BACKUP_KEY,
+                    // 'x-api-key': process.env.REACT_APP_YF_BACKUP_KEY,
+                    'x-api-key': '035rMsHHng85urOT3x4jQE9t22lhUCS70WkpePP7',
                 }
                 }
             )
@@ -46,7 +47,7 @@ function Portfolio(props) {
     const calPortfolioBalance = () => {
         let portfolioBalance = 0
         for (let i = 0; i < stockData.length; i++) {
-            portfolioBalance += stockData[i].regularMarketPrice * dbData[0].StockHoldings[i].Shares;
+            portfolioBalance += stockData[i].regularMarketPrice * dbData.StockHoldings[i].Shares;
         }
         return portfolioBalance
     }
@@ -54,8 +55,8 @@ function Portfolio(props) {
     const calGain = () => {
         let gain = 0
         for (let i = 0; i < stockData.length; i++) {
-            if (dbData[0].StockHoldings[i].Shares > 0) {
-                gain += (stockData[i].regularMarketPrice - (dbData[0].StockHoldings[i].Cost / dbData[0].StockHoldings[i].Shares)) * dbData[0].StockHoldings[i].Shares
+            if (dbData.StockHoldings[i].Shares > 0) {
+                gain += (stockData[i].regularMarketPrice - (dbData.StockHoldings[i].Cost / dbData.StockHoldings[i].Shares)) * dbData.StockHoldings[i].Shares
             // console.log(stockData.regularMarketPrice)
             }
         }  
@@ -107,7 +108,7 @@ function Portfolio(props) {
                         </thead>
                         <tbody>
                             {
-                                dbData[0].StockHoldings.map(function(each, index) {                                      
+                                dbData.StockHoldings.map(function(each, index) {                                      
                                     return (
                                         (each.Shares > 0.000000001)
                                             ? <>

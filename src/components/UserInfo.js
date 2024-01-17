@@ -8,9 +8,9 @@ function UserInfo({data}) {
   !data ? "Loading"
    : <div className = 'userInfo'>
         <h4 className="userName">
-          <BsPersonCircle/> {data[0].Username}
+          <BsPersonCircle/> {data.Username}
         </h4>
-        <p>Cash Balance: {data[0].CashBalance.toLocaleString(undefined, { style: 'currency', currency: 'USD' })}</p>
+        <p>Cash Balance: {data.CashBalance.toLocaleString(undefined, { style: 'currency', currency: 'USD' })}</p>
     </div>
   )
 }

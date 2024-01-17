@@ -17,7 +17,36 @@ function App() {
   // const key = process.env.REACT_APP_YF_X_API_KEY
   // const url = `https://cloud.iexapis.com/stable/stock/ibm/quote?token=pk_696f559b3cb64b788e34f7848ef884cb`
   // const dbURL = 'https://mockstockbackend-production.up.railway.app/portfolios'
-  const [mongoData, setMongoData] = useState(null)
+  const [mongoData, setMongoData] = useState(
+    {
+      "Username": "genericUser",
+      "CashBalance": 50234.56,
+      "StockHoldings": [
+              {
+              "Symbol": "GOOG",
+              "Shares": "5",
+              "Cost": "144.64"
+              },
+              {
+              "Symbol": "AAPL",
+              "Shares": "10",
+              "Cost": "188.00"
+              },
+              {
+                "Symbol": "IBM",
+                "Shares": "8",
+                "Cost": "166.12"
+                }
+          ],
+          "Watch": [
+              {
+                  "Symbol": "AAPL"
+              },
+              {
+                  "Symbol": "IBM"
+              }
+          ]
+      },)
   // let mongoData
   const [tickerData, setTickerData] = useState([])
 
@@ -53,7 +82,7 @@ function App() {
     ]
 
     symbols.map((eachSymbol) => {
-      fetch(`https://cloud.iexapis.com/stable/stock/${eachSymbol}/quote?token=pk_696f559b3cb64b788e34f7848ef884cb`)
+      fetch(`https://cloud.iexapis.com/stable/stock/${eachSymbol}/quote?token=pk_11e3512e43084ecd8d4f93af4a2755ca`)
       .then (res => res.json())
       .then (data => {
           // console.log(data)
@@ -63,12 +92,12 @@ function App() {
   }
 
   useEffect(()=>{
-    fetch('https://mockstockbackend-production.up.railway.app/portfolios/')
-      .then(res=>res.json())
-      .then(data=>{
-          // console.log(data)
-          setMongoData(data)
-      })
+    // fetch('https://mockstockbackend-production.up.railway.app/portfolios/')
+    //   .then(res=>res.json())
+    //   .then(data=>{
+    //       // console.log(data)
+    //       setMongoData(data)
+    //   })
       setTicker()
   },[])
   // console.log({mongoData})
