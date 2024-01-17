@@ -60,7 +60,7 @@ function handleSubmitBuy(event){
             
             stockHoldings.push({
               Symbol: props.stockData.symbol,
-              Shares: thisStock[0].Shares + numBuy,
+              Shares: thisStock.Shares + numBuy,
               Cost: thisStock[0].Cost + cost,
               _id: thisStock[0]._id
             })
